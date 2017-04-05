@@ -6,16 +6,10 @@ namespace SearchAlgorithmsLib
 {
     class BFS<T> : Searcher<T>
     {
-        HashSet<State<T>> closed;
-        public BFS()
-        {
-            //get the father constructor
-
-            closed = new HashSet<State<T>>();
-        }
         // Searcher's abstract method overriding
         public override Solution<T> search(ISearchable<T> searchable)
         {
+            HashSet<State<T>> closed = new HashSet<State<T>>(); ;
             addToOpenList(searchable.getInitialState()); // inherited from Searcher
             while (OpenListSize > 0)
             {
