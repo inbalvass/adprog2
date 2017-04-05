@@ -34,12 +34,14 @@ namespace SearchAlgorithmsLib
                     }
                     else
                     {
-                        if(s.getCost() < getStatePriority(s))
+                        if (!openContaines(s))
+                        {
+                            addToOpenList(s);
+                        }
+                        else if(s.getCost() < getStatePriority(s))
                         {
                             setStatePriority(s);
                         }
-                        //ask roi
-
                     }
                 }
             }
