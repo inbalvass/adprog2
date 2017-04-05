@@ -19,7 +19,16 @@ namespace SearchAlgorithmsLib
         public override Solution<T> search(ISearchable<T> searchable)
         {
             Stack<State<T>> stack = new Stack<State<T>>();
-            State<T> node = searchable.getInitialState();
+            stack.Push(searchable.getInitialState());
+            State<T> node;
+            while(stack.Count() != 0)
+            {
+                node = stack.Pop();
+
+                //צריך להוציא את הרשימה הסגורה שבביאףאס החוצה ואז נוכל להשתמש בזה גם פה כי צריך לסמן במה השתמשנו
+                //או שנשתמש ברשימה הפתוחה שבסרצר בתור הרשימה הסגורה פה...
+            }
+
         }
     }
 }
