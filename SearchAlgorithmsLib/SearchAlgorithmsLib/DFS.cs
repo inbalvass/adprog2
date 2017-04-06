@@ -5,6 +5,7 @@ using System.Text;
 namespace SearchAlgorithmsLib
 {
     /* pseudo code
+     * 
     1  procedure DFS-iterative(G, v):
 2      let S be a stack
 3      S.push(v)
@@ -19,16 +20,22 @@ namespace SearchAlgorithmsLib
         public override Solution<T> search(ISearchable<T> searchable)
         {
             Stack<State<T>> stack = new Stack<State<T>>();
+            HashSet<State<T>> closed = new HashSet<State<T>>();
             stack.Push(searchable.getInitialState());
             State<T> node;
             while(stack.Count() != 0)
             {
                 node = stack.Pop();
-
-                //צריך להוציא את הרשימה הסגורה שבביאףאס החוצה ואז נוכל להשתמש בזה גם פה כי צריך לסמן במה השתמשנו
-                //או שנשתמש ברשימה הפתוחה שבסרצר בתור הרשימה הסגורה פה...
+                if (!closed.Contains(node))
+                {
+                    closed.Add(node);
+                    List<State<T>> succerssors = searchable.getAllPossibleStates(n);
+                    foreach (State<T> s in succerssors)
+                    {
+                        stack.Push(s);
+                    }
+                }
             }
-
         }
     }
 }
