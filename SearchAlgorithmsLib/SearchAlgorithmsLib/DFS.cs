@@ -17,19 +17,19 @@ namespace SearchAlgorithmsLib
 9                  S.push(w)*/
     class DFS<T> : ISearcher<T>
     {
-        public override Solution<T> search(ISearchable<T> searchable)
+        public Solution<T> search(ISearchable<T> searchable)
         {
             Stack<State<T>> stack = new Stack<State<T>>();
             HashSet<State<T>> closed = new HashSet<State<T>>();
             stack.Push(searchable.getInitialState());
             State<T> node;
-            while(stack.Count() != 0)
+            while(stack.Count != 0)
             {
                 node = stack.Pop();
                 if (!closed.Contains(node))
                 {
                     closed.Add(node);
-                    List<State<T>> succerssors = searchable.getAllPossibleStates(n);
+                    List<State<T>> succerssors = searchable.getAllPossibleStates(node);
                     foreach (State<T> s in succerssors)
                     {
                         stack.Push(s);
@@ -39,3 +39,7 @@ namespace SearchAlgorithmsLib
         }
     }
 }
+
+/*
+ * need to had when it found the goal how it get the path
+ * */
