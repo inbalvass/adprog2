@@ -4,9 +4,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace check
+namespace SearchAlgorithmsLib
 {
-    public class Class1
+    public class class1
     {
+        public static void main()
+        {
+
+        }
     }
 }
