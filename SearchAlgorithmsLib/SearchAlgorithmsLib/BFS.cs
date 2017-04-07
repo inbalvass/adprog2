@@ -6,52 +6,75 @@ namespace SearchAlgorithmsLib
 {
     class BFS<T> : Searcher<T>
     {
+        private Priority_Queue.SimplePriorityQueue<State<T>> openList;
+
         // Searcher's abstract method overriding
         public override Solution<T> search(ISearchable<T> searchable)
         {
-            HashSet<State<T>> closed = new HashSet<State<T>>();
-            addToOpenList(searchable.getInitialState()); // inherited from Searcher
-            while (OpenListSize > 0)
+            openList = new Priority_Queue.SimplePriorityQueue<State<T>>();
+            openList.Add(searchable.getInitialState()); // inherited from Searcher
+            bool openContainsS, closedContainsS;
+            while (openList.Count() > 0)
             {
-                State<T> n = popOpenList();  // inherited from Searcher, removes the best state
-                closed.Add(n);
+                State<T> n = openList.Dequeue();  
+                addToClosedList(n);
                 if (n.Equals(searchable.getGoalState()))
                     return backTrace(searchable.getGoalState()); // private method, back traces through the parents
                                                                  // calling the delegated method, returns a list of states with n as a parent
                 List<State<T>> succerssors = searchable.getAllPossibleStates(n);
                 foreach (State<T> s in succerssors)
                 {
-                    if (!closed.Contains(s) && !openContaines(s))
+                    openContainsS = openList.Contains(s);
+                    closedContainsS = closedContains(s);
+                    if (!closedContainsS && !openContainsS)
                     {
                         // s.setCameFrom(n);  // already done by getSuccessors
-                        addToOpenList(s);
+                        openList.Add(s);
                     }
                     else
                     {
-                        if (!openContaines(s))
+                        if (!openContainsS && !(n.getCameFrom().Equals(s)))
                         {
-                            addToOpenList(s);
+                            openList.Add(s);
                         }
-                        else if(s.getCost() < getStatePriority(s))
+                        else if(openContainsS && (s.getCost() < getStatePriorityInOpen(s)))
                         {
-                            setStatePriority(s);
+                            setStatePriorityInOpen(s);
                         }
                     }
                 }
             }
+            return backTrace(searchable.getGoalState());
         }
 
-        private Solution<T> backTrace(State<T> goal)
+        private State<T> findStateInQueue(State<T> s)
         {
-            Solution<T> solution = new Solution<T>();
-            solution.add(goal);
-            State<T> came = goal.getCameFrom();
-            while (came != null)
+            Priority_Queue.SimplePriorityQueue<State<T>> help = new Priority_Queue.SimplePriorityQueue<State<T>>();
+            State<T> current;
+            State<T> sHelp;
+            while (!openList.First.Equals(s))
             {
-                solution.add(came);
-                came = came.getCameFrom();
+                sHelp = openList.Dequeue();
+                help.Enqueue(sHelp, sHelp.getCost());//remove the head of the queue and save it in the list
             }
-            return solution;
+            current = openList.First;
+            while (help.Count != 0)
+            {
+                sHelp = help.Dequeue();
+                openList.Enqueue(sHelp, sHelp.getCost());
+            }
+            return current;
+        }
+
+        protected float getStatePriorityInOpen(State<T> s)
+        {
+            State<T> current = findStateInQueue(s);
+            return current.getCost();
+        }
+
+        protected void setStatePriorityInOpen(State<T> s)
+        {
+            openList.UpdatePriority(s, s.getCost());
         }
     }
 }

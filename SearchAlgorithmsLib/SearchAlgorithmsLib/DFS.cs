@@ -15,9 +15,9 @@ namespace SearchAlgorithmsLib
 7              label v as discovered
 8              for all edges from v to w in G.adjacentEdges(v) do 
 9                  S.push(w)*/
-    class DFS<T> : ISearcher<T>
+    class DFS<T> : Searcher<T>
     {
-        public Solution<T> search(ISearchable<T> searchable)
+        public override Solution<T> search(ISearchable<T> searchable)
         {
             Stack<State<T>> stack = new Stack<State<T>>();
             HashSet<State<T>> closed = new HashSet<State<T>>();
@@ -32,10 +32,12 @@ namespace SearchAlgorithmsLib
                     List<State<T>> succerssors = searchable.getAllPossibleStates(node);
                     foreach (State<T> s in succerssors)
                     {
-                        stack.Push(s);
+                        //if(!closed.Contains(s))
+                            stack.Push(s);
                     }
                 }
             }
+            return backTrace(searchable.getGoalState());
         }
     }
 }
