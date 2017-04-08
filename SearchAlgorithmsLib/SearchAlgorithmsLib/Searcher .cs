@@ -9,10 +9,11 @@ namespace SearchAlgorithmsLib
     {
         //private int evaluatedNodes;
         private HashSet<State<T>> closed;
+        private int evaluatedNodes;
 
         public Searcher()
         {
-            //evaluatedNodes = 0;
+            evaluatedNodes = 0;
             closed = new HashSet<State<T>>();
         }
 
@@ -30,19 +31,24 @@ namespace SearchAlgorithmsLib
         {
             Solution<T> solution = new Solution<T>();
             solution.add(goal);
-            State<T> came = goal.getCameFrom();
+            State<T> came = goal.cameFrom;
             while (came != null)
             {
                 solution.add(came);
-                came = came.getCameFrom();
+                came = came.cameFrom;
             }
             return solution;
         }
 
         // ISearcher’s methods: 
+        //this is not correct. it need to count how many nodes get in the open list!!!
         public int getNumberOfNodesEvaluated()
         {
-            return closed.Count;
+            return evaluatedNodes;
+        }
+        public void setNumberOfNodesEvaluated()
+        {
+            evaluatedNodes++;
         }
         public abstract Solution<T> search(ISearchable<T> searchable);
     }

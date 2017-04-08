@@ -4,23 +4,62 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using SearchAlgorithmsLib;
-using SearchAlgorithmsLib.ISearchable<T>;
-using MazeLib.Maze;
-using System.Collections.Generic;
+using MazeGeneratorLib;
+using MazeLib;
+
 
 namespace checksTheDll
 {
-    public class Adapter : ISearchable<T>
+    /*
+     * אני לא סגורה שזה באמת מה שאמורים לעשות פה.....
+     * */
+    public class Adapter : ISearchable<Position>
     {
         private Maze maze;
 
-
-        public ISearchable<T> Adapter(Maze m)
+        public Adapter(Maze mazes)
         {
-
+            maze = mazes;
         }
-        State<T> getInitialState();
-        State<T> getGoalState();
-        List<State<T>> getAllPossibleStates(State<T> s);
+
+        /*החלק הזה הגיוני?????? 
+         *
+          *
+          *
+          * 
+          * 
+         */
+
+        public State<Position> getInitialState()
+        {
+            Position pos = maze.InitialPos;
+            State<Position> state = new State<Position>(pos);
+            return state;
+        }
+
+        public State<Position> getGoalState()
+        {
+            Position pos = maze.GoalPos;
+            State<Position> state = new State<Position>(pos);
+            return state;
+        }
+
+        public List<State<Position>> getAllPossibleStates(State<Position> s)
+        {
+            //צריך לקבל את הכיוון של המבוך ולפי זה לבחור לאיזה בנים אפשר ללכת??
+        }
+
+
+
+
+
+
+        //נראה לי שזה אמור להיות בפרוגם מה שמופיע אחר כך
+        //ctor
+        public Adapter(int rows, int cols)
+        {
+            DFSMazeGenerator mazeGenerate = new DFSMazeGenerator();
+            maze = mazeGenerate.Generate(rows, cols);
+        }
     }
 }

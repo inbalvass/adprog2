@@ -20,28 +20,30 @@ namespace SearchAlgorithmsLib
         public override Solution<T> search(ISearchable<T> searchable)
         {
             Stack<State<T>> stack = new Stack<State<T>>();
-            HashSet<State<T>> closed = new HashSet<State<T>>();
             stack.Push(searchable.getInitialState());
             State<T> node;
             while(stack.Count != 0)
             {
                 node = stack.Pop();
-                if (!closed.Contains(node))
+                //if we found the goal then return the trace
+                if (node.Equals(searchable.getGoalState()))
                 {
-                    closed.Add(node);
+                    return backTrace(searchable.getGoalState());
+                }
+                if (!closedContains(node))
+                {
+                    addToClosedList(node);
                     List<State<T>> succerssors = searchable.getAllPossibleStates(node);
                     foreach (State<T> s in succerssors)
                     {
-                        //if(!closed.Contains(s))
-                            stack.Push(s);
+                        stack.Push(s);
+                        setNumberOfNodesEvaluated();
                     }
                 }
             }
+            //הערה לביצוע:
+            //need here to be an excption that the goal not found because we dont need to get here.
             return backTrace(searchable.getGoalState());
         }
     }
 }
-
-/*
- * need to had when it found the goal how it get the path
- * */

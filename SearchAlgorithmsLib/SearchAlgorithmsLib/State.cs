@@ -7,24 +7,14 @@ namespace SearchAlgorithmsLib
     public class State<T>
     {
         private T state;
-        private float cost; // cost to reach this state (set by a setter)
-        private State<T> cameFrom; // the state we came from to this state (setter)
+        public float cost { get; set; } // cost to reach this state (set by a setter)
+        public State<T> cameFrom { get; set; } // the state we came from to this state (setter)
         /*
          * CTOR
          */
         public State(T state) 
         {
             this.state = state;
-        }
-
-        public float getCost()
-        {
-            return cost;
-        }
-
-        public State<T> getCameFrom()
-        {
-            return cameFrom;
         }
 
         /*

@@ -12,9 +12,9 @@ namespace SearchAlgorithmsLib
         public override Solution<T> search(ISearchable<T> searchable)
         {
             openList = new Priority_Queue.SimplePriorityQueue<State<T>>();
-            openList.Add(searchable.getInitialState()); // inherited from Searcher
+            openList.Enqueue(searchable.getInitialState(), searchable.getInitialState().cost); // inherited from Searcher
             bool openContainsS, closedContainsS;
-            while (openList.Count() > 0)
+            while (openList.Count > 0)
             {
                 State<T> n = openList.Dequeue();  
                 addToClosedList(n);
@@ -28,16 +28,20 @@ namespace SearchAlgorithmsLib
                     closedContainsS = closedContains(s);
                     if (!closedContainsS && !openContainsS)
                     {
+                        //צריך לוודא שכאשר מקבלים את הבנים שהוא
+                        //כבר מעדכן את העלות...או שזה יהיה דרך הקומפרטור?
                         // s.setCameFrom(n);  // already done by getSuccessors
-                        openList.Add(s);
+                        openList.Enqueue(s,s.cost);
+                        setNumberOfNodesEvaluated();
                     }
                     else
                     {
-                        if (!openContainsS && !(n.getCameFrom().Equals(s)))
+                        if (!openContainsS && !(n.cameFrom.Equals(s)))
                         {
-                            openList.Add(s);
+                            openList.Enqueue(s, s.cost);
+                            setNumberOfNodesEvaluated();
                         }
-                        else if(openContainsS && (s.getCost() < getStatePriorityInOpen(s)))
+                        else if(openContainsS && (s.cost < getStatePriorityInOpen(s)))
                         {
                             setStatePriorityInOpen(s);
                         }
@@ -55,13 +59,13 @@ namespace SearchAlgorithmsLib
             while (!openList.First.Equals(s))
             {
                 sHelp = openList.Dequeue();
-                help.Enqueue(sHelp, sHelp.getCost());//remove the head of the queue and save it in the list
+                help.Enqueue(sHelp, sHelp.cost);//remove the head of the queue and save it in the list
             }
             current = openList.First;
             while (help.Count != 0)
             {
                 sHelp = help.Dequeue();
-                openList.Enqueue(sHelp, sHelp.getCost());
+                openList.Enqueue(sHelp, sHelp.cost);
             }
             return current;
         }
@@ -69,12 +73,12 @@ namespace SearchAlgorithmsLib
         protected float getStatePriorityInOpen(State<T> s)
         {
             State<T> current = findStateInQueue(s);
-            return current.getCost();
+            return current.cost;
         }
 
         protected void setStatePriorityInOpen(State<T> s)
         {
-            openList.UpdatePriority(s, s.getCost());
+            openList.UpdatePriority(s, s.cost);
         }
     }
 }
