@@ -99,22 +99,17 @@ namespace checksTheDll
                                       //need to had also the cost
 
                 statePool.Add(current);
-                return current;//אולי נחזיר פה רפרנס שלו או שצריך להחזיר רפרנס למה שכבר בתוך הרשימה?
+                State<Position> st = statePool.Where(elem => current.Equals(elem)).First();
+                return st;//  מחזיר רפרנס למה שכבר בתוך הרשימה
                 
             }
             else
             {
-                //איך למצוא ולעדכן מה שנמצא פה?
-                //יש עם זה בעיה לפי האינטרנט לעשות את זה. כנראה נצטרך במקום זה לעבוד עם מילון שהמפתח שלו יהיה
-                //ההאש של הסטייט ואז זה יפתר
-                //כרגע עשיתי שהוא מוחק ומכניס מחדש...
-                current.cameFrom = s; //had new comeFrom
+                State<Position> st = statePool.Where(elem => current.Equals(elem)).First();
+                st.cameFrom = s;
                                       //need to had also the cost
-                statePool.Remove(s);
-                statePool.Add(s);
-                return current;
+                return st;
             }
-
         }
     }
 }

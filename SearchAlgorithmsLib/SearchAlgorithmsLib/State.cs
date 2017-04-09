@@ -18,6 +18,14 @@ namespace SearchAlgorithmsLib
         }
 
         /*
+         * overrid the hash code to include just the state
+         */
+        public override int GetHashCode()
+        {
+            return state.ToString().GetHashCode();
+        }
+
+        /*
          *we overload Object's Equals method
          */
         public bool Equals(State<T> s) 
