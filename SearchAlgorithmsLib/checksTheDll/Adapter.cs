@@ -47,12 +47,44 @@ namespace checksTheDll
         public List<State<Position>> getAllPossibleStates(State<Position> s)
         {
             //צריך לקבל את הכיוון של המבוך ולפי זה לבחור לאיזה בנים אפשר ללכת??
+            List<State<Position>> succerssors = new List<State<Position>>();
+
+            //right
+            if (s.state.Col+1 != maze.Cols)//assuming we start from 0
+            {
+                if (maze[s.state.Row, s.state.Col + 1] == MazeLib.CellType.Free) //means the cell is free
+                {
+                    //create the state using state-pool and add it to the list
+                }
+            }
+
+            //left
+            if (s.state.Col - 1 >= 0)//assuming we start from 0
+            {
+                if (maze[s.state.Row, s.state.Col - 1] == MazeLib.CellType.Free) //means the cell is free
+                {
+                    //create the state using state-pool and add it to the list
+                }
+            }             
+
+            //up
+            if (s.state.Row + 1 != maze.Rows)//assuming we start from 0
+            {
+                if (maze[s.state.Row + 1, s.state.Col] == MazeLib.CellType.Free)  //means the cell is free
+                {
+                    //create the state using state-pool and add it to the list
+                }
+            }
+
+            //down
+            if (s.state.Row - 1 >= 0)// assuming we start from 0
+            {
+                if (maze[s.state.Row - 1, s.state.Col] == MazeLib.CellType.Free)  //means the cell is free
+                {
+                    //create the state using state-pool and add it to the list
+                }
+            }
         }
-
-
-
-
-
 
         //נראה לי שזה אמור להיות בפרוגם מה שמופיע אחר כך
         //ctor

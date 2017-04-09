@@ -7,7 +7,6 @@ namespace SearchAlgorithmsLib
 {
     public abstract class Searcher<T> : ISearcher<T>
     {
-        //private int evaluatedNodes;
         private HashSet<State<T>> closed;
         private int evaluatedNodes;
 
@@ -41,7 +40,6 @@ namespace SearchAlgorithmsLib
         }
 
         // ISearcher’s methods: 
-        //this is not correct. it need to count how many nodes get in the open list!!!
         public int getNumberOfNodesEvaluated()
         {
             return evaluatedNodes;

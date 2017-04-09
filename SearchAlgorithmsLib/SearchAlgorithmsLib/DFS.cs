@@ -41,9 +41,8 @@ namespace SearchAlgorithmsLib
                     }
                 }
             }
-            //הערה לביצוע:
-            //need here to be an excption that the goal not found because we dont need to get here.
-            return backTrace(searchable.getGoalState());
+            //if the program is here means the goal has not found.
+            throw new InvalidOperationException("Goal state has not found");
         }
     }
 }

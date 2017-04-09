@@ -70,13 +70,13 @@ namespace SearchAlgorithmsLib
             return current;
         }
 
-        protected float getStatePriorityInOpen(State<T> s)
+        private float getStatePriorityInOpen(State<T> s)
         {
             State<T> current = findStateInQueue(s);
             return current.cost;
         }
 
-        protected void setStatePriorityInOpen(State<T> s)
+        private void setStatePriorityInOpen(State<T> s)
         {
             openList.UpdatePriority(s, s.cost);
         }
