@@ -24,14 +24,6 @@ namespace checksTheDll
             statePool = new HashSet<State<Position>>();
         }
 
-        /*החלק הזה הגיוני?????? 
-         *
-          *
-          *
-          * 
-          * 
-         */
-
         public State<Position> getInitialState()
         {
             Position pos = maze.InitialPos;
@@ -57,8 +49,8 @@ namespace checksTheDll
             {
                 if (maze[s.state.Row, s.state.Col + 1] == MazeLib.CellType.Free) //means the cell is free
                 {
-
-                    //create the state using state-pool and add it to the list
+                    State<Position> sun = hadToPoolString(s, s.state.Row, s.state.Col + 1);
+                    succerssors.Add(sun);
                 }
             }
 
@@ -67,6 +59,8 @@ namespace checksTheDll
             {
                 if (maze[s.state.Row, s.state.Col - 1] == MazeLib.CellType.Free) //means the cell is free
                 {
+                    State<Position> sun = hadToPoolString(s, s.state.Row, s.state.Col - 1);
+                    succerssors.Add(sun);
                     //create the state using state-pool and add it to the list
                 }
             }             
@@ -76,6 +70,8 @@ namespace checksTheDll
             {
                 if (maze[s.state.Row + 1, s.state.Col] == MazeLib.CellType.Free)  //means the cell is free
                 {
+                    State<Position> sun = hadToPoolString(s, s.state.Row + 1, s.state.Col);
+                    succerssors.Add(sun);
                     //create the state using state-pool and add it to the list
                 }
             }
@@ -86,14 +82,16 @@ namespace checksTheDll
                 if (maze[s.state.Row - 1, s.state.Col] == MazeLib.CellType.Free)  //means the cell is free
                 {
                     //create the state using state-pool and add it to the list
+                    State<Position> sun = hadToPoolString(s, s.state.Row - 1, s.state.Col);
+                    succerssors.Add(sun);
                 }
             }
             return succerssors;
         }
 
-        private State<Position> hadToPoolString(State<Position> s)
+        private State<Position> hadToPoolString(State<Position> s,int row,int col)
         {
-            Position pos = new Position(s.state.Row, s.state.Col + 1);
+            Position pos = new Position(row, col);
             State<Position> current = new State<Position>(pos);
             if (!statePool.Contains(current))
             {
@@ -101,7 +99,7 @@ namespace checksTheDll
                                       //need to had also the cost
 
                 statePool.Add(current);
-                return current;//אולי נחזיר פה רפרנס שלו או שצריך להחזיר רפרנס למה שכבר בתוך הרשימה..
+                return current;//אולי נחזיר פה רפרנס שלו או שצריך להחזיר רפרנס למה שכבר בתוך הרשימה?
                 
             }
             else
@@ -118,13 +116,5 @@ namespace checksTheDll
             }
 
         }
-
-        //נראה לי שזה אמור להיות בפרוגם מה שמופיע אחר כך
-        //ctor
-      /*  public Adapter(int rows, int cols)
-        {
-            DFSMazeGenerator mazeGenerate = new DFSMazeGenerator();
-            maze = mazeGenerate.Generate(rows, cols);
-        }*/
     }
 }
