@@ -84,6 +84,7 @@ namespace checksTheDll
                     //create the state using state-pool and add it to the list
                 }
             }
+            return succerssors;
         }
 
         //נראה לי שזה אמור להיות בפרוגם מה שמופיע אחר כך

@@ -6,7 +6,7 @@ namespace SearchAlgorithmsLib
 {
     public class State<T>
     {
-        private T state;
+        public T state { get; }
         public float cost { get; set; } // cost to reach this state (set by a setter)
         public State<T> cameFrom { get; set; } // the state we came from to this state (setter)
         /*
