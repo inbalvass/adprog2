@@ -6,16 +6,16 @@ using System.Threading.Tasks;
 using SearchAlgorithmsLib;
 using MazeGeneratorLib;
 using MazeLib;
-using statePool;
+//using statePool;
 
-
+    
 namespace checksTheDll
 {
     public class Adapter : ISearchable<Position>
     {
         private Maze maze;
         //private HashSet<State<Position>> statePool;
-        private statePool<Position>;
+     //   private statePool<Position>;
 
         public Adapter(Maze mazes)
         {

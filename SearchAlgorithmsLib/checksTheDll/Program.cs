@@ -20,7 +20,7 @@ namespace checksTheDll
               maze = mazeGenerate.Generate(rows, cols);
           }*/
 
-        public void CompareSolver(int rows, int cols)
+        public static void CompareSolver(int rows, int cols)
         {
             DFSMazeGenerator mazeGenerate = new DFSMazeGenerator();
             Maze maze = mazeGenerate.Generate(rows, cols);
@@ -29,10 +29,19 @@ namespace checksTheDll
 
             //need to solve with bfs and dfs
 
+            BFS<Position> bfs = new BFS<Position>();
+            bfs.search(adp);
+            Console.WriteLine("bfs open", bfs.getNumberOfNodesEvaluated(), "nodes");
+
+            DFS<Position> dfs = new DFS<Position>();
+            dfs.search(adp);
+            Console.WriteLine("dfs open", dfs.getNumberOfNodesEvaluated(), "nodes");
         }
-        static void Main(string[] args)
+        public static void Main(string[] args)
         {
-            
+            int rows = 10;
+            int cols = 10;
+            CompareSolver(rows, cols);
         }
     }
 }

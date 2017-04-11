@@ -15,7 +15,7 @@ namespace SearchAlgorithmsLib
 7              label v as discovered
 8              for all edges from v to w in G.adjacentEdges(v) do 
 9                  S.push(w)*/
-    class DFS<T> : Searcher<T>
+    public class DFS<T> : Searcher<T>
     {
         public override Solution<T> search(ISearchable<T> searchable)
         {

@@ -4,7 +4,7 @@ using System.Text;
 
 namespace SearchAlgorithmsLib
 {
-    class BFS<T> : Searcher<T>
+    public class BFS<T> : Searcher<T>
     {
         private Priority_Queue.SimplePriorityQueue<State<T>> openList;
 
