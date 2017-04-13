@@ -30,7 +30,11 @@ namespace SearchAlgorithmsLib
         {
             Solution<T> solution = new Solution<T>();
             Console.WriteLine("goal cost"+ goal.cost);
-            Console.WriteLine("goal come from" + goal.cameFrom.cost);
+            if(goal.cameFrom != null)
+            {
+                Console.WriteLine("goal come from" + goal.cameFrom.cost);
+            }
+            
             solution.add(goal);
             State<T> came = goal.cameFrom;
             while (came != null)

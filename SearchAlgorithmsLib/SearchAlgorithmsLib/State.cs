@@ -12,7 +12,7 @@ namespace SearchAlgorithmsLib
         /*
          * CTOR
          */
-        private State(T state) 
+        private State(T state)
         {
             this.state = state;
         }
@@ -28,7 +28,7 @@ namespace SearchAlgorithmsLib
         /*
          *we overload Object's Equals method
          */
-        public bool Equals(State<T> s) 
+        public bool Equals(State<T> s)
         {
             return state.Equals(s.state);
         }
@@ -51,4 +51,5 @@ namespace SearchAlgorithmsLib
                 return value;
             }
         }
+    }
 }
