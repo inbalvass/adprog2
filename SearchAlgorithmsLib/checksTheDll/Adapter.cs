@@ -6,7 +6,6 @@ using System.Threading.Tasks;
 using SearchAlgorithmsLib;
 using MazeGeneratorLib;
 using MazeLib;
-//using statePool;
 
     
 namespace checksTheDll
@@ -15,20 +14,22 @@ namespace checksTheDll
     {
         private Maze maze;
         //private HashSet<State<Position>> statePool;
-     //   private statePool<Position>;
+        private StatePool<Position> statePool;
 
         public Adapter(Maze mazes)
         {
             maze = mazes;
-            //statePool = new HashSet<State<Position>>();
+            statePool = new StatePool<Position>();
         }
 
         public State<Position> getInitialState()
         {
             Position pos = maze.InitialPos;
             State<Position> state = new State<Position>(pos);
+            state.cost = 0;
+            state.cameFrom = null;
             //return state;
-            return statePool<Position>.getInstance(state);
+            return statePool.getInstance(state);
         }
 
         public State<Position> getGoalState()
@@ -36,17 +37,16 @@ namespace checksTheDll
             Position pos = maze.GoalPos;
             State<Position> state = new State<Position>(pos);
             // return state;
-            return statePool<Position>.getInstance(state);
+            return statePool.getInstance(state);
         }
 
         public List<State<Position>> getAllPossibleStates(State<Position> s)
         {
-            //צריך לקבל את הכיוון של המבוך ולפי זה לבחור לאיזה בנים אפשר ללכת??
             List<State<Position>> succerssors = new List<State<Position>>();
             
 
             //right
-            if (s.state.Col+1 != maze.Cols)//assuming we start from 0
+            if (s.state.Col+1 < maze.Cols)//assuming we start from 0
             {
                 if (maze[s.state.Row, s.state.Col + 1] == MazeLib.CellType.Free) //means the cell is free
                 {
@@ -54,8 +54,9 @@ namespace checksTheDll
 
                     //את השורה הבאה צריך לחשוב איך משנים וגורמים לה להיות בתוך הסטייטפול
                     State<Position> state = new State<Position>(new Position(s.state.Row, s.state.Col + 1));
-                    State<Position> sun = statePool<Position>.getInstance(state);
+                    State<Position> sun = statePool.getInstance(state);
                     sun.cameFrom = s;
+                    sun.cost = s.cost +  1;
                     succerssors.Add(sun);
                 }
             }
@@ -67,22 +68,24 @@ namespace checksTheDll
                 {
                     //State<Position> sun = hadToPoolString(s, s.state.Row, s.state.Col - 1);
                     State<Position> state = new State<Position>(new Position(s.state.Row, s.state.Col - 1));
-                    State<Position> sun = statePool<Position>.getInstance(state);
+                    State<Position> sun = statePool.getInstance(state);
                     sun.cameFrom = s;
+                    sun.cost = s.cost + 1;
                     succerssors.Add(sun);
                     //create the state using state-pool and add it to the list
                 }
             }             
 
             //up
-            if (s.state.Row + 1 != maze.Rows)//assuming we start from 0
+            if (s.state.Row + 1 < maze.Rows)//assuming we start from 0
             {
                 if (maze[s.state.Row + 1, s.state.Col] == MazeLib.CellType.Free)  //means the cell is free
                 {
                     //State<Position> sun = hadToPoolString(s, s.state.Row + 1, s.state.Col);
                     State<Position> state = new State<Position>(new Position(s.state.Row + 1, s.state.Col));
-                    State<Position> sun = statePool<Position>.getInstance(state);
+                    State<Position> sun = statePool.getInstance(state);
                     sun.cameFrom = s;
+                    sun.cost = s.cost + 1;
                     succerssors.Add(sun);
                     //create the state using state-pool and add it to the list
                 }
@@ -96,8 +99,9 @@ namespace checksTheDll
                     //create the state using state-pool and add it to the list
                     //State<Position> sun = hadToPoolString(s, s.state.Row - 1, s.state.Col);
                     State<Position> state = new State<Position>(new Position(s.state.Row - 1, s.state.Col));
-                    State<Position> sun = statePool<Position>.getInstance(state);
+                    State<Position> sun = statePool.getInstance(state);
                     sun.cameFrom = s;
+                    sun.cost = s.cost + 1;
                     succerssors.Add(sun);
                 }
             }

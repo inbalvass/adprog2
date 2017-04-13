@@ -17,7 +17,7 @@ namespace checksTheDll
         public Program(int rows, int cols)
           {
             DFSMazeGenerator mazeGenerate = new DFSMazeGenerator();
-            Maze maze = mazeGenerate.Generate(rows, cols);
+            maze = mazeGenerate.Generate(rows, cols);
         }
 
         public void CompareSolver( )
@@ -26,14 +26,24 @@ namespace checksTheDll
             Adapter adp = new Adapter(maze);
 
             //need to solve with bfs and dfs
-
+            Console.WriteLine("bfs");
             BFS<Position> bfs = new BFS<Position>();
             bfs.search(adp);
-            Console.WriteLine("bfs open", bfs.getNumberOfNodesEvaluated(), "nodes");
+            Console.WriteLine("the solution",bfs.backTrace(adp.getGoalState()));
+            Console.WriteLine("bfs open nodes", bfs.getNumberOfNodesEvaluated(), "nodes");
 
-            DFS<Position> dfs = new DFS<Position>();
+          /*  DFS<Position> dfs = new DFS<Position>();
             dfs.search(adp);
-            Console.WriteLine("dfs open", dfs.getNumberOfNodesEvaluated(), "nodes");
+            Console.WriteLine("dfs open", dfs.getNumberOfNodesEvaluated(), "nodes");*/
+        }
+
+        public static void Main(string[] args)
+        {
+            int rows = 3;
+            int cols = 3;
+            Program prog = new Program(rows, cols);
+            prog.CompareSolver();
+            Console.ReadKey();
         }
     }
 }

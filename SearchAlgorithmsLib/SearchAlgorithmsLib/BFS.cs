@@ -16,10 +16,11 @@ namespace SearchAlgorithmsLib
             bool openContainsS, closedContainsS;
             while (openList.Count > 0)
             {
-                State<T> n = openList.Dequeue();  
+                State<T> n = openList.Dequeue();
+                Console.WriteLine("n.cost"+ n.cost);
                 addToClosedList(n);
                 if (n.Equals(searchable.getGoalState()))
-                    return backTrace(searchable.getGoalState()); // private method, back traces through the parents
+                    return backTrace(n); // private method, back traces through the parents
                                                                  // calling the delegated method, returns a list of states with n as a parent
                 List<State<T>> succerssors = searchable.getAllPossibleStates(n);
                 foreach (State<T> s in succerssors)
@@ -28,8 +29,6 @@ namespace SearchAlgorithmsLib
                     closedContainsS = closedContains(s);
                     if (!closedContainsS && !openContainsS)
                     {
-                        //צריך לוודא שכאשר מקבלים את הבנים שהוא
-                        //כבר מעדכן את העלות...או שזה יהיה דרך הקומפרטור?
                         // s.setCameFrom(n);  // already done by getSuccessors
                         openList.Enqueue(s,s.cost);
                         setNumberOfNodesEvaluated();

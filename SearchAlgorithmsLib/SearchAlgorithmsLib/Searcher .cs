@@ -26,9 +26,11 @@ namespace SearchAlgorithmsLib
             return closed.Contains(s);
         }
 
-        protected Solution<T> backTrace(State<T> goal)
+        public Solution<T> backTrace(State<T> goal)
         {
             Solution<T> solution = new Solution<T>();
+            Console.WriteLine("goal cost"+ goal.cost);
+            Console.WriteLine("goal come from" + goal.cameFrom.cost);
             solution.add(goal);
             State<T> came = goal.cameFrom;
             while (came != null)

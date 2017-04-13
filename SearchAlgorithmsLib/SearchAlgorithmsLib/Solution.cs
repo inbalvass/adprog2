@@ -6,7 +6,12 @@ namespace SearchAlgorithmsLib
 {
     public class Solution<T>
     {
-        public List<State<T>> solution { set; get; }
+        private List<State<T>> solution { get; }
+
+        public Solution()
+        {
+            solution = new List<State<T>>();
+        }
 
         public void add(State<T> s)
         {
