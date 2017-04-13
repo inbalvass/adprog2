@@ -12,7 +12,7 @@ namespace SearchAlgorithmsLib
         /*
          * CTOR
          */
-        public State(T state) 
+        private State(T state) 
         {
             this.state = state;
         }
@@ -32,5 +32,23 @@ namespace SearchAlgorithmsLib
         {
             return state.Equals(s.state);
         }
-    }
+
+        //statePool class
+        static public class StatePool
+
+        {
+            static public Dictionary<T, State<T>> pool = new Dictionary<T, State<T>>();
+
+            static public State<T> getInstance(T current)
+            {
+                State<T> value;
+                bool hasValue = pool.TryGetValue(current, out value);
+                if (!hasValue)
+                {
+                    value = new State<T>(current);
+                    pool.Add(current, value);
+                }
+                return value;
+            }
+        }
 }

@@ -20,7 +20,7 @@ namespace checksTheDll
             maze = mazeGenerate.Generate(rows, cols);
         }
 
-        public void CompareSolver( )
+        public void CompareSolvers( )
         {
             Console.WriteLine(maze.ToString());
             Adapter adp = new Adapter(maze);
@@ -29,7 +29,7 @@ namespace checksTheDll
             Console.WriteLine("bfs");
             BFS<Position> bfs = new BFS<Position>();
             bfs.search(adp);
-            Console.WriteLine("the solution",bfs.backTrace(adp.getGoalState()));
+            Console.WriteLine("the solution",bfs.backTrace(adp.getGoalState()));//חושבת שלא צריך להדפיס את זה
             Console.WriteLine("bfs open nodes", bfs.getNumberOfNodesEvaluated(), "nodes");
 
           /*  DFS<Position> dfs = new DFS<Position>();
@@ -42,7 +42,7 @@ namespace checksTheDll
             int rows = 3;
             int cols = 3;
             Program prog = new Program(rows, cols);
-            prog.CompareSolver();
+            prog.CompareSolvers();
             Console.ReadKey();
         }
     }

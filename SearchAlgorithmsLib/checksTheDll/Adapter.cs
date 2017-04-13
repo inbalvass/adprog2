@@ -13,31 +13,25 @@ namespace checksTheDll
     public class Adapter : ISearchable<Position>
     {
         private Maze maze;
-        //private HashSet<State<Position>> statePool;
-        private StatePool<Position> statePool;
 
         public Adapter(Maze mazes)
         {
             maze = mazes;
-            statePool = new StatePool<Position>();
         }
 
         public State<Position> getInitialState()
         {
             Position pos = maze.InitialPos;
-            State<Position> state = new State<Position>(pos);
+            State<Position> state = State<Position>.StatePool.getInstance(pos);
             state.cost = 0;
             state.cameFrom = null;
-            //return state;
-            return statePool.getInstance(state);
+            return state;
         }
 
         public State<Position> getGoalState()
         {
             Position pos = maze.GoalPos;
-            State<Position> state = new State<Position>(pos);
-            // return state;
-            return statePool.getInstance(state);
+            return State<Position>.StatePool.getInstance(pos);
         }
 
         public List<State<Position>> getAllPossibleStates(State<Position> s)
@@ -50,14 +44,12 @@ namespace checksTheDll
             {
                 if (maze[s.state.Row, s.state.Col + 1] == MazeLib.CellType.Free) //means the cell is free
                 {
-                    //State<Position> sun = hadToPoolString(s, s.state.Row, s.state.Col + 1);
-
-                    //את השורה הבאה צריך לחשוב איך משנים וגורמים לה להיות בתוך הסטייטפול
-                    State<Position> state = new State<Position>(new Position(s.state.Row, s.state.Col + 1));
-                    State<Position> sun = statePool.getInstance(state);
-                    sun.cameFrom = s;
-                    sun.cost = s.cost +  1;
-                    succerssors.Add(sun);
+                    Position pos = new Position(s.state.Row, s.state.Col + 1);
+                    //create or get the state using state-pool and add it to the list
+                    State<Position> son = State<Position>.StatePool.getInstance(pos);
+                    son.cameFrom = s;
+                    son.cost = s.cost +  1;
+                    succerssors.Add(son);
                 }
             }
 
@@ -66,13 +58,12 @@ namespace checksTheDll
             {
                 if (maze[s.state.Row, s.state.Col - 1] == MazeLib.CellType.Free) //means the cell is free
                 {
-                    //State<Position> sun = hadToPoolString(s, s.state.Row, s.state.Col - 1);
-                    State<Position> state = new State<Position>(new Position(s.state.Row, s.state.Col - 1));
-                    State<Position> sun = statePool.getInstance(state);
-                    sun.cameFrom = s;
-                    sun.cost = s.cost + 1;
-                    succerssors.Add(sun);
-                    //create the state using state-pool and add it to the list
+                    Position pos = new Position(s.state.Row, s.state.Col - 1);
+                    //create or get the state using state-pool and add it to the list
+                    State<Position> son = State<Position>.StatePool.getInstance(pos);
+                    son.cameFrom = s;
+                    son.cost = s.cost + 1;
+                    succerssors.Add(son);
                 }
             }             
 
@@ -81,13 +72,12 @@ namespace checksTheDll
             {
                 if (maze[s.state.Row + 1, s.state.Col] == MazeLib.CellType.Free)  //means the cell is free
                 {
-                    //State<Position> sun = hadToPoolString(s, s.state.Row + 1, s.state.Col);
-                    State<Position> state = new State<Position>(new Position(s.state.Row + 1, s.state.Col));
-                    State<Position> sun = statePool.getInstance(state);
-                    sun.cameFrom = s;
-                    sun.cost = s.cost + 1;
-                    succerssors.Add(sun);
-                    //create the state using state-pool and add it to the list
+                    Position pos = new Position(s.state.Row + 1, s.state.Col);
+                    //create or get the state using state-pool and add it to the list
+                    State<Position> son = State<Position>.StatePool.getInstance(pos);
+                    son.cameFrom = s;
+                    son.cost = s.cost + 1;
+                    succerssors.Add(son);
                 }
             }
 
@@ -96,13 +86,12 @@ namespace checksTheDll
             {
                 if (maze[s.state.Row - 1, s.state.Col] == MazeLib.CellType.Free)  //means the cell is free
                 {
-                    //create the state using state-pool and add it to the list
-                    //State<Position> sun = hadToPoolString(s, s.state.Row - 1, s.state.Col);
-                    State<Position> state = new State<Position>(new Position(s.state.Row - 1, s.state.Col));
-                    State<Position> sun = statePool.getInstance(state);
-                    sun.cameFrom = s;
-                    sun.cost = s.cost + 1;
-                    succerssors.Add(sun);
+                    Position pos = new Position(s.state.Row - 1, s.state.Col);
+                    //create or get the state using state-pool and add it to the list
+                    State<Position> son = State<Position>.StatePool.getInstance(pos);
+                    son.cameFrom = s;
+                    son.cost = s.cost + 1;
+                    succerssors.Add(son);
                 }
             }
             return succerssors;

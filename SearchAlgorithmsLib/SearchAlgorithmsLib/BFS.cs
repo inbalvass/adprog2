@@ -14,12 +14,13 @@ namespace SearchAlgorithmsLib
             openList = new Priority_Queue.SimplePriorityQueue<State<T>>();
             openList.Enqueue(searchable.getInitialState(), searchable.getInitialState().cost); // inherited from Searcher
             bool openContainsS, closedContainsS;
+            State<T> goal = searchable.getGoalState();
             while (openList.Count > 0)
             {
                 State<T> n = openList.Dequeue();
                 Console.WriteLine("n.cost"+ n.cost);
                 addToClosedList(n);
-                if (n.Equals(searchable.getGoalState()))
+                if (n.Equals(goal))
                     return backTrace(n); // private method, back traces through the parents
                                                                  // calling the delegated method, returns a list of states with n as a parent
                 List<State<T>> succerssors = searchable.getAllPossibleStates(n);
