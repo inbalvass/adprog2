@@ -29,7 +29,7 @@ namespace checksTheDll
             Console.WriteLine("bfs");
             BFS<Position> bfs = new BFS<Position>();
             bfs.search(adp);
-            Console.WriteLine("the solution",bfs.backTrace(adp.getGoalState()));//חושבת שלא צריך להדפיס את זה
+            //Console.WriteLine("the solution",bfs.backTrace(adp.getGoalState()));//חושבת שלא צריך להדפיס את זה
             Console.WriteLine("bfs open nodes", bfs.getNumberOfNodesEvaluated(), "nodes");
 
           /*  DFS<Position> dfs = new DFS<Position>();
