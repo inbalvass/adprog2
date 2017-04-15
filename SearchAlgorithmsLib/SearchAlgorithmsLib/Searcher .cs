@@ -29,15 +29,9 @@ namespace SearchAlgorithmsLib
         public Solution<T> backTrace(State<T> goal)
         {
             Solution<T> solution = new Solution<T>();
-            Console.WriteLine("goal cost"+ goal.cost);
-            if(goal.cameFrom != null)
-            {
-                Console.WriteLine("goal come from" + goal.cameFrom.cost);
-            }
-            
             solution.add(goal);
             State<T> came = goal.cameFrom;
-            while (came != null)
+            while (came.cameFrom != null)
             {
                 solution.add(came);
                 came = came.cameFrom;

@@ -12,38 +12,48 @@ namespace SearchAlgorithmsLib
         public override Solution<T> search(ISearchable<T> searchable)
         {
             openList = new Priority_Queue.SimplePriorityQueue<State<T>>();
-            openList.Enqueue(searchable.getInitialState(), searchable.getInitialState().cost); // inherited from Searcher
+            openList.Enqueue(searchable.getInitialState(), searchable.getInitialState().cost);
             bool openContainsS, closedContainsS;
             State<T> goal = searchable.getGoalState();
             while (openList.Count > 0)
             {
                 State<T> n = openList.Dequeue();
-                Console.WriteLine("n.cost"+ n.cost);
                 addToClosedList(n);
                 if (n.Equals(goal))
+                {
                     return backTrace(n); // private method, back traces through the parents
-                                                                 // calling the delegated method, returns a list of states with n as a parent
+                }                                // calling the delegated method, returns a list of states with n as a parent
                 List<State<T>> succerssors = searchable.getAllPossibleStates(n);
                 foreach (State<T> s in succerssors)
                 {
+                    Console.WriteLine("check");
+                    State<T> came = s.cameFrom;
+                    while(came != null)
+                    {
+                        Console.WriteLine("check");
+                        Console.ReadKey();
+                        came = came.cameFrom;
+                    }
+
                     openContainsS = openList.Contains(s);
                     closedContainsS = closedContains(s);
+                    State<T> st = new State<T>(s);
                     if (!closedContainsS && !openContainsS)
                     {
                         // s.setCameFrom(n);  // already done by getSuccessors
-                        openList.Enqueue(s,s.cost);
+                        openList.Enqueue(st, st.cost);
                         setNumberOfNodesEvaluated();
                     }
                     else
                     {
                         if (!openContainsS && !(n.cameFrom.Equals(s)))
                         {
-                            openList.Enqueue(s, s.cost);
+                            openList.Enqueue(st, st.cost);
                             setNumberOfNodesEvaluated();
                         }
-                        else if(openContainsS && (s.cost < getStatePriorityInOpen(s)))
+                        else if(openContainsS && (st.cost < getStatePriorityInOpen(st)))
                         {
-                            setStatePriorityInOpen(s);
+                            setStatePriorityInOpen(st);
                         }
                     }
                 }
@@ -78,7 +88,9 @@ namespace SearchAlgorithmsLib
 
         private void setStatePriorityInOpen(State<T> s)
         {
-            openList.UpdatePriority(s, s.cost);
+            openList.Remove(s);
+            //need to update the cost and also set to new father
+            openList.Enqueue(s, s.cost);
         }
     }
 }

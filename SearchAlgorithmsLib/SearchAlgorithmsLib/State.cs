@@ -12,9 +12,17 @@ namespace SearchAlgorithmsLib
         /*
          * CTOR
          */
-        private State(T state)
+        public State(T state)
         {
             this.state = state;
+        }
+
+        //copy ctor
+        public State(State<T> state)
+        {
+            this.state = state.state;
+            this.cost = state.cost;
+            this.cameFrom = state.cameFrom;
         }
 
         /*

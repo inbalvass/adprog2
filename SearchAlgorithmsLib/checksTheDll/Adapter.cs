@@ -37,24 +37,20 @@ namespace checksTheDll
         public List<State<Position>> getAllPossibleStates(State<Position> s)
         {
             List<State<Position>> succerssors = new List<State<Position>>();
-            
 
             //right
             if (s.state.Col+1 < maze.Cols)//assuming we start from 0
             {
-                if (maze[s.state.Row, s.state.Col + 1] == MazeLib.CellType.Free) //means the cell is free
+                if (maze[s.state.Row, s.state.Col + 1] == MazeLib.CellType.Free)
+                   // &&(s.state.Row != maze.InitialPos.Row && s.state.Col + 1 != maze.InitialPos.Col)) //means the cell is free
                 {
                     Position pos = new Position(s.state.Row, s.state.Col + 1);
                     //create or get the state using state-pool and add it to the list
                     State<Position> son = State<Position>.StatePool.getInstance(pos);
-                    if ((son.cameFrom != null) && (!son.cameFrom.Equals(s)))
-                    {
-                        son.cameFrom = s;
-                        son.cost = s.cost + 1;
-                        succerssors.Add(son);
-                    }
-                   // if(son.cameFrom != null)
-                     
+                    son.cameFrom = s;
+                    son.cost = s.cost + 1;
+                    succerssors.Add(son);
+
                 }
             }
 
@@ -66,12 +62,9 @@ namespace checksTheDll
                     Position pos = new Position(s.state.Row, s.state.Col - 1);
                     //create or get the state using state-pool and add it to the list
                     State<Position> son = State<Position>.StatePool.getInstance(pos);
-                    if ((son.cameFrom != null) && (!son.cameFrom.Equals(s)))
-                    {
-                        son.cameFrom = s;
-                        son.cost = s.cost + 1;
-                        succerssors.Add(son);
-                    }
+                    son.cameFrom = s;
+                    son.cost = s.cost + 1;
+                    succerssors.Add(son);
                 }
             }             
 
@@ -83,12 +76,9 @@ namespace checksTheDll
                     Position pos = new Position(s.state.Row + 1, s.state.Col);
                     //create or get the state using state-pool and add it to the list
                     State<Position> son = State<Position>.StatePool.getInstance(pos);
-                    if ((son.cameFrom != null) && (!son.cameFrom.Equals(s)))
-                    {
-                        son.cameFrom = s;
-                        son.cost = s.cost + 1;
-                        succerssors.Add(son);
-                    }
+                    son.cameFrom = s;
+                    son.cost = s.cost + 1;
+                    succerssors.Add(son);
                 }
             }
 
@@ -100,12 +90,9 @@ namespace checksTheDll
                     Position pos = new Position(s.state.Row - 1, s.state.Col);
                     //create or get the state using state-pool and add it to the list
                     State<Position> son = State<Position>.StatePool.getInstance(pos);
-                    if ((son.cameFrom != null) && (!son.cameFrom.Equals(s)))
-                    {
-                        son.cameFrom = s;
-                        son.cost = s.cost + 1;
-                        succerssors.Add(son);
-                    }
+                    son.cameFrom = s;
+                    son.cost = s.cost + 1;
+                    succerssors.Add(son);
                 }
             }
             return succerssors;

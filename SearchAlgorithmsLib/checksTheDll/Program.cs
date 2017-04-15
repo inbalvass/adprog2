@@ -30,11 +30,12 @@ namespace checksTheDll
             BFS<Position> bfs = new BFS<Position>();
             bfs.search(adp);
             //Console.WriteLine("the solution",bfs.backTrace(adp.getGoalState()));//חושבת שלא צריך להדפיס את זה
-            Console.WriteLine("bfs open nodes", bfs.getNumberOfNodesEvaluated(), "nodes");
+            Console.WriteLine("bfs open"+ bfs.getNumberOfNodesEvaluated()+ "nodes");
 
-          /*  DFS<Position> dfs = new DFS<Position>();
+            Console.ReadKey();
+            DFS<Position> dfs = new DFS<Position>();
             dfs.search(adp);
-            Console.WriteLine("dfs open", dfs.getNumberOfNodesEvaluated(), "nodes");*/
+            Console.WriteLine("dfs open"+ dfs.getNumberOfNodesEvaluated()+ "nodes");
         }
 
         public static void Main(string[] args)
