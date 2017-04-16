@@ -18,20 +18,26 @@ namespace SearchAlgorithmsLib
 
         protected void addToClosedList(State<T> s)
         {
-            closed.Add(s);
-        } 
+            State<T> st = new State<T>(s);
+            closed.Add(st);
+        }
+
+        protected int countClosedList()
+        {
+            return closed.Count;
+        }
 
         protected bool closedContains(State<T> s)
         {
             return closed.Contains(s);
         }
 
-        public Solution<T> backTrace(State<T> goal)
+        public Solution<T> backTrace(State<T> goal,State<T> start)
         {
             Solution<T> solution = new Solution<T>();
             solution.add(goal);
             State<T> came = goal.cameFrom;
-            while (came.cameFrom != null)
+            while (!came.Equals(start))
             {
                 solution.add(came);
                 came = came.cameFrom;

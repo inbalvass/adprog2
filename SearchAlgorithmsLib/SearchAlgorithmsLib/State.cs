@@ -18,11 +18,11 @@ namespace SearchAlgorithmsLib
         }
 
         //copy ctor
-        public State(State<T> state)
+        public State(State<T> states)
         {
-            this.state = state.state;
-            this.cost = state.cost;
-            this.cameFrom = state.cameFrom;
+            this.state = states.state;
+            this.cost = states.cost;
+            this.cameFrom = states.cameFrom;
         }
 
         /*
@@ -36,9 +36,9 @@ namespace SearchAlgorithmsLib
         /*
          *we overload Object's Equals method
          */
-        public bool Equals(State<T> s)
+        public override bool Equals(object obj)
         {
-            return state.Equals(s.state);
+            return state.Equals((obj as State<T>).state);
         }
 
         //statePool class
@@ -46,6 +46,12 @@ namespace SearchAlgorithmsLib
 
         {
             static public Dictionary<T, State<T>> pool = new Dictionary<T, State<T>>();
+
+            static public bool checkInstance(T current)
+            {
+                return pool.ContainsKey(current);
+            }
+
 
             static public State<T> getInstance(T current)
             {

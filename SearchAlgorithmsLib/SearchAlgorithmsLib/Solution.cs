@@ -16,6 +16,7 @@ namespace SearchAlgorithmsLib
         public void add(State<T> s)
         {
             Console.WriteLine("s cost" + s.cost);
+            Console.ReadKey();
             solution.Add(s);
             return;
         }

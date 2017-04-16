@@ -21,32 +21,23 @@ namespace SearchAlgorithmsLib
                 addToClosedList(n);
                 if (n.Equals(goal))
                 {
-                    return backTrace(n); // private method, back traces through the parents
-                }                                // calling the delegated method, returns a list of states with n as a parent
+                    return backTrace(n, searchable.getInitialState());
+                }                               
                 List<State<T>> succerssors = searchable.getAllPossibleStates(n);
                 foreach (State<T> s in succerssors)
                 {
-                    Console.WriteLine("check");
-                    State<T> came = s.cameFrom;
-                    while(came != null)
-                    {
-                        Console.WriteLine("check");
-                        Console.ReadKey();
-                        came = came.cameFrom;
-                    }
-
+                
                     openContainsS = openList.Contains(s);
                     closedContainsS = closedContains(s);
                     State<T> st = new State<T>(s);
                     if (!closedContainsS && !openContainsS)
                     {
-                        // s.setCameFrom(n);  // already done by getSuccessors
                         openList.Enqueue(st, st.cost);
                         setNumberOfNodesEvaluated();
                     }
                     else
                     {
-                        if (!openContainsS && !(n.cameFrom.Equals(s)))
+                        if (!openContainsS && !(n.cameFrom.Equals(st)))
                         {
                             openList.Enqueue(st, st.cost);
                             setNumberOfNodesEvaluated();
@@ -58,7 +49,7 @@ namespace SearchAlgorithmsLib
                     }
                 }
             }
-            return backTrace(searchable.getGoalState());
+            return backTrace(searchable.getGoalState(), searchable.getInitialState());
         }
 
         private State<T> findStateInQueue(State<T> s)

@@ -47,10 +47,10 @@ namespace checksTheDll
                     Position pos = new Position(s.state.Row, s.state.Col + 1);
                     //create or get the state using state-pool and add it to the list
                     State<Position> son = State<Position>.StatePool.getInstance(pos);
+                 
                     son.cameFrom = s;
                     son.cost = s.cost + 1;
                     succerssors.Add(son);
-
                 }
             }
 

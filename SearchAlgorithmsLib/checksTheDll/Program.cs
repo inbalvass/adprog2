@@ -33,6 +33,7 @@ namespace checksTheDll
             Console.WriteLine("bfs open"+ bfs.getNumberOfNodesEvaluated()+ "nodes");
 
             Console.ReadKey();
+            Console.WriteLine("dfs");
             DFS<Position> dfs = new DFS<Position>();
             dfs.search(adp);
             Console.WriteLine("dfs open"+ dfs.getNumberOfNodesEvaluated()+ "nodes");
