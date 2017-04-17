@@ -4,19 +4,28 @@ using System.Text;
 
 namespace SearchAlgorithmsLib
 {
+    /// <summary>
+    /// create a list of the solution
+    /// </summary>
+    /// <typeparam name="T"> the type of the state </typeparam>
     public class Solution<T>
     {
-        private List<State<T>> solution { get; }
+        public List<State<T>> solution { get; }
 
+        /// <summary>
+        /// constructor
+        /// </summary>
         public Solution()
         {
             solution = new List<State<T>>();
         }
 
+        /// <summary>
+        /// add new state to the list of solution
+        /// </summary>
+        /// <param name="s"></param>
         public void add(State<T> s)
         {
-            Console.WriteLine("s cost" + s.cost);
-            Console.ReadKey();
             solution.Add(s);
             return;
         }

@@ -4,20 +4,30 @@ using System.Text;
 
 namespace SearchAlgorithmsLib
 {
+    /// <summary>
+    /// class that create a new state from the array. it holds the current state type, 
+    /// the cost and from where the state came.
+    /// </summary>
+    /// <typeparam name="T"> the type of state </typeparam>
     public class State<T>
     {
         public T state { get; }
         public float cost { get; set; } // cost to reach this state (set by a setter)
         public State<T> cameFrom { get; set; } // the state we came from to this state (setter)
-        /*
-         * CTOR
-         */
+ 
+        /// <summary>
+        /// constructor
+        /// </summary>
+        /// <param name="state"></param>
         public State(T state)
         {
             this.state = state;
         }
 
-        //copy ctor
+        /// <summary>
+        /// copy constructor
+        /// </summary>
+        /// <param name="states"></param>
         public State(State<T> states)
         {
             this.state = states.state;
@@ -25,17 +35,20 @@ namespace SearchAlgorithmsLib
             this.cameFrom = states.cameFrom;
         }
 
-        /*
-         * overrid the hash code to include just the state
-         */
+        /// <summary>
+        /// overrid the hash code to include just the state
+        /// </summary>
+        /// <returns></returns>
         public override int GetHashCode()
         {
             return state.ToString().GetHashCode();
         }
 
-        /*
-         *we overload Object's Equals method
-         */
+        /// <summary>
+        /// overload Object's Equals method
+        /// </summary>
+        /// <param name="obj"></param>
+        /// <returns></returns>
         public override bool Equals(object obj)
         {
             return state.Equals((obj as State<T>).state);

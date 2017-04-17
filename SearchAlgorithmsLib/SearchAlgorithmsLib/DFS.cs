@@ -2,19 +2,11 @@
 using System.Collections.Generic;
 using System.Text;
 
+using MazeGeneratorLib;
+using MazeLib;
+
 namespace SearchAlgorithmsLib
 {
-    /* pseudo code
-     * 
-    1  procedure DFS-iterative(G, v):
-2      let S be a stack
-3      S.push(v)
-4      while S is not empty
-5          v = S.pop()
-6          if v is not labeled as discovered:
-7              label v as discovered
-8              for all edges from v to w in G.adjacentEdges(v) do 
-9                  S.push(w)*/
     public class DFS<T> : Searcher<T>
     {
         public override Solution<T> search(ISearchable<T> searchable)
@@ -32,11 +24,18 @@ namespace SearchAlgorithmsLib
                 }
                 if (!closedContains(node))
                 {
+                    
                     addToClosedList(node);
                     List<State<T>> succerssors = searchable.getAllPossibleStates(node);
                     foreach (State<T> s in succerssors)
                     {
-                        stack.Push(s);
+                        if (closedContains(s))
+                        {
+                            //if the node it in the close list so no need to open it again
+                            continue;
+                        }
+                        State<T> st = new State<T>(s);
+                        stack.Push(st);
                         setNumberOfNodesEvaluated();
                     }
                 }

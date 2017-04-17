@@ -49,7 +49,8 @@ namespace SearchAlgorithmsLib
                     }
                 }
             }
-            return backTrace(searchable.getGoalState(), searchable.getInitialState());
+            //if the program is here means the goal has not found.
+            throw new InvalidOperationException("Goal state has not found");
         }
 
         private State<T> findStateInQueue(State<T> s)
