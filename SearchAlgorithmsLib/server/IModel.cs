@@ -11,7 +11,12 @@ namespace server
 {
     interface IModel
     {
-        ISearchable<Position> getAdapter(string name);
         Maze GenerateMaze(string name, int rows, int cols);
+        String SolveMazeCommand(string name, int algorithm);
+        string StartMazeCommand(string name, int rows, int cols);
+        string ListCommand();
+        string JoinCommand(string name);
+        string PlayCommand(string move);
+        string CloseCommand(string name);
     }
 }
