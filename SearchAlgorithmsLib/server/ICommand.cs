@@ -4,9 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SearchAlgorithmsLib
+namespace server
 {
-    public class Class1
+    interface ICommand
     {
+        string Execute(string[] args, TcpClient client = null);
     }
 }

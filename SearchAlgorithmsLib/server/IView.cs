@@ -4,13 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SearchAlgorithmsLib
+namespace server
 {
-    public class class1
+    interface IView
     {
-        public static void main()
-        {
-
-        }
     }
 }

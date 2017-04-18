@@ -5,39 +5,64 @@ using Priority_Queue;
 
 namespace SearchAlgorithmsLib
 {
+    /// <summary>
+    /// class that hold the close list
+    /// </summary>
+    /// <typeparam name="T"> the type of the state </typeparam>
     public abstract class Searcher<T> : ISearcher<T>
     {
         private HashSet<State<T>> closed;
         private int evaluatedNodes;
 
+        /// <summary>
+        /// constructor
+        /// </summary>
         public Searcher()
         {
             evaluatedNodes = 0;
             closed = new HashSet<State<T>>();
         }
 
+        /// <summary>
+        /// add new state to the close list
+        /// </summary>
+        /// <param name="s">the state to add</param>
         protected void addToClosedList(State<T> s)
         {
             closed.Add(s);
-        } 
+        }
 
+        /// <summary>
+        /// return how many items in the list
+        /// </summary>
+        /// <returns> how many items in the list</returns>
+        protected int countClosedList()
+        {
+            return closed.Count;
+        }
+
+        /// <summary>
+        /// check if the close list contain item s and retur true or false
+        /// </summary>
+        /// <param name="s"></param>
+        /// <returns></returns>
         protected bool closedContains(State<T> s)
         {
             return closed.Contains(s);
         }
 
-        public Solution<T> backTrace(State<T> goal)
+        /// <summary>
+        /// create the solution and return it
+        /// </summary>
+        /// <param name="goal"> the goal state</param>
+        /// <param name="start"> the start state</param>
+        /// <returns></returns>
+        public Solution<T> backTrace(State<T> goal, State<T> start)
         {
             Solution<T> solution = new Solution<T>();
-            Console.WriteLine("goal cost"+ goal.cost);
-            if(goal.cameFrom != null)
-            {
-                Console.WriteLine("goal come from" + goal.cameFrom.cost);
-            }
-            
             solution.add(goal);
             State<T> came = goal.cameFrom;
-            while (came != null)
+            while (!came.Equals(start) && came != null)
             {
                 solution.add(came);
                 came = came.cameFrom;
@@ -45,15 +70,28 @@ namespace SearchAlgorithmsLib
             return solution;
         }
 
-        // ISearcher’s methods: 
+        /// <summary>
+        /// return the number of evaluated nodes
+        /// </summary>
+        /// <returns></returns>
         public int getNumberOfNodesEvaluated()
         {
             return evaluatedNodes;
         }
+
+        /// <summary>
+        /// set the number of the evaluated nodes
+        /// </summary>
         public void setNumberOfNodesEvaluated()
         {
             evaluatedNodes++;
         }
+
+        /// <summary>
+        /// search in the graph
+        /// </summary>
+        /// <param name="searchable"> the graph to cearch in</param>
+        /// <returns></returns>
         public abstract Solution<T> search(ISearchable<T> searchable);
     }
 }

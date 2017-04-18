@@ -4,6 +4,10 @@ using System.Text;
 
 namespace SearchAlgorithmsLib
 {
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
     public interface ISearchable<T>
     {
         State<T> getInitialState();
