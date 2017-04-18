@@ -8,7 +8,7 @@ using MazeGeneratorLib;
 using MazeLib;
 
     
-namespace checksTheDll
+namespace server
 {
     public class Adapter : ISearchable<Position>
     {
