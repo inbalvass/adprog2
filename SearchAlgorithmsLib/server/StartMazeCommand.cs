@@ -3,26 +3,25 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using MazeGeneratorLib;
-using MazeLib;
-using SearchAlgorithmsLib;
 
 namespace server
 {
-    class SolveMazeCommand : ICommand
+    class StartMazeCommand : ICommand
     {
         private IModel model;
 
-        public SolveMazeCommand(IModel model)
+        public StartMazeCommand(IModel model)
         {
             this.model = model;
         }
+
         public string Execute(string[] args, TcpClient client)
         {
             string name = args[0];
-            int algorithm = int.Parse(args[1]);
-            string sol = model.SolveMazeCommand(name,algorithm);
-            return sol;
+            int rows = int.Parse(args[1]);
+            int cols = int.Parse(args[2]);
+            string str = model.StartMazeCommand(name, rows, cols);
+            return str.ToJSON();
         }
     }
 }
