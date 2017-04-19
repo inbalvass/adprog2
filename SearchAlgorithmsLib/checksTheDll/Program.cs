@@ -31,9 +31,9 @@ namespace checksTheDll
         {
             Console.WriteLine(maze.ToString());
             Adapter adp = new Adapter(maze);
-            if (adp.getGoalState() == null)
+            if (adp.getGoalState().Equals(adp.getInitialState()))
             {
-                Console.WriteLine("wrong maze - no exit");
+                Console.WriteLine("start and goal in the same place");
                 return;
             }
 

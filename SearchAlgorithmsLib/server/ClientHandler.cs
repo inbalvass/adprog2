@@ -29,6 +29,7 @@ namespace server
                     string result = control.ExecuteCommand(command, client);
                     writer.Write(result);
                 }
+                //בטוח שפה אמור להיות הסגירה? אם לאחר שליחת פקודה אחת זה יסגר אז לא יהיה אפשר לעשות משחק
                 client.Close();
             }).Start();
         }

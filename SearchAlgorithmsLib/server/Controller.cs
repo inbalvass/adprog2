@@ -20,7 +20,7 @@ namespace server
 
         public void setModel(IModel mod)
         {
-            model = new Model();
+            model = mod;
         }
 
         private void addCommands()
