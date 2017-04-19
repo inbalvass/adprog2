@@ -6,6 +6,8 @@ using System.Threading.Tasks;
 using MazeGeneratorLib;
 using MazeLib;
 using SearchAlgorithmsLib;
+using Newtonsoft.Json.Linq;
+using Newtonsoft.Json;
 
 namespace server
 {
@@ -20,11 +22,13 @@ namespace server
 
         Dictionary<string, Maze> names;
         Dictionary<string, Solution<Position>> solutions;
+        JArray availableGames;
 
         public Model()
         {
             names = new Dictionary<string, Maze>();
             solutions = new Dictionary<string, Solution<Position>>();
+            availableGames = new JArray();
         }
 
         private ISearchable<Position> getAdapter(string name)
@@ -52,6 +56,7 @@ namespace server
         {
             ISearchable<Position> adapter = getAdapter(name);
             Solution<Position> sol;
+            int evaluated = 0;
             if (solutions.ContainsKey(name))
             {
                 sol = solutions[name];
@@ -62,37 +67,40 @@ namespace server
                 {
                     BFS<Position> bfs = new BFS<Position>();
                     sol = bfs.search(adapter);
+                    evaluated = bfs.getNumberOfNodesEvaluated();
                     solutions.Add(name, sol);
                 }
                 else
                 {
                     DFS<Position> dfs = new DFS<Position>();
                     sol = dfs.search(adapter);
+                    evaluated = dfs.getNumberOfNodesEvaluated();
                     solutions.Add(name, sol);
                 }
             }
             FindDirections f = new FindDirections();
             f.listOfDirections(sol);
-            f.fromListToString();
-            return sol.ToJson;
+            string strList = f.fromListToString();
+            return f.ToJson(name, evaluated);
         }
-
-
-
 
 
         public string StartMazeCommand(string name, int rows, int cols)
         {
+            //add the name to the available games to join
+            availableGames.Add(name);
             return "ss";
         }
 
         public string ListCommand()
         {
-            return "ss";
+            return availableGames.ToString();
         }
 
         public string JoinCommand(string name)
         {
+            //remove the name from the list because the game is no longer available
+            availableGames.Remove(name);
             return "ss";
         }
 

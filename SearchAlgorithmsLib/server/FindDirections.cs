@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using MazeGeneratorLib;
 using MazeLib;
 using SearchAlgorithmsLib;
+using Newtonsoft.Json.Linq;
 
 namespace server
 {
@@ -56,5 +57,15 @@ namespace server
 
             return directions.ToString();
         }
+
+        public string ToJson(string name,int evaluate)
+        {
+            JObject solveObj = new JObject();
+            solveObj["Name"] = name;
+            solveObj["Solution"] = this.fromListToString();
+            solveObj["NodesEvaluated"] = evaluate;
+            return solveObj.ToString();
+        }
+        
     }
 }
