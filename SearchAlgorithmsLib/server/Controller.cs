@@ -14,11 +14,16 @@ namespace server
         private IModel model;
         public Controller()
         {
-            model = new Model();
             commands = new Dictionary<string, ICommand>();
+            addCommands();
         }
 
-        private void addComands()
+        public void setModel(IModel mod)
+        {
+            model = new Model();
+        }
+
+        private void addCommands()
         {
             commands.Add("generate", new GenerateMazeCommand(model));
             commands.Add("solve", new SolveMazeCommand(model));
@@ -27,7 +32,6 @@ namespace server
             commands.Add("join", new JoinCommand(model));
             commands.Add("play", new PlayCommand(model));
             commands.Add("close", new CloseCommand(model));
-
         }
 
         public string ExecuteCommand(string commandLine, TcpClient client)
@@ -40,29 +44,5 @@ namespace server
             ICommand command = commands[commandKey];
             return command.Execute(args, client);
         }
-
-        public class ClientHandler : IClientHandler
-        {
-
-            public ClientHandler()
-            {
-
-            }
-            public void HandleClient(TcpClient client)
-            {
-                new Task(() =>
-                {
-                    using (NetworkStream stream = client.GetStream())
-                    using (StreamReader reader = new StreamReader(stream))
-                    using (StreamWriter writer = new StreamWriter(stream))
-                    {
-                        string command = reader.ReadLine();
-                       //לבדוק איזו פקודה קיבלנו ולהביא אותה מהמילון
-                        //string result = ExecuteCommand(commandLine, client);
-                        writer.Write(result);
-                    }
-                    client.Close();
-                }).Start();
-            }
-        }
+    }
 }

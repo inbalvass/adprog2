@@ -52,6 +52,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Adapter.cs" />
+    <Compile Include="ClientHandler.cs" />
     <Compile Include="CloseCommand.cs" />
     <Compile Include="Controller.cs" />
     <Compile Include="GenerateMazeCommand.cs" />

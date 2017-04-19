@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using MazeGeneratorLib;
 using MazeLib;
 using SearchAlgorithmsLib;
+using System.Net.Sockets;
 
 namespace server
 {

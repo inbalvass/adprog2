@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Net.Sockets;
 
 namespace server
 {
@@ -21,7 +22,7 @@ namespace server
             int rows = int.Parse(args[1]);
             int cols = int.Parse(args[2]);
             string str = model.StartMazeCommand(name, rows, cols);
-            return str.ToJSON();
+            return str;
         }
     }
 }

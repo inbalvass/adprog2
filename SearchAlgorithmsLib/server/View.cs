@@ -8,6 +8,7 @@ namespace server
 {
     class View : IView
     {
+        private IController controller;
 
     }
 }

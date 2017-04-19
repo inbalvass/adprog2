@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Net.Sockets;
 
 namespace server
 {
@@ -19,7 +20,7 @@ namespace server
         {
             
             string lst = model.ListCommand();
-            return lst.ToJSON();
+            return lst;
         }
     }
 }

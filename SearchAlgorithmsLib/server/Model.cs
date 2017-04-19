@@ -13,19 +13,14 @@ namespace server
 {
     class Model : IModel
     {
-        /*כמה דברים:
-         * 1) האם זה המשתנים הפרטיים שהוא צריך להחזיק?
-         * 2) צריך להכיל מילון אחד פרטי עם שם ומה המבוך כדי שיהיה אפשר למצוא אותו באדפטר
-         *3) צריך להכיל מילון אחד או שתיים עם השם והפתרון . שתיים כי  צריך מילון לכל סוג פתרון??
-         * האם צריך להיות גנרי או לא?
-             */
+        private IController control;
+        private Dictionary<string, Maze> names;
+        private Dictionary<string, Solution<Position>> solutions;
+        private JArray availableGames;
 
-        Dictionary<string, Maze> names;
-        Dictionary<string, Solution<Position>> solutions;
-        JArray availableGames;
-
-        public Model()
+        public Model(IController conl)
         {
+            control = conl;
             names = new Dictionary<string, Maze>();
             solutions = new Dictionary<string, Solution<Position>>();
             availableGames = new JArray();
