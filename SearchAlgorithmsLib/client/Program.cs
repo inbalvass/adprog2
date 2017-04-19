@@ -1,18 +1,20 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Net;
+using System.Net.Sockets;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace server
+namespace client
 {
     class Program
     {
         static void Main(string[] args)
         {
-            Server server = new Server(8000, new Controller.ClientHandler());
-            server.Start();
-            Console.ReadKey();
+            Client client = new Client(8000);
+            client.Start();
         }
     }
 }
