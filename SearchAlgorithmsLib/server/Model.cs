@@ -71,9 +71,11 @@ namespace server
                     solutions.Add(name, sol);
                 }
             }
+            FindDirections f = new FindDirections();
+            f.listOfDirections(sol);
+            f.fromListToString();
             return sol.ToJson;
         }
-
 
 
 
