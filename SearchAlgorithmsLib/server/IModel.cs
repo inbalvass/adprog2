@@ -13,10 +13,11 @@ namespace server
     {
         Maze GenerateMaze(string name, int rows, int cols);
         String SolveMazeCommand(string name, int algorithm);
-        string StartMazeCommand(string name, int rows, int cols);
+        string StartMazeCommand(string name, int rows, int cols, IMultiGame game);
         string ListCommand();
-        string JoinCommand(string name);
+        IMultiGame JoinCommand(string name);
         string PlayCommand(string move);
         string CloseCommand(string name);
+        Dictionary<string, IMultiGame> getMultyGames();
     }
 }

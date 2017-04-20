@@ -10,5 +10,6 @@ namespace server
     interface IController
     {
         string ExecuteCommand(string commandLine, TcpClient client);
+        void setClientHandler(IClientHandler clientHandler);
     }
 }

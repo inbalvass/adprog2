@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Net.Sockets;
+using MazeLib;
 
 namespace server
 {
@@ -19,8 +20,9 @@ namespace server
         public string Execute(string[] args, TcpClient client)
         {
             string name = args[0];
-            string lst = model.JoinCommand(name);
-            return lst;
+            IMultiGame game = model.JoinCommand(name);
+            game.setJoinClient(client);
+            return game.getMaze().ToJSON();
         }
     }
 }

@@ -14,6 +14,8 @@ namespace server
         public ClientHandler(IController controller)
         {
             control = controller;
+            //אולי זה צריך היות למעשה במיין ולא פה
+            control.setClientHandler(this);
         }
         public void HandleClient(TcpClient client)
         {
@@ -24,11 +26,10 @@ namespace server
                 using (StreamWriter writer = new StreamWriter(stream))
                 {
                     string command = reader.ReadLine();
-                    //לבדוק איזו פקודה קיבלנו ולהביא אותה מהמילון
-                    //לא צריך לבדוק איזו פקודה קיבלנו כי האקסקיוט כבר עושה את זה
                     string result = control.ExecuteCommand(command, client);
                     writer.Write(result);
                 }
+                //לבדוק את זה!! אולי צריך להיות פה איזו לולאת וויאל
                 //בטוח שפה אמור להיות הסגירה? אם לאחר שליחת פקודה אחת זה יסגר אז לא יהיה אפשר לעשות משחק
                 client.Close();
             }).Start();

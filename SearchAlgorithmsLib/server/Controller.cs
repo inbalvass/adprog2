@@ -12,6 +12,7 @@ namespace server
     {
         private Dictionary<string, ICommand> commands;
         private IModel model;
+        private IClientHandler clientHandler;
         public Controller()
         {
             commands = new Dictionary<string, ICommand>();
@@ -21,6 +22,11 @@ namespace server
         public void setModel(IModel mod)
         {
             model = mod;
+        }
+
+        public void setClientHandler(IClientHandler clientHandler)
+        {
+            this.clientHandler = clientHandler;
         }
 
         private void addCommands()

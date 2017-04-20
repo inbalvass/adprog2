@@ -5,6 +5,8 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Net.Sockets;
 
+
+//את זה צריך למחוק. 
 namespace server
 {
     abstract class Multiplayers : ICommand

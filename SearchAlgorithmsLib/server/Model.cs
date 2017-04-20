@@ -9,6 +9,7 @@ using SearchAlgorithmsLib;
 using Newtonsoft.Json.Linq;
 using Newtonsoft.Json;
 
+
 namespace server
 {
     class Model : IModel
@@ -18,6 +19,8 @@ namespace server
         private Dictionary<string, Solution<Position>> singleSolutions;
         private Dictionary<string, Maze> multyNames;
         private Dictionary<string, Solution<Position>> multySolutions;
+
+        public Dictionary<string, IMultiGame> multyGames;
         private JArray availableGames;
 
         public Model(IController conl)
@@ -27,6 +30,7 @@ namespace server
             singleSolutions = new Dictionary<string, Solution<Position>>();
             multyNames = new Dictionary<string, Maze>();
             multySolutions = new Dictionary<string, Solution<Position>>();
+            multyGames = new Dictionary<string, IMultiGame>();
             availableGames = new JArray();
         }
 
@@ -43,6 +47,10 @@ namespace server
             return Generate(name, rows, cols, singleNames, singleSolutions);
         }
 
+        public Dictionary<string, IMultiGame> getMultyGames()
+        {
+            return this.multyGames;
+        }
 
         private Maze Generate(string name, int rows, int cols , Dictionary<string, Maze> dicName,
             Dictionary<string, Solution<Position>> dicSolutions)
@@ -95,10 +103,12 @@ namespace server
         }
 
 
-        public string StartMazeCommand(string name, int rows, int cols)
+        public string StartMazeCommand(string name, int rows, int cols,IMultiGame game)
         {
             //create the maze
             Maze maze = Generate(name, rows, cols, multyNames, multySolutions);
+            game.setMaze(maze);
+            multyGames.Add(name, game);
             //add the name to the available games to join
             availableGames.Add(name);
             return maze.ToJSON();
@@ -109,35 +119,24 @@ namespace server
             return availableGames.ToString();
         }
 
-        public string JoinCommand(string name)
+        public IMultiGame JoinCommand(string name)
         {
             //לראות איך לעשות את זה נכון
             if (!availableGames.Contains(name))
             {
-                return "wrong input-game not exist";
+                //"wrong input-game not exist";
+                //throw Exception("wrong input-game not exist");
             }
-
-            //צריך לוודא שיורש ממולטיפלייר ואז יש לו את הרשימה
-
-
-            //פה יש בעיה כי אי אפשר לעשות שגג לקליינט אלא  אם נקבל אותו
-            //והבעיה שצריך לשמור גם מילון לפי הקליינט אז עדיין שזה ישמר פה כן או לא?
-            //אם שומרים בקונטרולר אז צריך מחלקה אבסטרקטית כדי שכולם ירשו את הרשימה הזו
-
-            //go to the multigame class and set dictionary here that this is the game we play
-            //remove the name from the list because the game is no longer available
             availableGames.Remove(name);
-            return "ss";
+            return multyGames[name];
         }
 
         public string PlayCommand(string move)
         {
-            //צריך לוודא שיורש ממולטיפלייר
-            return "ss";
+            return move;
         }
         public string CloseCommand(string name)
         {
-            //צריך לוודא שיורש ממולטיפלייר
             return "ss";
         }
     }
