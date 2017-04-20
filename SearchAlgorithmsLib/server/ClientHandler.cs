@@ -14,30 +14,26 @@ namespace server
         public ClientHandler(IController controller)
         {
             control = controller;
-            //אולי זה צריך היות למעשה במיין ולא פה
-            control.setClientHandler(this);
+
         }
+
         public void HandleClient(TcpClient client)
         {
+            Console.WriteLine("in HandleClient");
             new Task(() =>
             {
                 using (NetworkStream stream = client.GetStream())
-                using (StreamReader reader = new StreamReader(stream))
-                using (StreamWriter writer = new StreamWriter(stream))
+                using (BinaryReader reader = new BinaryReader(stream))
+                using (BinaryWriter writer = new BinaryWriter(stream))
                 {
-                    writer.AutoFlush = true;
-                    while (true)
+                    Console.WriteLine("in HandleClient new task");
+                 //   writer.AutoFlush = true;
+                    string command;
+                    while ((command = reader.ReadString()) != null)  //במקום while true  נכון שזה מקסים?? 
                     {
-                        string command = reader.ReadLine();
-                        if (command != null)
-                        {
-                            string result = control.ExecuteCommand(command, client);
-                            writer.Write(result);
-                        }
-                        else
-                        {
-                            break; // Client closed connection
-                        }
+                        Console.WriteLine("command" + command);
+                        string result = control.ExecuteCommand(command, client);
+                        writer.Write(result);
                     }
                 }
                 //לבדוק את זה!! אולי צריך להיות פה איזו לולאת וויאל

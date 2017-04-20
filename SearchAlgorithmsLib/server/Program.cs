@@ -12,7 +12,12 @@ namespace server
         {
             Controller c = new Controller();
             Model model = new Model(c);
-            Server server = new Server(8000, new ClientHandler(c));
+            ClientHandler ch = new ClientHandler(c);
+            Server server = new Server(8000, ch);
+            c.setClientHandler(ch);
+            c.setModel(model);
+
+            Console.WriteLine("start server");
             server.Start();
             Console.ReadKey();
         }

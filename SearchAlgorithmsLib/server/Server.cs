@@ -31,6 +31,7 @@ namespace server
                     try
                     {
                         TcpClient client = listener.AcceptTcpClient();
+                        Console.WriteLine("client in server class  " + client);
                         //Console.WriteLine("Got new connection");
                         ch.HandleClient(client);
                     }

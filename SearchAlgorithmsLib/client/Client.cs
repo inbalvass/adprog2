@@ -28,16 +28,19 @@ namespace client
             using (BinaryReader reader = new BinaryReader(stream))
             using (BinaryWriter writer = new BinaryWriter(stream))
             {
+                Console.WriteLine("write your command");
                 string command = Console.ReadLine();
                 while (true)
                 {
+                    //בדיקה- את זה למחוק
+                    Console.WriteLine(command);
+
                     // Send data to server
                     writer.Write(command);
                     // Get result from server
                     string result = reader.ReadString();
-                    //צריך לבדוק שאחרי סטארט מתבצע ג'וין?
                     Console.WriteLine(result);
-                    
+
                     if (command.StartsWith("generate") || command.StartsWith("solve") ||
                         command.StartsWith("close"))
                     {
@@ -45,6 +48,7 @@ namespace client
                         Stop();
                         break;
                     }
+                    Console.WriteLine("write your command");
                     command = Console.ReadLine();
                 }
             }
