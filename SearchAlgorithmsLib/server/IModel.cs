@@ -17,7 +17,7 @@ namespace server
         string ListCommand();
         IMultiGame JoinCommand(string name);
         string PlayCommand(string move);
-        string CloseCommand(string name);
+        IMultiGame CloseCommand(string name);
         Dictionary<string, IMultiGame> getMultyGames();
     }
 }

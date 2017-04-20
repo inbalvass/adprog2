@@ -13,6 +13,10 @@ namespace server
     {
         void setJoinClient(TcpClient client);
         Maze getMaze();
+        string getName();
         void setMaze(Maze maze);
+        TcpClient getStartClient();
+        TcpClient getJoinClient();
+        void sendMessage(TcpClient client, string message);
     }
 }

@@ -25,12 +25,22 @@ namespace server
                 using (StreamReader reader = new StreamReader(stream))
                 using (StreamWriter writer = new StreamWriter(stream))
                 {
-                    string command = reader.ReadLine();
-                    string result = control.ExecuteCommand(command, client);
-                    writer.Write(result);
+                    writer.AutoFlush = true;
+                    while (true)
+                    {
+                        string command = reader.ReadLine();
+                        if (command != null)
+                        {
+                            string result = control.ExecuteCommand(command, client);
+                            writer.Write(result);
+                        }
+                        else
+                        {
+                            break; // Client closed connection
+                        }
+                    }
                 }
                 //לבדוק את זה!! אולי צריך להיות פה איזו לולאת וויאל
-                //בטוח שפה אמור להיות הסגירה? אם לאחר שליחת פקודה אחת זה יסגר אז לא יהיה אפשר לעשות משחק
                 client.Close();
             }).Start();
         }

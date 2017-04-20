@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.Threading.Tasks;
 using System.Net.Sockets;
 using System.IO;
 
@@ -29,9 +28,17 @@ namespace server
                     while (true)
                     {
                         string command = reader.ReadLine();
-                        control.ExecuteCommand(command, client);
+                        if (command != null)
+                        {
+                            control.ExecuteCommand(command, client);
+                        }
+                        else
+                        {
+                            break; // Client closed connection
+                        }
                     }
                 }
+                client.Close();
             }).Start();
         }
 

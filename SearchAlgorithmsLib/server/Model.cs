@@ -135,9 +135,9 @@ namespace server
         {
             return move;
         }
-        public string CloseCommand(string name)
+        public IMultiGame CloseCommand(string name)
         {
-            return "ss";
+            return multyGames[name];
         }
     }
 }

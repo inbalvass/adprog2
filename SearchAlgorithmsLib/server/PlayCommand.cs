@@ -20,21 +20,21 @@ namespace server
         public string Execute(string[] args, TcpClient client)
         {
             string move = args[0];
-            multiGame myGame = null;
+            IMultiGame myGame = null;
             TcpClient otherClient = null;
 
             //try to find the player's game
-            foreach (multiGame game in model.getMultyGames().Values)
+            foreach (IMultiGame game in model.getMultyGames().Values)
             {
-                if (game.client1 == client)
+                if (game.getStartClient() == client)
                 {
                     myGame = game;
-                    otherClient = game.client2;
+                    otherClient = game.getJoinClient();
                 }
-                else if (game.client2 == client)
+                else if (game.getJoinClient() == client)
                 {
                     myGame = game;
-                    otherClient = game.client1;
+                    otherClient = game.getStartClient();
                 }
                 else
                 {
@@ -43,7 +43,7 @@ namespace server
                 }
             }
 
-            string message = ToJson(move, myGame.name);
+            string message = ToJson(move, myGame.getName());
             myGame.sendMessage(otherClient, message);
             //this do nothing because it the task not read it
             return message;

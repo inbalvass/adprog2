@@ -10,9 +10,9 @@ namespace server
 {
     class multiGame : IMultiGame
     {
-        public string name { get; }
-        public TcpClient client1 { get; }
-        public TcpClient client2 { get; set; }
+        private string name;
+        private TcpClient client1;
+        private TcpClient client2;
         private Maze maze;
         HandleGame hg;
 
@@ -24,20 +24,12 @@ namespace server
 
         }
 
-        public Maze getMaze()
-        {
-            return this.maze;
-        }
-
-        public void setJoinClient(TcpClient client)
-        {
-            client2 = client;
-        }
-
-        public void setMaze(Maze maze)
-        {
-            this.maze = maze;
-        }
+        public TcpClient getStartClient() { return client1; }
+        public TcpClient getJoinClient() { return client2; }
+        public string getName() { return name; }
+        public Maze getMaze(){return this.maze;}
+        public void setJoinClient(TcpClient client) { client2 = client; }
+        public void setMaze(Maze maze) { this.maze = maze; }
 
         public bool isConnected()
         {
@@ -55,9 +47,9 @@ namespace server
             hg.HandleClients(this.client2);
         }
 
-        public void sendMessage(TcpClient client,string move)
+        public void sendMessage(TcpClient client,string message)
         {
-            hg.sendMove(client, move);
+            hg.sendMove(client, message);
         }
     }
 

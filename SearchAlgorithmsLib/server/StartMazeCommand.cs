@@ -29,6 +29,7 @@ namespace server
             {
                 Thread.Sleep(1000);
             }
+           // game.sendMessage(client, str);
             return str;
         }
     }

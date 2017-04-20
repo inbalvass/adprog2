@@ -12,7 +12,6 @@ namespace server
         {
             Controller c = new Controller();
             Model model = new Model(c);
-            View view = new View(c);
             Server server = new Server(8000, new ClientHandler(c));
             server.Start();
             Console.ReadKey();
