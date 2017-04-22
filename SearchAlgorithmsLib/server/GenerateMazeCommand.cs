@@ -12,10 +12,12 @@ namespace server
     class GenerateMazeCommand : ICommand
     {
         private IModel model;
+
         public GenerateMazeCommand(IModel model)
         {
             this.model = model;
         }
+
         public string Execute(string[] args, TcpClient client)
         {
             string name = args[0];

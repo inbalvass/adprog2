@@ -15,35 +15,34 @@ namespace server
         public List<Direction> directions { get; }
         public FindDirections()
         {
-            List<Direction> directions = new List<Direction>();
-
+            directions = new List<Direction>();
         }
 
         public void listOfDirections(Solution<Position> solution)
         {
-            int rowI, colI, rowBefore, colBefor;
+            int rowI, colI, rowAfter, colAfter;
             for (int i = solution.solution.Count() - 1; i > 0; i--)
             {
                 rowI = solution.solution[i].state.Row;
                 colI = solution.solution[i].state.Col;
-                rowBefore = solution.solution[i - 1].state.Row;
-                colBefor = solution.solution[i - 1].state.Col;
+                rowAfter = solution.solution[i - 1].state.Row;
+                colAfter = solution.solution[i - 1].state.Col;
 
-                if ((rowI == rowBefore) && (colI == colBefor + 1))
-                {
-                    directions.Add(Direction.Right);
-                }
-                else if ((rowI == rowBefore) && (colI == colBefor - 1))
+                if ((rowI == rowAfter) && (colI == colAfter + 1))
                 {
                     directions.Add(Direction.Left);
                 }
-                else if ((rowI == rowBefore + 1) && (colI == colBefor))
+                else if ((rowI == rowAfter) && (colI == colAfter - 1))
                 {
-                    directions.Add(Direction.Down);
+                    directions.Add(Direction.Right);
                 }
-                else if ((rowI + 1 == rowBefore) && (colI == colBefor - 1))
+                else if ((rowI == rowAfter + 1) && (colI == colAfter))
                 {
                     directions.Add(Direction.Up);
+                }
+                else if ((rowI + 1 == rowAfter) && (colI == colAfter))
+                {
+                    directions.Add(Direction.Down);
                 }
                 else
                 {
@@ -54,8 +53,32 @@ namespace server
 
         public string fromListToString()
         {
-
-            return directions.ToString();
+            string ls ="";
+            foreach (Direction d in directions)
+            {
+                if (d == Direction.Right)
+                {
+                    ls += "1";
+                }
+                else if (d == Direction.Left)
+                {
+                    ls += "0";
+                }
+                else if (d == Direction.Down)
+                {
+                    ls += "3";
+                }
+                else if (d == Direction.Up)
+                {
+                    ls += "2";
+                }
+                else
+                {
+                    //Direction.Unknown
+                    ls += "-1";
+                }
+            }
+            return ls;
         }
 
         public string ToJson(string name,int evaluate)
@@ -66,6 +89,15 @@ namespace server
             solveObj["NodesEvaluated"] = evaluate;
             return solveObj.ToString();
         }
-        
+
+        public string emptyJson(string name)
+        {
+            JObject solveObj = new JObject();
+            solveObj["Name"] = name;
+            solveObj["Solution"] = "";
+            solveObj["NodesEvaluated"] = "0";
+            return solveObj.ToString();
+        }
+
     }
 }

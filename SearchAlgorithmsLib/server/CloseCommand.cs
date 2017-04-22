@@ -40,7 +40,7 @@ namespace server
         private string ToJson()
         {
             JObject moveObj = new JObject();
-            moveObj["colse"] = "connection closed";
+            moveObj["close"] = "connection closed";
             return moveObj.ToString();
         }
     }

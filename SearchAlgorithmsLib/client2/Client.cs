@@ -51,12 +51,12 @@ namespace client
                             {
                                 Console.WriteLine("new task form client");
                                 string result = reader.ReadString();
-                                Console.WriteLine("new task" + result);
+                                Console.WriteLine("new task " + result);
 
-                                //בערך עבד כאשר זה היה השוואה מול רק הפקודה ולא מה שהתקבל
                                 if (result.Contains("close"))
                                 {
-                                    //close the connection
+                                    //צריך לתת מה לעשות כי זה ממש נסגר רק אחרי פקודת גנרט או סולב
+                                    Console.WriteLine("conecction closed. type enter to continue");
                                     break;
                                 }
                             }

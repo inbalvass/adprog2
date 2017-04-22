@@ -67,6 +67,7 @@ namespace SearchAlgorithmsLib
                 solution.add(came);
                 came = came.cameFrom;
             }
+            solution.add(start);
             return solution;
         }
 

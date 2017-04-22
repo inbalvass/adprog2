@@ -64,8 +64,11 @@ namespace server
                     dicSolutions.Remove(name);
                 }
             }
+            Console.WriteLine(name + rows + cols);
             DFSMazeGenerator mazeGenerate = new DFSMazeGenerator();
             Maze maze = mazeGenerate.Generate(rows, cols);
+            maze.Name = name;
+            Console.WriteLine(maze);
             dicName.Add(name, maze);
             return maze;
         }
@@ -135,9 +138,12 @@ namespace server
         {
             return move;
         }
+
         public IMultiGame CloseCommand(string name)
         {
-            return multyGames[name];
+            IMultiGame game = multyGames[name];
+            multyGames.Remove(name);
+            return game;
         }
     }
 }

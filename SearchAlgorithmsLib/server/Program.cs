@@ -10,12 +10,12 @@ namespace server
     {
         static void Main(string[] args)
         {
-            Controller c = new Controller();
-            Model model = new Model(c);
-            ClientHandler ch = new ClientHandler(c);
+            Controller control = new Controller();
+            Model model = new Model(control);
+            ClientHandler ch = new ClientHandler(control);
             Server server = new Server(8000, ch);
-            c.setClientHandler(ch);
-            c.setModel(model);
+            control.setClientHandler(ch);
+            control.setModel(model);
 
             Console.WriteLine("start server");
             server.Start();

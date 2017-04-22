@@ -46,6 +46,7 @@ namespace server
             string message = ToJson(move, myGame.getName());
             myGame.sendMessage(otherClient, message);
             //this do nothing because it the task not read it
+            Console.WriteLine("after send");
             return message;
         }
 

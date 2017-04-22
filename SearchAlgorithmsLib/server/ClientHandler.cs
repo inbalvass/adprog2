@@ -14,7 +14,6 @@ namespace server
         public ClientHandler(IController controller)
         {
             control = controller;
-
         }
 
         public void HandleClient(TcpClient client)
@@ -22,20 +21,37 @@ namespace server
             Console.WriteLine("in HandleClient");
             new Task(() =>
             {
+
                 using (NetworkStream stream = client.GetStream())
                 using (BinaryReader reader = new BinaryReader(stream))
                 using (BinaryWriter writer = new BinaryWriter(stream))
                 {
                     Console.WriteLine("in HandleClient new task");
-                 //   writer.AutoFlush = true;
+
+                    //   writer.AutoFlush = true;
                     string command;
-                    while ((command = reader.ReadString()) != null)  //במקום while true  נכון שזה מקסים?? 
+                    while ((command = reader.ReadString()) != null)
                     {
-                        Console.WriteLine("command" + command);
+                        Console.WriteLine("in HandleClient" + client);
+                        Console.WriteLine("command " + command);
                         string result = control.ExecuteCommand(command, client);
-                        writer.Write(result);
+                        Console.WriteLine(result);
+
+                        //שבפקודה מסוג פליי לא נפרסם תשובה
+                        if (!command.StartsWith("play"))
+                        {
+                            writer.Write(result);
+                        }
+
+                        if (command.StartsWith("generate") || command.StartsWith("solve") ||
+                        command.StartsWith("close"))
+                        {
+                            //close the connection
+                            break;
+                        }
                     }
                 }
+
                 //לבדוק את זה!! אולי צריך להיות פה איזו לולאת וויאל
                 client.Close();
             }).Start();

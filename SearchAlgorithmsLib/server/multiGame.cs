@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Net.Sockets;
 using MazeLib;
+using System.IO;
 
 namespace server
 {
@@ -14,7 +15,6 @@ namespace server
         private TcpClient client1;
         private TcpClient client2;
         private Maze maze;
-        HandleGame hg;
 
         public multiGame(string name, TcpClient client)
         {
@@ -40,16 +40,21 @@ namespace server
             return true;
         }
 
-        public void CreateConnection(IController controller)
+        //טאסק בשביל שישלח את ההודעה שצריך לקליינט
+        public void sendMessage(TcpClient client, string result)
         {
-            hg = new HandleGame(controller);
-            hg.HandleClients(this.client1);
-            hg.HandleClients(this.client2);
-        }
-
-        public void sendMessage(TcpClient client,string message)
-        {
-            hg.sendMove(client, message);
+            Console.WriteLine("ss");
+            
+            new Task(() =>
+            {
+                Console.WriteLine("send message");
+                NetworkStream stream = client.GetStream();
+                BinaryWriter writer = new BinaryWriter(stream);
+                {
+                    Console.WriteLine("in send message" + result);
+                    writer.Write(result);
+                }
+            }).Start();
         }
     }
 

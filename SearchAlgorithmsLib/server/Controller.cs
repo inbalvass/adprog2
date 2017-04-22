@@ -15,13 +15,13 @@ namespace server
         private IClientHandler clientHandler;
         public Controller()
         {
-            commands = new Dictionary<string, ICommand>();
-            addCommands();
+            commands = new Dictionary<string, ICommand>();  
         }
 
         public void setModel(IModel mod)
         {
             model = mod;
+            addCommands();
         }
 
         public void setClientHandler(IClientHandler clientHandler)
