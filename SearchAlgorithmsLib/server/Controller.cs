@@ -48,7 +48,14 @@ namespace server
                 return "Command not found";
             string[] args = arr.Skip(1).ToArray();
             ICommand command = commands[commandKey];
-            return command.Execute(args, client);
-        }
+            try
+            {
+                return command.Execute(args, client);
+            }
+            catch(Exception e)
+            {
+                return "Exception "+e.Message;
+            }
+}
     }
 }

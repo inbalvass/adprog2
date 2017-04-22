@@ -36,6 +36,10 @@ namespace server
 
         private ISearchable<Position> getAdapter(string name)
         {
+            if (!singleNames.ContainsKey(name))
+            {
+                throw new System.ArgumentException("wrong input - game not exist", "original");
+            }
             //need to find the maze in a dictionary.
             Maze maze = singleNames[name];
             ISearchable<Position> adapter = new Adapter(maze);
@@ -124,12 +128,6 @@ namespace server
 
         public IMultiGame JoinCommand(string name)
         {
-            //לראות איך לעשות את זה נכון
-            if (!availableGames.Contains(name))
-            {
-                //"wrong input-game not exist";
-                //throw Exception("wrong input-game not exist");
-            }
             availableGames.Remove(name);
             return multyGames[name];
         }
@@ -141,6 +139,10 @@ namespace server
 
         public IMultiGame CloseCommand(string name)
         {
+            if (!multyGames.ContainsKey(name))
+            {
+                throw new System.ArgumentException("wrong input - game not exist", "original");
+            }
             IMultiGame game = multyGames[name];
             multyGames.Remove(name);
             return game;
