@@ -32,16 +32,16 @@ namespace client
             {             
                 while (true)
                 {
-                    //בדיקה- את זה למחוק
-                    Console.WriteLine(command);
-
                     // Send data to server
                     writer.Write(command);
                     // Get result from server.if this is play command so dont wait for answer
                     if (!command.StartsWith("play") && !command.StartsWith("close"))
                     {
                         string result = reader.ReadString();
-                        Console.WriteLine(result);
+                        if (command != "b")
+                        {
+                            Console.WriteLine(result);
+                        }
                     }
                     if (command.StartsWith("start") || command.StartsWith("join"))
                     {
@@ -49,9 +49,8 @@ namespace client
                         {
                             while (true)
                             {
-                                Console.WriteLine("new task form client");
                                 string result = reader.ReadString();
-                                Console.WriteLine("new task " + result);
+                                Console.WriteLine(result);
 
                                 if (result.Contains("close"))
                                 {

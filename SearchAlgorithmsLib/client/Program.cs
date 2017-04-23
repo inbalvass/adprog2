@@ -6,6 +6,7 @@ using System.Net;
 using System.Net.Sockets;
 using System.Text;
 using System.Threading.Tasks;
+using System.Configuration;
 
 namespace client
 {
@@ -16,10 +17,10 @@ namespace client
             //the client run all the time
             while (true)
             {
-                //את זה נוציא למיין ואז נפתח חיבור רק ברגע שהלקוח רוצה לשלוח הודעה ולא סתם
                 Console.WriteLine("write your command");
                 string command = Console.ReadLine();
-                Client client = new Client(8000);
+                int port = Int32.Parse(ConfigurationManager.AppSettings["port"]);
+                Client client = new Client(port);
                 client.Start(command);
             }
         }
