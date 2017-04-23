@@ -20,7 +20,9 @@ namespace SearchAlgorithmsLib
                 //if we found the goal then return the trace
                 if (node.Equals(searchable.getGoalState()))
                 {
-                    return backTrace(searchable.getGoalState(), searchable.getInitialState());
+                    Solution<T> sol = backTrace(searchable.getGoalState(), searchable.getInitialState());
+                    sol.evaluatedNodes = getNumberOfNodesEvaluated();
+                    return sol;
                 }
                 if (!closedContains(node))
                 {

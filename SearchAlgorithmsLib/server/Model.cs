@@ -77,10 +77,11 @@ namespace server
         {
             ISearchable<Position> adapter = getAdapter(name);
             Solution<Position> sol;
-            int evaluated = 0;
+            int evaluated;
             if (singleSolutions.ContainsKey(name))
             {
                 sol = singleSolutions[name];
+                evaluated = sol.evaluatedNodes;
             }
             else
             {

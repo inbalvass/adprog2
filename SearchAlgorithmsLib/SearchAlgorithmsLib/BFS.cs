@@ -21,7 +21,9 @@ namespace SearchAlgorithmsLib
                 addToClosedList(n);
                 if (n.Equals(goal))
                 {
-                    return backTrace(n, searchable.getInitialState());
+                    Solution<T> sol = backTrace(n, searchable.getInitialState());
+                    sol.evaluatedNodes = getNumberOfNodesEvaluated();
+                    return sol;
                 }
                 List<State<T>> succerssors = searchable.getAllPossibleStates(n);
                 foreach (State<T> s in succerssors)

@@ -12,6 +12,7 @@ namespace SearchAlgorithmsLib
     public class Solution<T>
     {
         public List<State<T>> solution { get; }
+        public int evaluatedNodes { get; set; }
 
         /// <summary>
         /// constructor
