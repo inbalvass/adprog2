@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Configuration;
 
 namespace server
 {
@@ -13,7 +14,7 @@ namespace server
             Controller control = new Controller();
             Model model = new Model(control);
             ClientHandler ch = new ClientHandler(control);
-            Server server = new Server(8000, ch);
+            Server server = new Server(int.Parse(ConfigurationManager.AppSettings["port"]), ch);
             control.setClientHandler(ch);
             control.setModel(model);
 

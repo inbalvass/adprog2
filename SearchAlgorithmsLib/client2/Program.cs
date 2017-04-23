@@ -6,6 +6,7 @@ using System.Net;
 using System.Net.Sockets;
 using System.Text;
 using System.Threading.Tasks;
+using System.Configuration;
 
 namespace client
 {
@@ -18,7 +19,7 @@ namespace client
             {
                 Console.WriteLine("write your command");
                 string command = Console.ReadLine();
-                Client client = new Client(8000);
+                Client client = new Client(int.Parse(ConfigurationManager.AppSettings["port"]));
                 client.Start(command);
             }
         }

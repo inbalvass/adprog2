@@ -32,9 +32,6 @@ namespace client
             {             
                 while (true)
                 {
-                    //בדיקה- את זה למחוק
-                    Console.WriteLine(command);
-
                     // Send data to server
                     writer.Write(command);
                     // Get result from server.if this is play command so dont wait for answer
@@ -56,7 +53,7 @@ namespace client
                                 if (result.Contains("close"))
                                 {
                                     //צריך לתת מה לעשות כי זה ממש נסגר רק אחרי פקודת גנרט או סולב
-                                    Console.WriteLine("conecction closed. type b to continue");
+                                    Console.WriteLine("connection closed. type b to continue");
                                     break;
                                 }
                             }
