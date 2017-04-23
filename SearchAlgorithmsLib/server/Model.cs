@@ -116,6 +116,13 @@ namespace server
             return maze;
         }
 
+        /// <summary>
+        /// 
+        /// this function solves the maze for a single player.
+        /// </summary>
+        /// <param name="name">the name of the maze to solve</param>
+        /// <param name="algorithm">the algorithm to solve the maze with</param>
+        /// <returns></returns>
         public string SolveMazeCommand(string name, int algorithm)
         {
             ISearchable<Position> adapter = getAdapter(name);
@@ -149,7 +156,14 @@ namespace server
             return f.ToJson(name, evaluated);
         }
 
-
+        /// <summary>
+        /// this function starts a multiplayer game.
+        /// </summary>
+        /// <param name="name">name of the game</param>
+        /// <param name="rows">rows in the maze</param>
+        /// <param name="cols">columns in the maze</param>
+        /// <param name="game">the game</param>
+        /// <returns></returns>
         public string StartMazeCommand(string name, int rows, int cols,IMultiGame game)
         {
             //create the maze
@@ -161,22 +175,41 @@ namespace server
             return maze.ToJSON();
         }
 
+        /// <summary>
+        /// this function lists all the possible games to join to.
+        /// </summary>
+        /// <returns></returns>
         public string ListCommand()
         {
             return availableGames.ToString();
         }
 
+        /// <summary>
+        /// this function join a player to an existing game.
+        /// </summary>
+        /// <param name="name">the name of the game.</param>
+        /// <returns></returns>
         public IMultiGame JoinCommand(string name)
         {
             availableGames.Remove(name);
             return multyGames[name];
         }
 
+        /// <summary>
+        /// this function play a move of a player in a multiplater game.
+        /// </summary>
+        /// <param name="move">up/down etc..</param>
+        /// <returns></returns>
         public string PlayCommand(string move)
         {
             return move;
         }
 
+        /// <summary>
+        /// this function close the connection of the client to the server and the game.
+        /// </summary>
+        /// <param name="name"></param>
+        /// <returns></returns>
         public IMultiGame CloseCommand(string name)
         {
             if (!multyGames.ContainsKey(name))
