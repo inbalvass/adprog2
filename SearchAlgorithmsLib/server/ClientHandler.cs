@@ -44,7 +44,7 @@ namespace server
                         }
 
                         if (command.StartsWith("generate") || command.StartsWith("solve") ||
-                        command.StartsWith("close"))
+                        command.StartsWith("close") || command == "b")
                         {
                             //close the connection
                             break;

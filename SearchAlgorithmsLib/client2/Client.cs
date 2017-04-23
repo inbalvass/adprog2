@@ -56,15 +56,15 @@ namespace client
                                 if (result.Contains("close"))
                                 {
                                     //צריך לתת מה לעשות כי זה ממש נסגר רק אחרי פקודת גנרט או סולב
-                                    Console.WriteLine("conecction closed. type enter to continue");
+                                    Console.WriteLine("conecction closed. type b to continue");
                                     break;
                                 }
                             }
                         }).Start();
                     }
-
                     if (command.StartsWith("generate") || command.StartsWith("solve") ||
-                        command.StartsWith("close"))
+                        command.StartsWith("close") || command == "b")
+
                     {
                         
                         Thread.Sleep(100); //so the task closed first
