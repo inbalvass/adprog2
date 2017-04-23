@@ -9,7 +9,6 @@ namespace server
 {
     interface ICommand
     {
-       // string Execute(string[] args, TcpClient client = null);
         string Execute(string[] args, TcpClient client);
     }
 }

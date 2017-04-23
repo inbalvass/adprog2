@@ -10,14 +10,27 @@ using Newtonsoft.Json.Linq;
 
 namespace server
 {
+    /// <summary>
+    /// find the direction to gt the solution
+    /// </summary>
     class FindDirections
     {
+        /// <summary>
+        /// list of the directions that represent the solution
+        /// </summary>
         public List<Direction> directions { get; }
+        /// <summary>
+        /// constructor
+        /// </summary>
         public FindDirections()
         {
             directions = new List<Direction>();
         }
 
+        /// <summary>
+        /// get the solution and create the directions it need to move to go;
+        /// </summary>
+        /// <param name="solution">the solution</param>
         public void listOfDirections(Solution<Position> solution)
         {
             int rowI, colI, rowAfter, colAfter;
@@ -51,6 +64,10 @@ namespace server
             }
         }
 
+        /// <summary>
+        /// convert the list direction to the string representation and return it
+        /// </summary>
+        /// <returns></returns>
         public string fromListToString()
         {
             string ls ="";
@@ -81,6 +98,12 @@ namespace server
             return ls;
         }
 
+        /// <summary>
+        /// create the json
+        /// </summary>
+        /// <param name="name">the name of the maze</param>
+        /// <param name="evaluate">the number of evaluated nodes</param>
+        /// <returns></returns>
         public string ToJson(string name,int evaluate)
         {
             JObject solveObj = new JObject();
@@ -89,15 +112,5 @@ namespace server
             solveObj["NodesEvaluated"] = evaluate;
             return solveObj.ToString();
         }
-
-        public string emptyJson(string name)
-        {
-            JObject solveObj = new JObject();
-            solveObj["Name"] = name;
-            solveObj["Solution"] = "";
-            solveObj["NodesEvaluated"] = "0";
-            return solveObj.ToString();
-        }
-
     }
 }
