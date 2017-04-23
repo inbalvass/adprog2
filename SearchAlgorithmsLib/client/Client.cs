@@ -38,7 +38,10 @@ namespace client
                     if (!command.StartsWith("play") && !command.StartsWith("close"))
                     {
                         string result = reader.ReadString();
-                        Console.WriteLine(result);
+                        if (command != "b")
+                        {
+                            Console.WriteLine(result);
+                        }
                     }
                     if (command.StartsWith("start") || command.StartsWith("join"))
                     {
@@ -46,9 +49,8 @@ namespace client
                         {
                             while (true)
                             {
-                                Console.WriteLine("new task form client");
                                 string result = reader.ReadString();
-                                Console.WriteLine("new task " + result);
+                                Console.WriteLine(result);
 
                                 if (result.Contains("close"))
                                 {

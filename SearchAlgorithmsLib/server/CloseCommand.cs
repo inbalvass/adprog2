@@ -12,6 +12,10 @@ namespace server
     {
         private IModel model;
 
+        /// <summary>
+        /// constructor
+        /// </summary>
+        /// <param name="model">the model</param>
         public CloseCommand(IModel model)
         {
             this.model = model;

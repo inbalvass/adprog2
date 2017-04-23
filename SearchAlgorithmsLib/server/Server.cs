@@ -18,12 +18,14 @@ namespace server
             this.port = port;
             this.ch = ch;
         }
+        /// <summary>
+        /// run the server. wait for client and for each client it open new task to deal with the orders
+        /// </summary>
         public void Start()
         {
             IPEndPoint ep = new IPEndPoint(IPAddress.Parse("127.0.0.1"), port);
             listener = new TcpListener(ep);
             listener.Start();
-            //  Console.WriteLine("Waiting for connections...");
             Task task = new Task(() =>
             {
                 while (true)
@@ -32,7 +34,6 @@ namespace server
                     {
                         TcpClient client = listener.AcceptTcpClient();
                         Console.WriteLine("client in server class  " + client);
-                        //Console.WriteLine("Got new connection");
                         ch.HandleClient(client);
                     }
                     catch (SocketException)
@@ -40,7 +41,6 @@ namespace server
                         break;
                     }
                 }
-               // Console.WriteLine("Server stopped");
             });
             task.Start();
         }

@@ -12,6 +12,10 @@ namespace server
     {
         private IModel model;
 
+        /// <summary>
+        /// constructor
+        /// </summary>
+        /// <param name="model">the model</param>
         public StartMazeCommand(IModel model)
         {
             this.model = model;
@@ -24,12 +28,11 @@ namespace server
 
             multiGame game = new multiGame(name, client);
             string str = model.StartMazeCommand(name, rows, cols, game);
-            //כל עוד עוד לא התחברנו למשחק אחר תתן לטרד הנוכחי לישון וכך תשובה תחזור רק אחרי שהיה התחברות של שחקן אחר
+            //waut untiol another client is connected to the game
             while (!game.isConnected())
             {
                 Thread.Sleep(1000);
             }
-            //game.sendMessage(client, str);
             return str;
         }
     }

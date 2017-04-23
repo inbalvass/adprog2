@@ -19,7 +19,8 @@ namespace client
             {
                 Console.WriteLine("write your command");
                 string command = Console.ReadLine();
-                Client client = new Client(int.Parse(ConfigurationManager.AppSettings["port"]));
+                int port = Int32.Parse(ConfigurationManager.AppSettings["port"]);
+                Client client = new Client(port);
                 client.Start(command);
             }
         }
