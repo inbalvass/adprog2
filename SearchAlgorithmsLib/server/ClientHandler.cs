@@ -8,17 +8,31 @@ using System.IO;
 
 namespace server
 {
+    /// <summary>
+    /// deal with the client. it get the client order and on new task execute it.
+    /// </summary>
     class ClientHandler : IClientHandler
     {
+        /// <summary>
+        /// the controller
+        /// </summary>
         private IController control;
+
+        /// <summary>
+        /// constructor
+        /// </summary>
+        /// <param name="controller"> the controller</param>
         public ClientHandler(IController controller)
         {
             control = controller;
         }
 
+        /// <summary>
+        /// create new task and execute the command
+        /// </summary>
+        /// <param name="client">the client that it deal with</param>
         public void HandleClient(TcpClient client)
         {
-            Console.WriteLine("in HandleClient");
             new Task(() =>
             {
 
@@ -26,18 +40,12 @@ namespace server
                 using (BinaryReader reader = new BinaryReader(stream))
                 using (BinaryWriter writer = new BinaryWriter(stream))
                 {
-                    Console.WriteLine("in HandleClient new task");
-
-                    //   writer.AutoFlush = true;
                     string command;
                     while ((command = reader.ReadString()) != null)
                     {
-                        Console.WriteLine("in HandleClient" + client);
-                        Console.WriteLine("command " + command);
                         string result = control.ExecuteCommand(command, client);
                         Console.WriteLine(result);
 
-                        //שבפקודה מסוג פליי לא נפרסם תשובה
                         if (!command.StartsWith("play"))
                         {
                             writer.Write(result);
@@ -51,8 +59,6 @@ namespace server
                         }
                     }
                 }
-
-                //לבדוק את זה!! אולי צריך להיות פה איזו לולאת וויאל
                 client.Close();
             }).Start();
         }

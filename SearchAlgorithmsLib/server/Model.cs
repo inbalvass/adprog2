@@ -12,17 +12,44 @@ using Newtonsoft.Json;
 
 namespace server
 {
+    /// <summary>
+    /// the model
+    /// </summary>
     class Model : IModel
     {
+        /// <summary>
+        /// the controller
+        /// </summary>
         private IController control;
+        /// <summary>
+        /// dictionary to save the mazes in the single games
+        /// </summary>
         private Dictionary<string, Maze> singleNames;
+        /// <summary>
+        /// dictionary to save the solution for the single games
+        /// </summary>
         private Dictionary<string, Solution<Position>> singleSolutions;
+        /// <summary>
+        /// dictionary to save the mazes in the multy games
+        /// </summary>
         private Dictionary<string, Maze> multyNames;
+        /// <summary>
+        /// dictionary to save the solution for the multy games
+        /// </summary>
         private Dictionary<string, Solution<Position>> multySolutions;
-
+        /// <summary>
+        /// dictionary to save the information of the multy games
+        /// </summary>
         public Dictionary<string, IMultiGame> multyGames;
+        /// <summary>
+        /// array to save the names of the available games to join in
+        /// </summary>
         private JArray availableGames;
 
+        /// <summary>
+        /// constructor
+        /// </summary>
+        /// <param name="conl"> the controller</param>
         public Model(IController conl)
         {
             control = conl;
@@ -34,6 +61,11 @@ namespace server
             availableGames = new JArray();
         }
 
+        /// <summary>
+        /// create an adapter and return it
+        /// </summary>
+        /// <param name="name"> the maze name</param>
+        /// <returns></returns>
         private ISearchable<Position> getAdapter(string name)
         {
             if (!singleNames.ContainsKey(name))
@@ -46,6 +78,13 @@ namespace server
             return adapter;
         }
 
+        /// <summary>
+        /// generate maze for single player
+        /// </summary>
+        /// <param name="name"> the maze name</param>
+        /// <param name="rows">the number of rows</param>
+        /// <param name="cols"> the number of colomns</param>
+        /// <returns></returns>
         public Maze GenerateMaze(string name, int rows, int cols)
         {
             return Generate(name, rows, cols, singleNames, singleSolutions);

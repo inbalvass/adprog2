@@ -62,7 +62,6 @@
     <Compile Include="IController.cs" />
     <Compile Include="IModel.cs" />
     <Compile Include="IMultiGame.cs" />
-    <Compile Include="IView.cs" />
     <Compile Include="JoinCommand.cs" />
     <Compile Include="ListCommand.cs" />
     <Compile Include="Model.cs" />
