@@ -11,10 +11,13 @@ using System.Net.Sockets;
 namespace server
 {
     /// <summary>
-    /// part of the controller- it get the solve command and solve the maze.
+    /// this class defines rhe command of "solve", and implements the ICommand interface.
     /// </summary>
     class SolveMazeCommand : ICommand
     {
+        /// <summary>
+        /// holdes the model.
+        /// </summary>
         private IModel model;
 
         /// <summary>

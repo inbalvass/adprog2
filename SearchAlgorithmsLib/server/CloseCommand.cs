@@ -8,12 +8,18 @@ using Newtonsoft.Json.Linq;
 
 namespace server
 {
+    /// <summary>
+    /// this class defines rhe command of "close", and implements the ICommand interface.
+    /// </summary>
     class CloseCommand : ICommand
     {
+        /// <summary>
+        /// holdes the model.
+        /// </summary>
         private IModel model;
 
         /// <summary>
-        /// constructor
+        /// a constructor.
         /// </summary>
         /// <param name="model">the model</param>
         public CloseCommand(IModel model)
@@ -21,6 +27,13 @@ namespace server
             this.model = model;
         }
 
+        /// <summary>
+        /// this function executes the command of this class.
+        /// </summary>
+        /// <param name="args">the arguments for the command.
+        /// </param>
+        /// <param name="client"></param>
+        /// <returns></returns>
         public string Execute(string[] args, TcpClient client)
         {
             string name = args[0];
@@ -41,6 +54,10 @@ namespace server
             return message;
         }
 
+        /// <summary>
+        /// this function returns a Json format of the command.
+        /// </summary>
+        /// <returns></returns>
         private string ToJson()
         {
             JObject moveObj = new JObject();

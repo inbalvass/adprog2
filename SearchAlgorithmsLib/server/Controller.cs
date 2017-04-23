@@ -8,27 +8,49 @@ using System.Threading.Tasks;
 
 namespace server
 {
+    /// <summary>
+    /// this class defines the controller of the MVC.
+    /// </summary>
     class Controller : IController
     {
+        /// <summary>
+        /// a dictionary of different commands, the model of the MVC, and a clientHandler 
+        /// object to handle clients.
+        /// </summary>
         private Dictionary<string, ICommand> commands;
         private IModel model;
         private IClientHandler clientHandler;
+
+        /// <summary>
+        /// a constructor.
+        /// </summary>
         public Controller()
         {
             commands = new Dictionary<string, ICommand>();  
         }
 
+        /// <summary>
+        /// this function sets the model property.
+        /// </summary>
+        /// <param name="mod">the new model.</param>
         public void setModel(IModel mod)
         {
             model = mod;
             addCommands();
         }
 
+        /// <summary>
+        /// this function sets the clientHandler property.
+        /// </summary>
+        /// <param name="mod">the new clientHandler.</param>
         public void setClientHandler(IClientHandler clientHandler)
         {
             this.clientHandler = clientHandler;
         }
 
+        /// <summary>
+        /// this function add all the different commands to the dictionary.
+        /// </summary>
         private void addCommands()
         {
             commands.Add("generate", new GenerateMazeCommand(model));
@@ -40,6 +62,13 @@ namespace server
             commands.Add("close", new CloseCommand(model));
         }
 
+        /// <summary>
+        /// this function execute a curtain command from the client. 
+        /// </summary>
+        /// <param name="commandLine">the command and it's arguments.
+        /// </param>
+        /// <param name="client">the client</param>
+        /// <returns></returns>
         public string ExecuteCommand(string commandLine, TcpClient client)
         {
             string[] arr = commandLine.Split(' ');

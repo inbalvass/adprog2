@@ -8,8 +8,14 @@ using System.Threading;
 
 namespace server
 {
+    /// <summary>
+    /// this class defines rhe command of "start", and implements the ICommand interface.
+    /// </summary>
     class StartMazeCommand : ICommand
     {
+        /// <summary>
+        /// holdes the model.
+        /// </summary>
         private IModel model;
 
         /// <summary>
@@ -20,6 +26,14 @@ namespace server
         {
             this.model = model;
         }
+
+        /// <summary>
+        /// this function executes the command of this class.
+        /// </summary>
+        /// <param name="args">the arguments for the command.
+        /// </param>
+        /// <param name="client"></param>
+        /// <returns></returns>
         public string Execute(string[] args, TcpClient client)
         {
             string name = args[0];
@@ -28,7 +42,7 @@ namespace server
 
             multiGame game = new multiGame(name, client);
             string str = model.StartMazeCommand(name, rows, cols, game);
-            //waut untiol another client is connected to the game
+            //wait until another client is connected to the game
             while (!game.isConnected())
             {
                 Thread.Sleep(1000);
