@@ -11,6 +11,10 @@ namespace server
     {
         private IModel model;
 
+        /// <summary>
+        /// constructor
+        /// </summary>
+        /// <param name="model">the model</param>
         public ListCommand(IModel model)
         {
             this.model = model;

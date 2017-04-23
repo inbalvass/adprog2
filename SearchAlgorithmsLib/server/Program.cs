@@ -6,8 +6,15 @@ using System.Threading.Tasks;
 
 namespace server
 {
+    /// <summary>
+    /// start the server 
+    /// </summary>
     class Program
     {
+        /// <summary>
+        /// start the server
+        /// </summary>
+        /// <param name="args"></param>
         static void Main(string[] args)
         {
             Controller control = new Controller();
@@ -17,7 +24,6 @@ namespace server
             control.setClientHandler(ch);
             control.setModel(model);
 
-            Console.WriteLine("start server");
             server.Start();
             Console.ReadKey();
         }
