@@ -10,15 +10,32 @@ using MazeLib;
 
 namespace checksTheDll
 {
+    /// <summary>
+    /// This class's part is to adapt the maze object to Searchable,
+    /// using object adapter pattern.
+    /// </summary>
     public class Adapter : ISearchable<Position>
     {
+        /// <summary>
+        /// the adaptee maze
+        /// </summary>
         private Maze maze;
 
+        /// <summary>
+        /// a constructor.
+        /// </summary>
+        /// <param name="mazes"> the maze object.
+        /// </param>
         public Adapter(Maze mazes)
         {
             maze = mazes;
         }
 
+        /// <summary>
+        /// this function returns the initial state of the maze.
+        /// </summary>
+        /// <returns> the initial state.
+        /// </returns>
         public State<Position> getInitialState()
         {
             Position pos = maze.InitialPos;
@@ -28,12 +45,25 @@ namespace checksTheDll
             return state;
         }
 
+        /// <summary>
+        /// this function returns the goal state of the maze.
+        /// </summary>
+        /// <returns> the goal state.
+        /// </returns>
         public State<Position> getGoalState()
         {
             Position pos = maze.GoalPos;
             return State<Position>.StatePool.getInstance(pos);
         }
 
+        /// <summary>
+        /// this function calculates a list of all the possible states to go to,
+        /// from a specific state.
+        /// </summary>
+        /// <param name="s"> the state
+        /// </param>
+        /// <returns> the list of thates
+        /// </returns>
         public List<State<Position>> getAllPossibleStates(State<Position> s)
         {
             List<State<Position>> succerssors = new List<State<Position>>();

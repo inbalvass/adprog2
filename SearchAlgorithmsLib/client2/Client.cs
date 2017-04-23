@@ -10,16 +10,33 @@ using System.Threading;
 
 namespace client
 {
+    /// <summary>
+    /// this class represents a client.
+    /// </summary>
     class Client
     {
+        /// <summary>
+        /// TcpClient of the client and his port to contact the server.
+        /// </summary>
         private TcpClient client;
         private int port;
+
+        /// <summary>
+        /// a constructor.
+        /// </summary>
+        /// <param name="port"> the port to contact the server.
+        /// </param>
         public Client(int port)
         {
             client = new TcpClient();
             this.port = port;
         }
 
+        /// <summary>
+        /// this function starts the client and establish the connection to the server.
+        /// </summary>
+        /// <param name="commands">the command to the server.
+        /// </param>
         public void Start(string commands)
         {
             string command = commands;
@@ -78,6 +95,10 @@ namespace client
             }
 
         }
+
+        /// <summary>
+        /// close the connection to the server.
+        /// </summary>
         public void Stop()
         {
             client.Close();

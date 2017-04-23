@@ -6,11 +6,15 @@ using Priority_Queue;
 namespace SearchAlgorithmsLib
 {
     /// <summary>
-    /// class that hold the close list
+    /// this class defines an object that can perform a search algorithm, and holds
+    /// a closed list of nodes as part of the algorithm.
     /// </summary>
-    /// <typeparam name="T"> the type of the state </typeparam>
+    /// <typeparam name="T">generic. </typeparam>
     public abstract class Searcher<T> : ISearcher<T>
     {
+        /// <summary>
+        /// a closed list of nodes (evaluated), and the number of nodes evaluated.
+        /// </summary>
         private HashSet<State<T>> closed;
         private int evaluatedNodes;
 

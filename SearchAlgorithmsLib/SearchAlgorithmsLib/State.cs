@@ -16,7 +16,7 @@ namespace SearchAlgorithmsLib
         public State<T> cameFrom { get; set; } // the state we came from to this state (setter)
 
         /// <summary>
-        /// constructor
+        /// a constructor.
         /// </summary>
         /// <param name="state"></param>
         public State(T state)
@@ -25,7 +25,7 @@ namespace SearchAlgorithmsLib
         }
 
         /// <summary>
-        /// copy constructor
+        /// a copy constructor.
         /// </summary>
         /// <param name="states"></param>
         public State(State<T> states)
@@ -36,7 +36,7 @@ namespace SearchAlgorithmsLib
         }
 
         /// <summary>
-        /// overrid the hash code to include just the state
+        /// this function overrides the hash code to include just the state.
         /// </summary>
         /// <returns></returns>
         public override int GetHashCode()
@@ -45,7 +45,7 @@ namespace SearchAlgorithmsLib
         }
 
         /// <summary>
-        /// overload Object's Equals method
+        /// this function overload Object's Equals method.
         /// </summary>
         /// <param name="obj"></param>
         /// <returns></returns>
@@ -54,18 +54,35 @@ namespace SearchAlgorithmsLib
             return state.Equals((obj as State<T>).state);
         }
 
-        //statePool class
+        /// <summary>
+        /// this class is an inner class, defines a state-pool that holds all the stated created
+        /// and make sure that every state is created once.
+        /// </summary>
         static public class StatePool
 
         {
+            /// <summary>
+            /// a dictionary of states and thier types.
+            /// </summary>
             static public Dictionary<T, State<T>> pool = new Dictionary<T, State<T>>();
 
+            /// <summary>
+            /// this function checks if the given state was already created or not.
+            /// </summary>
+            /// <param name="current">the atate.</param>
+            /// <returns></returns>
             static public bool checkInstance(T current)
             {
                 return pool.ContainsKey(current);
             }
 
 
+            /// <summary>
+            /// this function try to get an instance of a stete. if the state was already
+            /// created it returns it. otherwise, creates it, add to the pool and returns.
+            /// </summary>
+            /// <param name="current"></param>
+            /// <returns></returns>
             static public State<T> getInstance(T current)
             {
                 State<T> value;

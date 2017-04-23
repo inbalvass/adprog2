@@ -6,16 +6,20 @@ using MazeLib;
 namespace SearchAlgorithmsLib
 {
     /// <summary>
-    /// create a list of the solution
+    /// this class holdes a solution of some graph.
     /// </summary>
     /// <typeparam name="T"> the type of the state </typeparam>
     public class Solution<T>
     {
+        /// <summary>
+        /// a list of states that are the solution, and the number of nodes evaluated by 
+        /// the search algorithm that solved the graph.
+        /// </summary>
         public List<State<T>> solution { get; }
         public int evaluatedNodes { get; set; }
 
         /// <summary>
-        /// constructor
+        /// a constructor.
         /// </summary>
         public Solution()
         {
@@ -23,7 +27,7 @@ namespace SearchAlgorithmsLib
         }
 
         /// <summary>
-        /// add new state to the list of solution
+        /// add a new state to the list of solution.
         /// </summary>
         /// <param name="s"></param>
         public void add(State<T> s)

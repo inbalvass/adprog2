@@ -7,8 +7,20 @@ using MazeLib;
 
 namespace SearchAlgorithmsLib
 {
+    /// <summary>
+    /// this class represents the DFS algorithm logic, implements the Searcher interface.
+    /// </summary>
+    /// <typeparam name="T">the algorithm is generic.
+    /// </typeparam>
     public class DFS<T> : Searcher<T>
     {
+        /// <summary>
+        /// this function search the goal state in the garph, and overriding
+        /// Searcher's abstract method.
+        /// </summary>
+        /// <param name="searchable"> a searchable object to search in graph.
+        /// </param>
+        /// <returns></returns>
         public override Solution<T> search(ISearchable<T> searchable)
         {
             Stack<State<T>> stack = new Stack<State<T>>();

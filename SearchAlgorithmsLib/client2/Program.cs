@@ -10,8 +10,16 @@ using System.Configuration;
 
 namespace client
 {
+    /// <summary>
+    /// the main class that runs the client.
+    /// </summary>
+    /// <param name="args"></param>
     class Program
     {
+        /// <summary>
+        /// the main function that runs the client.
+        /// </summary>
+        /// <param name="args"></param>
         static void Main(string[] args)
         {
             //the client run all the time

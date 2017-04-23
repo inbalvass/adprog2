@@ -27,6 +27,9 @@ namespace checksTheDll
             maze = mazeGenerate.Generate(rows, cols);
         }
 
+        /// <summary>
+        /// this function compares the BFS and DFS algorithms, by solving the same maze.
+        /// </summary>
         public void CompareSolvers()
         {
             Console.WriteLine(maze.ToString());

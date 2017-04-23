@@ -10,22 +10,38 @@ using System.Threading;
 
 namespace client
 {
+    /// <summary>
+    /// this class represents a client.
+    /// </summary>
     class Client
     {
+        /// <summary>
+        /// TcpClient of the client and his port to contact the server.
+        /// </summary>
         private TcpClient client;
         private int port;
+
+        /// <summary>
+        /// a constructor.
+        /// </summary>
+        /// <param name="port"> the port to contact the server.
+        /// </param>
         public Client(int port)
         {
             client = new TcpClient();
             this.port = port;
         }
 
+        /// <summary>
+        /// this function starts the client and establish the connection to the server.
+        /// </summary>
+        /// <param name="commands">the command to the server.
+        /// </param>
         public void Start(string commands)
         {
             string command = commands;
             IPEndPoint ep = new IPEndPoint(IPAddress.Parse("127.0.0.1"), port);
             client.Connect(ep);
-            //Console.WriteLine("You are connected");
             using (NetworkStream stream = client.GetStream())
             using (BinaryReader reader = new BinaryReader(stream))
             using (BinaryWriter writer = new BinaryWriter(stream))
@@ -34,7 +50,7 @@ namespace client
                 {
                     // Send data to server
                     writer.Write(command);
-                    // Get result from server.if this is play command so dont wait for answer
+                    // Get result from server. if this is a play or close command so don't wait for answer
                     if (!command.StartsWith("play") && !command.StartsWith("close"))
                     {
                         string result = reader.ReadString();
@@ -54,7 +70,8 @@ namespace client
 
                                 if (result.Contains("close"))
                                 {
-                                    //צריך לתת מה לעשות כי זה ממש נסגר רק אחרי פקודת גנרט או סולב
+                                    // after the other client closed the connection this client still
+                                    //has to react with some flag of closing.
                                     Console.WriteLine("connection closed. type b to continue");
                                     break;
                                 }
@@ -65,8 +82,8 @@ namespace client
                         command.StartsWith("close") || command == "b")
 
                     {
-                        
-                        Thread.Sleep(100); //so the task closed first
+                        //so the task closed first
+                        Thread.Sleep(100);
                         Console.WriteLine("client close");
                         //close the connection
                         Stop();
@@ -78,10 +95,13 @@ namespace client
             }
 
         }
+
+        /// <summary>
+        /// close the connection to the server.
+        /// </summary>
         public void Stop()
         {
             client.Close();
         }
-
     }
 }
