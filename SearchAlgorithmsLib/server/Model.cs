@@ -157,7 +157,7 @@ namespace server
         }
 
         /// <summary>
-        /// this function starts a multiplayer game.
+        /// this function starts a MultiPlayer game.
         /// </summary>
         /// <param name="name">name of the game</param>
         /// <param name="rows">rows in the maze</param>

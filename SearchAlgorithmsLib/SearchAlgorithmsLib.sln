@@ -15,6 +15,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "client", "client\client.csp
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "client2", "client2\client2.csproj", "{D94A1EEB-F8B8-4D91-BE23-EE8422A58AD3}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WPF", "WPF\WPF.csproj", "{92166451-E7F2-4373-B4AA-663C1DBC0695}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -71,6 +73,14 @@ Global
 		{D94A1EEB-F8B8-4D91-BE23-EE8422A58AD3}.Release 4.5|Any CPU.Build.0 = Release|Any CPU
 		{D94A1EEB-F8B8-4D91-BE23-EE8422A58AD3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D94A1EEB-F8B8-4D91-BE23-EE8422A58AD3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{92166451-E7F2-4373-B4AA-663C1DBC0695}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{92166451-E7F2-4373-B4AA-663C1DBC0695}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{92166451-E7F2-4373-B4AA-663C1DBC0695}.Release 2.0|Any CPU.ActiveCfg = Release|Any CPU
+		{92166451-E7F2-4373-B4AA-663C1DBC0695}.Release 2.0|Any CPU.Build.0 = Release|Any CPU
+		{92166451-E7F2-4373-B4AA-663C1DBC0695}.Release 4.5|Any CPU.ActiveCfg = Release|Any CPU
+		{92166451-E7F2-4373-B4AA-663C1DBC0695}.Release 4.5|Any CPU.Build.0 = Release|Any CPU
+		{92166451-E7F2-4373-B4AA-663C1DBC0695}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{92166451-E7F2-4373-B4AA-663C1DBC0695}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

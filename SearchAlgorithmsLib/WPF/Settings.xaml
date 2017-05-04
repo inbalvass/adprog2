@@ -1,0 +1,26 @@
+﻿<Window x:Class="WPF.Settings"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:WPF"
+        mc:Ignorable="d"
+        Title="Settings" Height="300" Width="300">
+    <Grid>
+        <Canvas>
+
+            <Button Content="Save" Canvas.Left="97" Canvas.Top="218" Width="104" Height="29" FontSize="15" Background="LightSkyBlue" Click="save_settings"/>
+            <Label Content="IP address:" FontSize="15" Canvas.Left="10" Canvas.Top="27"></Label>
+            <Label Content="Port number:" FontSize="15" Canvas.Left="10" Canvas.Top="62"></Label>
+            <TextBox Text="" Width="119" Height="29" Canvas.Left="144" Canvas.Top="96"></TextBox>
+            <Label Content="Default Columns:" FontSize="15" Canvas.Left="10" Canvas.Top="95"></Label>
+            <TextBox Text="" Width="119" Height="29" Canvas.Left="144" Canvas.Top="130" ></TextBox>
+            <Label Content="Default Rows:" FontSize="15" Canvas.Left="10" Canvas.Top="126"></Label>
+            <TextBox Text="" Width="119" Height="29" Canvas.Left="144" Canvas.Top="164" ></TextBox>
+            <Label Content="Default Algorithm:" FontSize="15" Canvas.Left="7" Canvas.Top="161"></Label>
+            <TextBox Text="" Width="119" Height="29" Canvas.Left="144" Canvas.Top="28"></TextBox>
+            <TextBox Text="" Width="119" Height="29" Canvas.Left="144" Canvas.Top="62"></TextBox>
+        </Canvas>
+
+    </Grid>
+</Window>
