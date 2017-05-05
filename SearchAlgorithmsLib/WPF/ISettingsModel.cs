@@ -2,11 +2,11 @@
 {
     interface ISettingsModel
     {
-        string ServerIP { get; set; }
-        int ServerPort { get; set; }
-        int MazeRows { get; set; }
-        int MazeCols { get; set; }
-        int SearchAlgorithm { get; set; }
+        string IP { get; set; }
+        int Port { get; set; }
+        int DefRows { get; set; }
+        int DefCols { get; set; }
+        int DefAlgo { get; set; }
         void SaveSettings();
     }
 }

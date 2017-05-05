@@ -9,26 +9,26 @@ namespace WPF
     class SettingsViewModel : ViewModel
     {
         private ISettingsModel model;
-        public SettingsViewModel(ISettingsModel model)
+        public SettingsViewModel()
         {
-            this.model = model;
+            this.model = new SettingsModel();
         }
         public string ServerIP
         {
-            get { return model.ServerIP; }
+            get { return model.IP; }
             set
             {
-                model.ServerIP = value;
-                NotifyPropertyChanged("ServerIP");
+                model.IP = value;
+                NotifyPropertyChanged("IP");
             }
         }
         public int ServerPort
         {
-            get { return model.ServerPort; }
+            get { return model.Port; }
             set
             {
-                model.ServerPort = value;
-                NotifyPropertyChanged("ServerPort");
+                model.Port = value;
+                NotifyPropertyChanged("Port");
             }
         }
         public void SaveSettings()

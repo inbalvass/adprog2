@@ -8,15 +8,31 @@ namespace WPF
 {
     class SettingsModel : ISettingsModel
     {
-        public string ServerIP
+        public string IP
         {
-            get { return Properties.Settings.Default.ServerIP; }
-            set { Properties.Settings.Default.ServerIP = value; }
+            get { return Properties.Settings.Default.IP; }
+            set { Properties.Settings.Default.IP = value; }
         }
-        public int ServerPort
+        public int Port
         {
-            get { return Properties.Settings.Default.ServerPort; }
-            set { Properties.Settings.Default.ServerPort = value; }
+            get { return Properties.Settings.Default.Port; }
+            set { Properties.Settings.Default.Port = value; }
+        }
+
+        public int DefRows
+        {
+            get { return Properties.Settings.Default.DefRows; }
+            set { Properties.Settings.Default.DefRows = value; }
+        }
+        public int DefCols
+        {
+            get { return Properties.Settings.Default.DefCols; }
+            set { Properties.Settings.Default.DefCols = value; }
+        }
+        public int DefAlgo
+        {
+            get { return Properties.Settings.Default.DefAlgo; }
+            set { Properties.Settings.Default.DefAlgo = value; }
         }
         public void SaveSettings()
         {
