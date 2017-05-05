@@ -19,14 +19,27 @@ namespace WPF
     /// </summary>
     public partial class Settings : Window
     {
+        private SettingsViewModel vm;
         public Settings()
         {
             InitializeComponent();
+            vm = new SettingsViewModel();
+            this.DataContext = vm;
         }
 
         private void save_settings(object sender, RoutedEventArgs e)
         {
+            vm.SaveSettings();
+            MainWindow win = (MainWindow)Application.Current.MainWindow;
+            win.Show();
+            this.Close();
+        }
 
+        private void cancel_settings(object sender, RoutedEventArgs e)
+        {
+            MainWindow win = (MainWindow)Application.Current.MainWindow;
+            win.Show();
+            this.Close();
         }
     }
 }
