@@ -28,21 +28,21 @@ namespace WPF
         private void clicked_single(object sender, RoutedEventArgs e)
         {
             SinglePlayer s = new SinglePlayer();
-            this.Hide();
+            this.Close();
             s.ShowDialog();
         }
 
         private void clicked_multi(object sender, RoutedEventArgs e)
         {
             MultiPlayer m = new MultiPlayer();
-            this.Hide();
+            this.Close();
             m.ShowDialog();
         }
 
         private void clicked_settings(object sender, RoutedEventArgs e)
         {
             Settings s = new Settings();
-            this.Hide();
+            this.Close();
             s.ShowDialog();
         }
     }
