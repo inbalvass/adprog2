@@ -11,8 +11,8 @@ namespace WPF
     {
         public string Name
         {
-            get { return Properties..Default.; }
-            set { Properties.Settings.Default.IP = value; }
+            get { return Name; }
+            set { /*Name = Name;*/ }
         }
         public int Colomns
         {
@@ -22,7 +22,7 @@ namespace WPF
 
         public int Rows
         {
-            get { return Properties.Settings.Default.Rows; }
+            get { return Rows; }
             set { Properties.Settings.Default.DefRows = value; }
         }
         public void SaveChanges()
