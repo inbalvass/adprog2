@@ -18,6 +18,7 @@ namespace WPF
         {
             this.model = new SinglePlayerModel();
         }
+
         public string Name
         {
             get { return model.Name; }

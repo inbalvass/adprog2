@@ -70,7 +70,6 @@
       <DependentUpon>SinglePlayer.xaml</DependentUpon>
     </Compile>
     <Compile Include="SinglePlayerModel.cs" />
-    <Compile Include="SinglePlayerView.cs" />
     <Compile Include="SinglePlayerViewModel.cs" />
     <Compile Include="ViewModel.cs" />
     <Page Include="MainWindow.xaml">
