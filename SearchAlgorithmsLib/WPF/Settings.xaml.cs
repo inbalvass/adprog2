@@ -27,31 +27,31 @@ namespace WPF
             this.DataContext = vm;
             //IP.SetValue(Properties.Settings.Default.IP);
             //<span class="skimlinks-unlinked">this.IP</span> = Properties.Settings.Default.IP;
-            IP.Text = vm.IP;
-            Port.Text = vm.Port.ToString();
-            DefCols.Text = vm.DefCols.ToString();
-            DefRows.Text = vm.DefRows.ToString();
-            DefAlgo.SelectedIndex = vm.DefAlgo;
+            //IP.Text = vm.IP;
+            //Port.Text = vm.Port.ToString();
+            //DefCols.Text = vm.DefCols.ToString();
+            //DefRows.Text = vm.DefRows.ToString();
+            //DefAlgo.SelectedIndex = vm.DefAlgo;
         }
 
         private void save_settings(object sender, RoutedEventArgs e)
         {
-            vm.IP = IP.Text;
-            vm.Port = int.Parse(Port.Text);
-            vm.DefCols = int.Parse(DefCols.Text);
-            vm.DefRows = int.Parse(DefRows.Text);
-            vm.DefAlgo = DefAlgo.SelectedIndex;
+            //vm.IP = IP.Text;
+            //vm.Port = int.Parse(Port.Text);
+            //vm.DefCols = int.Parse(DefCols.Text);
+            //vm.DefRows = int.Parse(DefRows.Text);
+            //vm.DefAlgo = DefAlgo.SelectedIndex;
            // < span class="skimlinks-unlinked">Properties.Settings.Default.Save</span>();
             vm.SaveSettings();
-            MainWindow win = (MainWindow)Application.Current.MainWindow;
-            win.Show();
+           // MainWindow win = (MainWindow)Application.Current.MainWindow;
+            //win.Show();
             this.Close();
         }
 
         private void cancel_settings(object sender, RoutedEventArgs e)
         {
-            MainWindow win = (MainWindow)Application.Current.MainWindow;
-            win.Show();
+            //MainWindow win = (MainWindow)Application.Current.MainWindow;
+           // win.Show();
             this.Close();
         }
     }

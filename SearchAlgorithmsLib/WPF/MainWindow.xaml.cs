@@ -42,8 +42,9 @@ namespace WPF
         private void clicked_settings(object sender, RoutedEventArgs e)
         {
             Settings s = new Settings();
-            this.Close();
+            this.Hide();
             s.ShowDialog();
+            this.Show();
         }
     }
 }
