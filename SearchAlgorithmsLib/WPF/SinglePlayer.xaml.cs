@@ -25,26 +25,22 @@ namespace WPF
             InitializeComponent();
             vm = new SinglePlayerViewModel();
             this.DataContext = vm;
-
-            Name.Text = vm.Name;
-            rows.Text = vm.Rows.ToString();
-            colomns.Text = vm.Colomns.ToString();
         }
 
-        private void new_single_game(object sender, RoutedEventArgs e)
+    private void new_single_game(object sender, RoutedEventArgs e)
         {
             //create a new maze and draw it 
 
-            vm.Name = Name.Text;
-            vm.Rows = int.Parse(rows.Text);
-            vm.Colomns = int.Parse(colomns.Text);
-
-
             // < span class="skimlinks-unlinked">Properties.Settings.Default.Save</span>();
             vm.SaveSettings();
+            //אחרי ששומרים את הפרטים צריך לשלוח פקודה ליצירת המבוך החדש
+            // זה צריך להיות בוי.אמ ואז במודל ושם צריך להיות פקודה דרך סוקט נפרד לשלוח את הפרטים וליצור מבוך
+            //ואז צריך להיות ההצגה של המבוך עצמו
+
+
             //את זה לשנות- פה צריך להיות ההצגה של החלון הבא- כרגע זה חוזר לחלון הראשון
-            MainWindow win = (MainWindow)Application.Current.MainWindow;
-            win.Show();
+           // MainWindow win = (MainWindow)Application.Current.MainWindow;
+           // win.Show();
             this.Close();
         }
     }
