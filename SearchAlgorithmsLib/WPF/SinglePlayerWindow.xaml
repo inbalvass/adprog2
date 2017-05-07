@@ -1,0 +1,16 @@
+﻿<Window x:Class="WPF.SinglePlayerWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:controls="clr-namespace:WPF.Controls"
+        xmlns:local="clr-namespace:WPF"
+        mc:Ignorable="d" Height="650" Width="600"
+        Title="SinglePlayerWindow" WindowStartupLocation="CenterScreen">
+    <Grid>
+        
+        <local:MazeBoard x:Name="mazeBoard" Grid.Row="1"
+        Margin="10" ></local:MazeBoard>
+
+    </Grid>
+</Window>

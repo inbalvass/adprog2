@@ -74,6 +74,9 @@
     </Compile>
     <Compile Include="SinglePlayerModel.cs" />
     <Compile Include="SinglePlayerViewModel.cs" />
+    <Compile Include="SinglePlayerWindow.xaml.cs">
+      <DependentUpon>SinglePlayerWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="ViewModel.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -100,6 +103,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="SinglePlayer.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="SinglePlayerWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
