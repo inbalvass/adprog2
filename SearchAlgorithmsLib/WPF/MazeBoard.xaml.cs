@@ -16,13 +16,18 @@ using System.Windows.Shapes;
 namespace WPF
 {
     /// <summary>
-    /// Interaction logic for MazeBoard.xaml
+    /// Interaction logic for MazeBoarder.xaml
     /// </summary>
     public partial class MazeBoard : UserControl
     {
         public MazeBoard()
         {
             //InitializeComponent();
+        }
+
+        private void UserControl_Loaded(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }
