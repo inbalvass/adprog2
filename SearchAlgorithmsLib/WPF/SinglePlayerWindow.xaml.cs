@@ -18,11 +18,12 @@ namespace WPF
     /// Interaction logic for SinglePlayerWindow.xaml
     /// </summary>
     public partial class SinglePlayerWindow : Window
+
     {
         public SinglePlayerWindow(string name)
         {
             InitializeComponent();
-            Title = name; //the title his bounded to the name that entered
+            Title = name; //the title need to be bounded to the name that entered- אני לא בטוחה שכך אכן נראה data binding
         }
 
         private void mazeBoard_Loaded(object sender, RoutedEventArgs e)
@@ -51,7 +52,5 @@ namespace WPF
             this.Close();
             mw.ShowDialog();
         }
-
-
     }
 }
