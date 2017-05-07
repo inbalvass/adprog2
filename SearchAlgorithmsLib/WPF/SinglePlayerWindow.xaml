@@ -6,11 +6,18 @@
         xmlns:controls="clr-namespace:WPF.Controls"
         xmlns:local="clr-namespace:WPF"
         mc:Ignorable="d" Height="650" Width="600"
-        Title="SinglePlayerWindow" WindowStartupLocation="CenterScreen">
+        Title="the maze name need to be data binding" WindowStartupLocation="CenterScreen">
     <Grid>
-        
-        <local:MazeBoard x:Name="mazeBoard" Grid.Row="1"
-        Margin="10" ></local:MazeBoard>
+        <StackPanel Name="stackPanel1" VerticalAlignment="Top" Height="620" >
+            <DockPanel Name="dockkPanel1" VerticalAlignment="Top">
+                <Button x:Name="restart" Content="Restart Game" HorizontalAlignment="Center" Margin="40,10,40,0" VerticalAlignment="Center" Width="150" Height="30" FontWeight="Bold" Click="clicked_restart"/>
+                <Button x:Name="solve" Content="Solve Maze" HorizontalAlignment="Center" Margin="0,10,20,0" VerticalAlignment="Center" Width="150" Height="30" FontWeight="Bold" Click="clicked_solve"/>
+                <Button x:Name="menu" Content="Main menu" HorizontalAlignment="Center" Margin="0,10,0,0" VerticalAlignment="Center" Width="150" Height="30" FontWeight="Bold" Click="clicked_menu"/>
+            </DockPanel>
+            <local:MazeBoard x:Name="mazeBoard" Grid.Row="1" 
+                Margin="10" Loaded="mazeBoard_Loaded" Height="569" >
 
-    </Grid>
+            </local:MazeBoard>
+        </StackPanel>
+    </Grid>
 </Window>

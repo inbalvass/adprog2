@@ -37,11 +37,10 @@ namespace WPF
             // זה צריך להיות בוי.אמ ואז במודל ושם צריך להיות פקודה דרך סוקט נפרד לשלוח את הפרטים וליצור מבוך
             //ואז צריך להיות ההצגה של המבוך עצמו
 
-
-            //את זה לשנות- פה צריך להיות ההצגה של החלון הבא- כרגע זה חוזר לחלון הראשון
-           // MainWindow win = (MainWindow)Application.Current.MainWindow;
-           // win.Show();
+            //show the maze window
+            SinglePlayerWindow sw = new SinglePlayerWindow();
             this.Close();
+            sw.ShowDialog();
         }
     }
 }

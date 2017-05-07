@@ -23,5 +23,12 @@ namespace WPF
         {
             InitializeComponent();
         }
+
+        private void mazeBoard_Loaded(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+
     }
 }
