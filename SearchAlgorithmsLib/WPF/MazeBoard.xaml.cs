@@ -22,7 +22,7 @@ namespace WPF
     {
         public MazeBoard()
         {
-            InitializeComponent();
+            //InitializeComponent();
         }
     }
 }
