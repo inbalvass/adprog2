@@ -17,7 +17,7 @@
                 <Label Content="Default Columns:" FontSize="15" Canvas.Left="10" Canvas.Top="95"></Label>
                 <TextBox Name="DefRows" Text="{Binding DefRows}" Width="119" Height="29" Canvas.Left="144" Canvas.Top="130" ></TextBox>
                 <Label Content="Default Rows:" FontSize="15" Canvas.Left="10" Canvas.Top="126"></Label>
-                <Label Content="Default Algorithm:" FontSize="15" Canvas.Left="7" Canvas.Top="161"></Label>
+                <Label Content="Default Algorithm:" FontSize="15" Canvas.Left="12" Canvas.Top="161"></Label>
                 <TextBox Name="IP" Width="119" Height="29" Canvas.Left="144" Canvas.Top="28" Text="{Binding IP}"></TextBox>
                 <TextBox Name="Port" Text="{Binding Port}" Width="119" Height="29" Canvas.Left="144" Canvas.Top="62"></TextBox>
                 <ComboBox x:Name="DefAlgo" Grid.Row="4" Grid.Column="2" HorizontalAlignment="Left" SelectedIndex="{Binding DefAlgo}" IsEditable="False" Width="119" Canvas.Left="144" Canvas.Top="164" Height="29">

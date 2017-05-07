@@ -51,7 +51,8 @@ namespace WPF
         private void cancel_settings(object sender, RoutedEventArgs e)
         {
             //MainWindow win = (MainWindow)Application.Current.MainWindow;
-           // win.Show();
+            // win.Show();
+            Properties.Settings.Default.Reload();
             this.Close();
         }
     }
