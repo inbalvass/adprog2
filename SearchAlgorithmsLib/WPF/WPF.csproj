@@ -55,6 +55,12 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="AreYouSureMenu.xaml.cs">
+      <DependentUpon>AreYouSureMenu.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="AreYouSureRestart.xaml.cs">
+      <DependentUpon>AreYouSureRestart.xaml</DependentUpon>
+    </Compile>
     <Compile Include="INotifyPropertyChanged.cs" />
     <Compile Include="ISettingsModel.cs" />
     <Compile Include="ISinglePlayerModel.cs" />
@@ -78,6 +84,14 @@
       <DependentUpon>SinglePlayerWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="ViewModel.cs" />
+    <Page Include="AreYouSureMenu.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="AreYouSureRestart.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>

@@ -33,7 +33,8 @@ namespace WPF
 
         private void clicked_restart(object sender, RoutedEventArgs e)
         {
-
+            AreYouSureRestart sure = new AreYouSureRestart();
+            sure.ShowDialog();
         }
 
         private void clicked_solve(object sender, RoutedEventArgs e)
@@ -48,9 +49,8 @@ namespace WPF
         /// <param name="e"></param>
         private void clicked_menu(object sender, RoutedEventArgs e)
         {
-            MainWindow mw = new MainWindow();
-            this.Close();
-            mw.ShowDialog();
+            AreYouSureMenu sure = new AreYouSureMenu(this);
+            sure.ShowDialog();
         }
     }
 }
