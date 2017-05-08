@@ -11,11 +11,13 @@ namespace WPF
     {
         private string name;
         private int rows, cols;
+
         public string Name
         {
             get { return name; }
             set { this.name = value; }
         }
+
         public int Colomns
         {
             get { return cols; }
@@ -24,7 +26,7 @@ namespace WPF
 
         public int Rows
         {
-            get { return Rows; }
+            get { return rows; }
             set { this.rows = value; }
         }
         public void SaveChanges()

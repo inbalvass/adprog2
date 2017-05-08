@@ -20,16 +20,28 @@ namespace WPF
     public partial class SinglePlayerWindow : Window
 
     {
-        public SinglePlayerWindow(string name , int rows,int cols)
+        private SPWindowViewModel vm;
+        private string name;
+        private int rows, cols;
+
+        public SinglePlayerWindow(string name, int row, int col)
         {
             InitializeComponent();
-            Title = name; //the title need to be bounded to the name that entered- אני לא בטוחה שכך אכן נראה data binding
-            mazeBoarder.Rows = rows;
-            mazeBoarder.Cols = cols;
+            vm = new SPWindowViewModel();
+            this.DataContext = vm;
+
+            this.name = name;
+            this.rows = row;
+            this.cols = col;
+
         }
 
         private void mazeBoard_Loaded(object sender, RoutedEventArgs e)
         {
+            Title = name; //the title need to be bounded to the name that entered- אני לא בטוחה שכך אכן נראה data binding
+            mazeBoarder.Rows = rows;
+            mazeBoarder.Cols = cols;
+            mazeBoarder.Maze = vm.generate(name, rows, cols);
         }
 
         private void clicked_restart(object sender, RoutedEventArgs e)

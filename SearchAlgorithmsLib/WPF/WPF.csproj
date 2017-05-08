@@ -61,6 +61,7 @@
     <Compile Include="AreYouSureRestart.xaml.cs">
       <DependentUpon>AreYouSureRestart.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Client.cs" />
     <Compile Include="INotifyPropertyChanged.cs" />
     <Compile Include="ISettingsModel.cs" />
     <Compile Include="ISinglePlayerModel.cs" />
@@ -83,6 +84,8 @@
     <Compile Include="SinglePlayerWindow.xaml.cs">
       <DependentUpon>SinglePlayerWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="SPWindowModel.cs" />
+    <Compile Include="SPWindowViewModel.cs" />
     <Compile Include="ViewModel.cs" />
     <Page Include="AreYouSureMenu.xaml">
       <SubType>Designer</SubType>

@@ -71,6 +71,7 @@ namespace server
         /// <returns></returns>
         public string ExecuteCommand(string commandLine, TcpClient client)
         {
+            Console.Write(commandLine);
             string[] arr = commandLine.Split(' ');
             string commandKey = arr[0];
             if (!commands.ContainsKey(commandKey))
