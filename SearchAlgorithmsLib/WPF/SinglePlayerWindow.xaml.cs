@@ -20,15 +20,16 @@ namespace WPF
     public partial class SinglePlayerWindow : Window
 
     {
-        public SinglePlayerWindow(string name)
+        public SinglePlayerWindow(string name , int rows,int cols)
         {
             InitializeComponent();
             Title = name; //the title need to be bounded to the name that entered- אני לא בטוחה שכך אכן נראה data binding
+            mazeBoarder.Rows = rows;
+            mazeBoarder.Cols = cols;
         }
 
         private void mazeBoard_Loaded(object sender, RoutedEventArgs e)
         {
-
         }
 
         private void clicked_restart(object sender, RoutedEventArgs e)

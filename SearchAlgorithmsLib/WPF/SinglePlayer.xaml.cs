@@ -38,7 +38,7 @@ namespace WPF
             //ואז צריך להיות ההצגה של המבוך עצמו
 
             //show the maze window
-            SinglePlayerWindow sw = new SinglePlayerWindow(vm.Name);
+            SinglePlayerWindow sw = new SinglePlayerWindow(vm.Name,vm.Rows, vm.Colomns);
             this.Close();
             sw.ShowDialog();
         }
