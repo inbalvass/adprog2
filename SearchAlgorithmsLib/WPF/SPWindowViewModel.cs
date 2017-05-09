@@ -19,5 +19,10 @@ namespace WPF
         {
             return model.generate(name,row,col);
         }
+
+        public string solve(string name)
+        {
+            return model.solve(name);
+        }
     }
 }

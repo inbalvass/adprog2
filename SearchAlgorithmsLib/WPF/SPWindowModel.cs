@@ -11,17 +11,19 @@ namespace WPF
         private Client myClient;
         public SPWindowModel()
         {
-            myClient = new Client();
+            //myClient = new Client();
         }
 
         public string generate(string name,int row,int col)
         {
+            myClient = new Client();
             string command = "generate " + name + " " + row + " " + col;
             return myClient.StartSingle(command);
         }
 
         public string solve(string name)
         {
+            myClient = new Client();
             string command = "solve " + name + " " + Properties.Settings.Default.DefAlgo;
             return myClient.StartSingle(command);
         }

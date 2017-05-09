@@ -21,9 +21,9 @@
                         </TransformGroup>
                     </Label.RenderTransform>
                 </Label>
-                <TextBox Name="colomns" Text="{Binding colomns}" Width="107" Canvas.Left="126" Canvas.Top="118" Height="25"></TextBox>
+                <TextBox Name="colomns" Text="{Binding Colomns}" Width="107" Canvas.Left="126" Canvas.Top="118" Height="25"></TextBox>
                 <Label Content="Rows:" Canvas.Left="67" Canvas.Top="162" RenderTransformOrigin="0.666,-0.38" FontSize="15" FontWeight="Bold"></Label>
-                <TextBox Name="rows" Text="{Binding rows}" Width="107" Canvas.Left="126" Canvas.Top="164" Height="25"></TextBox>
+                <TextBox Name="rows" Text="{Binding Rows}" Width="107" Canvas.Left="126" Canvas.Top="164" Height="25"></TextBox>
                 <Button Content="OK" Canvas.Left="126" Canvas.Top="209" Width="48" Height="25" FontSize="15" FontWeight="Bold" Click="new_single_game"></Button>
             </Canvas>
         </Viewbox>

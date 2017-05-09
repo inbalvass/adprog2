@@ -55,7 +55,7 @@ namespace server
                             writer.Write(result);
                         }
 
-                        if (command.StartsWith("generate") || command.StartsWith("solve") ||
+                        if (command.StartsWith("generate") || command.StartsWith("solve") || command.StartsWith("list") ||
                         command.StartsWith("close") || command == "b")
                         {
                             //close the connection

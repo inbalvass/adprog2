@@ -52,6 +52,8 @@ namespace WPF
 
         private void clicked_solve(object sender, RoutedEventArgs e)
         {
+            string solution= vm.solve(name);
+            //צריך להעביר את השחקן להתחלה ואז פשוט להזיז אותו צעד צעד לפתרון.
 
         }
 

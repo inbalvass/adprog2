@@ -32,6 +32,7 @@ namespace WPF
             this.port = Properties.Settings.Default.Port;
         }
 
+        //for orders: generate,solve,list
         public string StartSingle(string commands)
         {
             string command = commands;
@@ -51,7 +52,6 @@ namespace WPF
         }
 
 
-
         /// <summary>
         /// this function starts the client and establish the connection to the server.
         /// </summary>
@@ -59,6 +59,15 @@ namespace WPF
         /// </param>
         /// 
         //את זה צריך לשנות שיהיה למולטי
+
+            //כדי שהמשחק יתקיים צריך שכל הזמן יהיה קשר. כדי שכל הזמן יהיה קשר צריך שהלולאה הפנימית תתקיים. כדי שהיא
+            // תתקיים צריך גם שזה ישאר בפונקציה הזו כל הזמן אבל שגם יהיה אפשר לקבל ממנה כל פעם את המידע שמתקבל.
+            // לדעתי יש 2 אפשרויות: 1) להוציא את כל הפונקציה החוצה ולשים אותה איפה שהמולטי גיים יהיה.
+            //2) להוסיף פונציה סט שבה כל הזמן נעדכן את המידע שהוחזר כרגע ואז נקרא משם כל הזמן במולטי גיים בלולאה.
+            //אבל זה יצור ביזי ווטינג. מצד שני הפתרון הראשון לא משהו כי זה יכנס במקום לא קשור בקוד.
+            //נעשה 2 פונקציות סט- אחת לפקודה שרוצים להכניס והשנייה לתוצאה שהתקבלה. 
+            //ואז פה נעשה לולאה של מתי לקרוא ובמולטי גיים נעשה לולאה של מתי לקרוא את הפתרון.
+            //דרך נוספתת זה אולי לעשות ליסנר לשניהם?
         public void StartMulty(string commands)
         {
             string command = commands;
@@ -81,6 +90,7 @@ namespace WPF
                             Console.WriteLine(result);
                         }
                     }
+
                     if (command.StartsWith("start") || command.StartsWith("join"))
                     {
                         new Task(() =>
@@ -100,8 +110,7 @@ namespace WPF
                             }
                         }).Start();
                     }
-                    if (command.StartsWith("generate") || command.StartsWith("solve") ||
-                        command.StartsWith("close") || command == "b")
+                    if (command.StartsWith("close") || command == "b")
 
                     {
                         //so the task closed first
@@ -117,6 +126,8 @@ namespace WPF
                 }
             }
         }
+
+
 
         /// <summary>
         /// close the connection to the server.

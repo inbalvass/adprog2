@@ -6,7 +6,6 @@ using System.Threading.Tasks;
 
 namespace WPF
 {
-    //כאן צריך להיות את העדכון של המשחק עצמו- כנראה לפה צריך להיכנס כל הקוד שנעשה בקליינט ללא הגואי
     class SinglePlayerModel : ISinglePlayerModel
     {
         private string name;
