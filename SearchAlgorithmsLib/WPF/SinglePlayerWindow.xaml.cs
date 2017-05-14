@@ -52,7 +52,26 @@ namespace WPF
 
         private void clicked_solve(object sender, RoutedEventArgs e)
         {
+            //*****maybe in different thread? ****
             string solution= vm.solve(name);
+            //********
+            Array a = solution.ToArray<char>();
+            Rectangle rec = new Rectangle { Width = 20, Height = 20 };
+            int x=0, y=0; //initialized to the starting point of the window?!?
+            
+            for (int i = 0; i < solution.Length; i++)
+            {
+                //the location of the rectangle
+                Canvas.SetTop(rec, x);
+                Canvas.SetLeft(rec, y);
+                if (solution[i] == '1')
+                    rec.Fill = Brushes.Black;
+                else
+                    rec.Fill = Brushes.White;
+                mazeBoarder.myCanvas.Children.Add(rec);
+               x++;
+               y++;
+            }
             //צריך להעביר את השחקן להתחלה ואז פשוט להזיז אותו צעד צעד לפתרון.
 
         }
