@@ -68,7 +68,7 @@ namespace WPF
                     rec.Fill = Brushes.Black;
                 else
                     rec.Fill = Brushes.White;
-                mazeBoarder.myCanvas.Children.Add(rec);
+                //mazeBoarder.myCanvas.Children.Add(rec);
                x++;
                y++;
             }
