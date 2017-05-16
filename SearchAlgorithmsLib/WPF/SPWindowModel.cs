@@ -3,22 +3,39 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
+using System.Windows.Data;
 
 namespace WPF
 {
-    class SPWindowModel
+    class SPWindowModel 
     {
         private Client myClient;
-        public SPWindowModel()
+        private string _mazeStr;
+        public string mazeStr
         {
-            //myClient = new Client();
+            get
+            {
+                return _mazeStr;
+            }
+            set
+            {
+                this._mazeStr = value;
+
+            }
         }
 
-        public string generate(string name,int row,int col)
+        public SPWindowModel()
+        {
+            
+        }
+
+        public void generate(string name,int row,int col)
         {
             myClient = new Client();
             string command = "generate " + name + " " + row + " " + col;
-            return myClient.StartSingle(command);
+            this.mazeStr = myClient.StartSingle(command);
+   
         }
 
         public string solve(string name)
@@ -27,5 +44,8 @@ namespace WPF
             string command = "solve " + name + " " + Properties.Settings.Default.DefAlgo;
             return myClient.StartSingle(command);
         }
+
+        
+
     }
 }

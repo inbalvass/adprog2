@@ -12,6 +12,9 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Net.Sockets;
+using Newtonsoft.Json.Linq;
+using Newtonsoft.Json;
 
 namespace WPF
 {
@@ -20,6 +23,44 @@ namespace WPF
     /// </summary>
     public partial class MazeBoard : UserControl
     {
+
+
+        public string mazeStr
+        {
+            get { return (string)GetValue(mazeStrProperty); }
+            set { SetValue(mazeStrProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for mazeStr.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty mazeStrProperty =
+            DependencyProperty.Register("mazeStr", typeof(string), typeof(MazeBoard), new PropertyMetadata(string.Empty, Changed));
+
+        private static void Changed(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            var c = d as MazeBoard;
+            c.DrawMaze((string)e.NewValue);
+        }
+
+        public void DrawMaze(string maze)
+        {
+            dynamic data = JsonConvert.DeserializeObject(maze);
+            int row1 = Int32.Parse(data["Rows"]);
+            int row2 = Convert.ToInt32(data["Rows"]);
+            string row = row2.ToString();
+
+
+            //Label l = new Label();
+            //l.Content = maze;
+            //myCanvas.Children.Add(l);
+
+            Label l2 = new Label();
+            l2.Content = row;
+            myCanvas.Children.Add(l2);
+
+
+
+        }
+
         public MazeBoard()
         {
             InitializeComponent();
