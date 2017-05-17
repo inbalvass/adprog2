@@ -77,7 +77,7 @@ namespace WPF
             using (BinaryReader reader = new BinaryReader(stream))
             using (BinaryWriter writer = new BinaryWriter(stream))
             {             
-                while (true)
+                    while (true)
                 {
                     // Send data to server
                     writer.Write(command);

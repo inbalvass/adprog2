@@ -32,7 +32,7 @@ namespace WPF
             vm = new SPWindowViewModel();
             this.DataContext = vm;
 
-            
+            this.SizeChanged += OnWindowSizeChanged;
 
             this.name = name;
             this.rows = row;
@@ -41,12 +41,20 @@ namespace WPF
 
    
             this.mazeBoard = new MazeBoard();
-
+            //this.mazeBoard.myCanvas.Width = SPwindow.Width;
+            //this.mazeBoard.myCanvas.Height = SPwindow.Height;
             Binding binding = new Binding();
             binding.Path = new PropertyPath("VM_mazeStr");
             binding.Source = vm;
             BindingOperations.SetBinding(mazeBoard, MazeBoard.mazeStrProperty, binding);
 
+        }
+
+        protected void OnWindowSizeChanged(object sender, SizeChangedEventArgs e)
+        {
+          //  double newWindowHeight = e.NewSize.Height;
+          //  this.mazeBoard.myCanvas.Width = e.NewSize.Width;
+          //  this.mazeBoard.myCanvas.Height = e.NewSize.Height;
         }
 
         private void mazeBoard_Loaded(object sender, RoutedEventArgs e)
@@ -79,7 +87,10 @@ namespace WPF
         {
             Title = name;
 
+            //this.mazeBoard.myCanvas.Width = SPwindow.Width;
+            //this.mazeBoard.myCanvas.Height = canvas.Height;
             canvas.Children.Add(this.mazeBoard);
+            
             
         }
 
