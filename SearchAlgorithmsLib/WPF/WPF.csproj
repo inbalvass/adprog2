@@ -65,6 +65,11 @@
       <DependentUpon>AreYouSureRestart.xaml</DependentUpon>
     </Compile>
     <Compile Include="Client.cs" />
+    <Compile Include="Information.xaml.cs">
+      <DependentUpon>Information.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="InformationModel.cs" />
+    <Compile Include="InformationViewModel.cs" />
     <Compile Include="INotifyPropertyChanged.cs" />
     <Compile Include="ISettingsModel.cs" />
     <Compile Include="ISinglePlayerModel.cs" />
@@ -76,6 +81,8 @@
     <Compile Include="MultiPlayer.xaml.cs">
       <DependentUpon>MultiPlayer.xaml</DependentUpon>
     </Compile>
+    <Compile Include="MultyPlayerModel.cs" />
+    <Compile Include="MultyPlayerVM.cs" />
     <Compile Include="Settings.xaml.cs">
       <DependentUpon>Settings.xaml</DependentUpon>
     </Compile>
@@ -83,6 +90,9 @@
     <Compile Include="SettingsViewModel.cs" />
     <Compile Include="SinglePlayer.xaml.cs">
       <DependentUpon>SinglePlayer.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="singlePlayerInfo.xaml.cs">
+      <DependentUpon>singlePlayerInfo.xaml</DependentUpon>
     </Compile>
     <Compile Include="SinglePlayerModel.cs" />
     <Compile Include="SinglePlayerViewModel.cs" />
@@ -97,6 +107,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="AreYouSureRestart.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Information.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -125,6 +139,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="SinglePlayer.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="singlePlayerInfo.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

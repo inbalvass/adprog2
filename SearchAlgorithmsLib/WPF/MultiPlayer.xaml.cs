@@ -24,17 +24,22 @@ namespace WPF
     /// </summary>
     public partial class MultiPlayer : Window
     {
+        private MultyPlayerVM vm;
         public MultiPlayer()
         {
             InitializeComponent();
+            vm = new MultyPlayerVM();
+            this.DataContext = vm;
             listOfPlayers();
 
         }
 
-        //אולי צריך יהיה לעשות פה מודל ווי.אמ ואז זה יהיה צריך להיות במודל.
-        // בנוסף- צריך לחשוב האם כדאי לעשות סוג של ליסנר כדי שאם משתמש פותח משחק חדש שהוא ישר יופיע לשחקן אחר
-        //get the list from the server and shoe it
-        private void listOfPlayers()
+
+
+    //אולי צריך יהיה לעשות פה מודל ווי.אמ ואז זה יהיה צריך להיות במודל.
+    // בנוסף- צריך לחשוב האם כדאי לעשות סוג של ליסנר כדי שאם משתמש פותח משחק חדש שהוא ישר יופיע לשחקן אחר
+    //get the list from the server and shoe it
+    private void listOfPlayers()
         {
             Client myClient = new Client();
             string command = "list";
@@ -50,11 +55,18 @@ namespace WPF
         private void new_multi_game(object sender, RoutedEventArgs e)
         {
             //יוזר קונטרול??
+            //כרגע פותח את החלון של הסינגל פלייר
+            //צריך לשנות שפה ישלח בקשה ועד שהוא לא מקבל לא פותח חלון
+            vm.SaveSettings();
+            //show the maze window
+            SinglePlayerWindow sw = new SinglePlayerWindow(vm.Name, vm.Rows, vm.Colomns);
+           this.Close();
+            sw.ShowDialog();
         }
 
         private void join_game(object sender, RoutedEventArgs e)
         {
-
+            //צריך לגרום לו לפתוח חלון
         }
     }
 }

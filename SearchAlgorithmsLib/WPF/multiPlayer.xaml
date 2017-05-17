@@ -15,11 +15,11 @@
                 <ComboBox x:Name="comboBox" Canvas.Left="136" Canvas.Top="20" Width="136" Height="32"/>
                 <Label Content="New Maze:" FontSize="15" Canvas.Left="10" Canvas.Top="90" FontWeight="Bold"></Label>
                 <Label Content="Name:" FontSize="15" Canvas.Left="20" Canvas.Top="125"></Label>
-                <TextBox Text="" Width="119" Height="29" Canvas.Left="96" Canvas.Top="126"></TextBox>
+                <TextBox Name="Name" Text="{Binding Name}" Width="119" Height="29" Canvas.Left="96" Canvas.Top="126"></TextBox>
                 <Label Content="Columns:" FontSize="15" Canvas.Left="20" Canvas.Top="160"></Label>
-                <TextBox Text="" Width="119" Height="29" Canvas.Left="96" Canvas.Top="160" ></TextBox>
+                <TextBox Name="colomns" Text="{Binding Colomns}" Width="119" Height="29" Canvas.Left="96" Canvas.Top="160" ></TextBox>
                 <Label Content="Rows:" FontSize="15" Canvas.Left="20" Canvas.Top="195"></Label>
-                <TextBox Text="" Width="119" Height="29" Canvas.Left="96" Canvas.Top="194" ></TextBox>
+                <TextBox Name="rows" Text="{Binding Rows}" Width="119" Height="29" Canvas.Left="96" Canvas.Top="194" ></TextBox>
             </Canvas>
         </Viewbox>
 

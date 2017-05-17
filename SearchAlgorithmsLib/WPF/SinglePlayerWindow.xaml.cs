@@ -17,6 +17,7 @@ namespace WPF
     /// <summary>
     /// Interaction logic for SinglePlayerWindow.xaml
     /// </summary>
+    /// 
     public partial class SinglePlayerWindow : Window
 
     {
