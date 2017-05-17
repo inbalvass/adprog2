@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace WPF
 {
-    class SPWindowViewModel
+    class SPWindowViewModel : ViewModel
     {
         private SPWindowModel model;
         public SPWindowViewModel()
@@ -14,10 +14,24 @@ namespace WPF
             this.model = new SPWindowModel();
         }
 
-
-        public string generate(string name, int row, int col)
+        public string VM_mazeStr
         {
-            return model.generate(name,row,col);
+            get
+            {
+                return this.model.mazeStr;
+            }
+            set
+            {
+                model.mazeStr = value;
+                NotifyPropertyChanged("mazeStr");
+
+            }
+        }
+
+
+        public void generate(string name, int row, int col)
+        {
+            model.generate(name,row,col);
         }
 
         public string solve(string name)
