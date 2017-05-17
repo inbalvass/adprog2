@@ -26,6 +26,8 @@ namespace WPF
         public MazeBoard()
         {
             InitializeComponent();
+            myCanvas.Height = System.Windows.SystemParameters.PrimaryScreenHeight;
+            myCanvas.Width = System.Windows.SystemParameters.PrimaryScreenWidth;
         }
 
         private void UserControl_Loaded(object sender, RoutedEventArgs e)

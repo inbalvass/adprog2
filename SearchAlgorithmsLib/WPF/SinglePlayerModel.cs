@@ -11,6 +11,12 @@ namespace WPF
         private string name;
         private int rows, cols;
 
+        public SinglePlayerModel()
+        {
+            rows = Properties.Settings.Default.DefRows;
+            cols = Properties.Settings.Default.DefCols;
+        }
+
         public string Name
         {
             get { return name; }

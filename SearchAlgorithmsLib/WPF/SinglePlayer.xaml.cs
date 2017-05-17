@@ -29,14 +29,7 @@ namespace WPF
 
     private void new_single_game(object sender, RoutedEventArgs e)
         {
-            //create a new maze and draw it 
-
-            // < span class="skimlinks-unlinked">Properties.Settings.Default.Save</span>();
             vm.SaveSettings();
-            //אחרי ששומרים את הפרטים צריך לשלוח פקודה ליצירת המבוך החדש
-            // זה צריך להיות בוי.אמ ואז במודל ושם צריך להיות פקודה דרך סוקט נפרד לשלוח את הפרטים וליצור מבוך
-            //ואז צריך להיות ההצגה של המבוך עצמו
-
             //show the maze window
             SinglePlayerWindow sw = new SinglePlayerWindow(vm.Name,vm.Rows, vm.Colomns);
             this.Close();

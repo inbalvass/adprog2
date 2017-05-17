@@ -6,11 +6,6 @@ using System.Threading.Tasks;
 
 namespace WPF
 {
-    //האם צריך להיות
-    //NotifyPropertyChanged
-    //או שאולי זה משנה רק את הפרופרטיז ופה צריך להיות משהו אחר כי לא משנים פרופרטיז אלא משתנים במחלקה
-
-
     class SinglePlayerViewModel : ViewModel
     {
         private ISinglePlayerModel model;

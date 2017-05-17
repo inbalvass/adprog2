@@ -27,6 +27,5 @@
                 <Button Content="OK" Canvas.Left="126" Canvas.Top="209" Width="48" Height="25" FontSize="15" FontWeight="Bold" Click="new_single_game"></Button>
             </Canvas>
         </Viewbox>
-
     </Grid>
 </Window>
