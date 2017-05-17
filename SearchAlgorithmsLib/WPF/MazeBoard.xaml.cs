@@ -23,6 +23,15 @@ namespace WPF
     /// </summary>
     public partial class MazeBoard : UserControl
     {
+        public MazeBoard()
+        {
+            InitializeComponent();
+        }
+
+        private void UserControl_Loaded(object sender, RoutedEventArgs e)
+        {
+
+        }
 
 
         public string mazeStr
@@ -43,36 +52,72 @@ namespace WPF
 
         public void DrawMaze(string maze)
         {
+            //get the information from the json string
             dynamic data = JsonConvert.DeserializeObject(maze);
-            int row1 = Int32.Parse(data["Rows"]);
-            int row2 = Convert.ToInt32(data["Rows"]);
-            string row = row2.ToString();
+            string mazeStr = data["Maze"];
+            string help = data["Rows"];
+            int rows = int.Parse(help);
+            help = data["Cols"];
+            int cols = int.Parse(help);
+            //get the start point
+            dynamic data2 = data["Start"];
+            help = data2["Row"];
+            int startRow = int.Parse(help);
+            help = data2["Col"];
+            int startCols= int.Parse(help);
+            //get the end point
+            dynamic data3 = data["End"];
+            help = data3["Row"];
+            int endRow = int.Parse(help);
+            help = data3["Col"];
+            int endCols = int.Parse(help);
 
-
-            //Label l = new Label();
-            //l.Content = maze;
-            //myCanvas.Children.Add(l);
-
-            Label l2 = new Label();
-            l2.Content = row;
-            myCanvas.Children.Add(l2);
+            drowTheMaze(mazeStr, rows, cols);
 
 
 
         }
 
-        public MazeBoard()
+        private void drowTheMaze(string mazeStr,int rows,int cols)
         {
-            InitializeComponent();
+            SolidColorBrush blackBrush = new SolidColorBrush();
+            blackBrush.Color = Colors.Black;
+            SolidColorBrush whiteBrush = new SolidColorBrush();
+            whiteBrush.Color = Colors.White;
+
+            double widthOfSqure = myCanvas.Width / cols;
+            double heightOfSqure = myCanvas.Height / rows;
+            int place;
+            for (int i = 0; i < rows; i++)
+            {
+                for (int j = 0; j < cols; j++)
+                {
+                    Rectangle r = new Rectangle();
+                    r.Height = heightOfSqure;
+                    r.Width = widthOfSqure;
+                    place = i * cols + j; //the index in the string
+                    if (mazeStr[place] == '0')
+                    {
+                        r.Fill = whiteBrush;
+                    }
+                    else
+                    {
+                        r.Fill = blackBrush;
+                    }
+                    Canvas.SetLeft(r, j * widthOfSqure);
+                    Canvas.SetTop(r, i * heightOfSqure);
+                    myCanvas.Children.Add(r);
+                }
+            }
         }
 
-        private void UserControl_Loaded(object sender, RoutedEventArgs e)
-        {
 
-        }
+
+
 
         // Using a DependencyProperty as the backing store for Rows. This enables animation, styling,binding, etc...
 
+            //נראה לי שאת כל זה אפשר בכלל למחוק...
         public static readonly DependencyProperty RowsProperty =
          DependencyProperty.Register("Rows", typeof(int), typeof(MazeBoard), new
         PropertyMetadata(0));
