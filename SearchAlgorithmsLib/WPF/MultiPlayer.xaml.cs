@@ -54,14 +54,22 @@ namespace WPF
 
         private void new_multi_game(object sender, RoutedEventArgs e)
         {
+
             //יוזר קונטרול??
             //כרגע פותח את החלון של הסינגל פלייר
             //צריך לשנות שפה ישלח בקשה ועד שהוא לא מקבל לא פותח חלון
             vm.SaveSettings();
+            Client client = new Client();
+            vm.start(client);
             //show the maze window
-            SinglePlayerWindow sw = new SinglePlayerWindow(vm.Name, vm.Rows, vm.Colomns);
+
+            //נעשה חלון חכה לחיבור והוא יבדוק מתי מגיעה לו תוצאה
+
+            WaitForConnection wfc = new WaitForConnection();
+            wfc.client = client;
+          //  SinglePlayerWindow sw = new SinglePlayerWindow(vm.Name, vm.Rows, vm.Colomns);
            this.Close();
-            sw.ShowDialog();
+            wfc.ShowDialog();
         }
 
         private void join_game(object sender, RoutedEventArgs e)

@@ -102,6 +102,9 @@
     <Compile Include="SPWindowModel.cs" />
     <Compile Include="SPWindowViewModel.cs" />
     <Compile Include="ViewModel.cs" />
+    <Compile Include="WaitForConnection.xaml.cs">
+      <DependentUpon>WaitForConnection.xaml</DependentUpon>
+    </Compile>
     <Page Include="AreYouSureMenu.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -147,6 +150,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="SinglePlayerWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="WaitForConnection.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

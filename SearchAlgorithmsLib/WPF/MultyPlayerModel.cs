@@ -38,5 +38,12 @@ namespace WPF
         {
             Properties.Settings.Default.Save();
         }
+
+
+        public void start(Client client)
+        {
+            string command = "start " + name + " " + rows + " " + cols;
+            client.StartMulty(command);
+        }
     }
 }

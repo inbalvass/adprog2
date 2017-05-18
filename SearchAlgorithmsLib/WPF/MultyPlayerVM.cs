@@ -47,5 +47,10 @@ namespace WPF
         {
             model.SaveChanges();
         }
+
+        public void start(Client client)
+        {
+            model.start(client);
+        }
     }
 }
