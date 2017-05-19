@@ -32,7 +32,7 @@ namespace WPF
             vm = new SPWindowViewModel();
             this.DataContext = vm;
 
-            this.SizeChanged += OnWindowSizeChanged;
+          //  this.SizeChanged += OnWindowSizeChanged;
 
             this.name = name;
             this.rows = row;
@@ -103,6 +103,12 @@ namespace WPF
         {
             AreYouSureMenu sure = new AreYouSureMenu(this);
             sure.ShowDialog();
+        }
+
+        public void startPlay()
+        {
+            //Image image = new Image();
+            //image.Source = "pacman.jpg";
         }
     }
 }

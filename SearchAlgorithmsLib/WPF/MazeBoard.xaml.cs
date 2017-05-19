@@ -23,6 +23,10 @@ namespace WPF
     /// </summary>
     public partial class MazeBoard : UserControl
     {
+
+        // private string maze;
+        // private int rows, cols;
+        private double heightOfSqure, widthOfSqure;
         public MazeBoard()
         {
             InitializeComponent();
@@ -74,25 +78,23 @@ namespace WPF
             help = data3["Col"];
             int endCols = int.Parse(help);
 
-            drowTheMaze(mazeStr, rows, cols);
-
-
-
+            drawTheMaze(rows, cols, mazeStr);
         }
 
-        private void drowTheMaze(string mazeStr,int rows,int cols)
+        private void drawTheMaze(int rows, int cols, string mazeStr)
         {
             SolidColorBrush blackBrush = new SolidColorBrush();
             blackBrush.Color = Colors.Black;
             SolidColorBrush whiteBrush = new SolidColorBrush();
             whiteBrush.Color = Colors.White;
 
-            double widthOfSqure = myCanvas.Width / cols;
-            double heightOfSqure = myCanvas.Height / rows;
+            widthOfSqure = myCanvas.Width / cols;
+            heightOfSqure = myCanvas.Height / rows;
             int place;
-            for (int i = 0; i < rows; i++)
+            int i = 0, j = 0;
+            for (i = 0; i < rows; i++)
             {
-                for (int j = 0; j < cols; j++)
+                for (j = 0; j < cols; j++)
                 {
                     Rectangle r = new Rectangle();
                     r.Height = heightOfSqure;
@@ -111,6 +113,40 @@ namespace WPF
                     myCanvas.Children.Add(r);
                 }
             }
+
+            //draw the exit
+            Image image = new Image();
+            //image.Source = "pacman.jpg";
+            //var uriSource = new Uri("exit.jpg", UriKind.Relative);
+            //image.Source = new BitmapImage(uriSource);
+
+            // image.Source = new BitmapImage(new Uri("images/image.png"));
+            new BitmapImage(new Uri(@"/images/exit.jpg", UriKind.Relative));
+            Canvas.SetLeft(image, j * widthOfSqure);
+            Canvas.SetTop(image, i * heightOfSqure);
+            myCanvas.Children.Add(image); 
+        }
+
+        public void moveTo(int curRow, int curCol, int row, int col)
+        {
+            int place = row * Cols + col;//**check if this is the right Cols
+            if (mazeStr[place] == '0')
+            {
+                //drawing the player in place and wipes the earlier
+                Image image = new Image();
+                new BitmapImage(new Uri(@"/images/exit.jpg", UriKind.Relative));
+                Canvas.SetLeft(image, col * widthOfSqure);
+                Canvas.SetTop(image, row * heightOfSqure);
+                myCanvas.Children.Add(image);
+
+                Rectangle r = new Rectangle();
+                r.Height = heightOfSqure;
+                r.Width = widthOfSqure;
+                SolidColorBrush whiteBrush = new SolidColorBrush();
+                whiteBrush.Color = Colors.White;
+                r.Fill = whiteBrush;
+            }
+            else return;
         }
 
 
