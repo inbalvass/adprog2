@@ -52,7 +52,21 @@ namespace WPF
             c.DrawMaze((string)e.NewValue);
         }
 
-        public void DrawMaze(string maze)
+        //this jast for check- delete it
+        public void DrawMaze1(string maze)
+        {
+            Label l = new Label();
+            l.Content = maze;
+            myCanvas.Children.Add(l);
+
+            Label l1 = new Label();
+            l1.Content = "maze";
+            myCanvas.Children.Add(l1);
+        }
+
+
+
+            public void DrawMaze(string maze)
         {
             //get the information from the json string
             dynamic data = JsonConvert.DeserializeObject(maze);
@@ -75,9 +89,6 @@ namespace WPF
             int endCols = int.Parse(help);
 
             drowTheMaze(mazeStr, rows, cols);
-
-
-
         }
 
         private void drowTheMaze(string mazeStr,int rows,int cols)

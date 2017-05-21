@@ -78,6 +78,11 @@
     </Compile>
     <Compile Include="MazeBoardModel.cs" />
     <Compile Include="MazeBoardViewModel.cs" />
+    <Compile Include="MPModel.cs" />
+    <Compile Include="MPViewModel.cs" />
+    <Compile Include="MPwindow.xaml.cs">
+      <DependentUpon>MPwindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="MultiPlayer.xaml.cs">
       <DependentUpon>MultiPlayer.xaml</DependentUpon>
     </Compile>
@@ -130,6 +135,10 @@
       <SubType>Code</SubType>
     </Compile>
     <Page Include="MazeBoard.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="MPwindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

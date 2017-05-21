@@ -23,6 +23,9 @@ namespace WPF
         private string PlayCommand;
         private bool changedCommand;
 
+        private string resualt;
+        private bool changedresualt;
+
         /// <summary>
         /// a constructor.
         /// </summary>
@@ -34,6 +37,8 @@ namespace WPF
             this.port = Properties.Settings.Default.Port;
             PlayCommand = "not a command";
             changedCommand = false;
+            this.changedresualt = false;
+            resualt= "not a command";
 
         }
 
@@ -62,7 +67,28 @@ namespace WPF
             }
         }
 
+        public void setResault(string res)
+        {
+            this.resualt = res;
+            this.changedresualt = true;
+        }
 
+        public string getResault()
+        {
+            this.changedresualt = false;
+            return this.resualt;
+        }
+
+        public bool isResualtChanged()
+        {
+            return this.changedresualt;
+        }
+
+        public string getPlayCommand()
+        {
+            this.changedCommand = false;
+            return this.PlayCommand;
+        }
 
 
 
@@ -84,6 +110,8 @@ namespace WPF
                     while (true)
                     {
                         string result = reader.ReadString();
+                        this.setResault(result);
+
 
                         if (result.Contains("close"))
                         {

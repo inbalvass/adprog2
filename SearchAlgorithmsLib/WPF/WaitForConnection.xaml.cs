@@ -11,6 +11,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using System.Threading;
 
 namespace WPF
 {
@@ -19,11 +20,28 @@ namespace WPF
     /// </summary>
     public partial class WaitForConnection : Window
     {
-        public Client client { get; set; }
-        public WaitForConnection()
+        private Client client;
+        private string name;
+        public WaitForConnection(string names,Client myClient)
         {
             InitializeComponent();
+            this.client = myClient;
+            this.name = names;
         }
 
+        public void GetEvent()
+        {
+            bool resualtChanged = client.isResualtChanged();
+            //try to get the result
+            while (!resualtChanged)
+            {
+                Thread.Sleep(100);
+                resualtChanged = client.isResualtChanged();
+            }
+            string json = client.getResault();
+            MPwindow wind = new MPwindow(this.name, this.client, json);
+            this.Close();
+            wind.ShowDialog();
+        }
     }
 }

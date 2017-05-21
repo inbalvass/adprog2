@@ -25,32 +25,50 @@ namespace WPF
     public partial class MultiPlayer : Window
     {
         private MultyPlayerVM vm;
+        private string list;
         public MultiPlayer()
         {
             InitializeComponent();
             vm = new MultyPlayerVM();
             this.DataContext = vm;
+            
+            //צריך לראות איך לעשות את הרשימה שתאזין לשינויים במודל- וצריך שאיכשהו המודל כל כמה שניות ישלח הודעה לשרת בשביל הליסט
+            //ואז לעדכן את הרשימה שמופיעה לנו
+         /*   this.list = "";
+            Binding binding = new Binding();
+            binding.Path = new PropertyPath("VM_list");
+            binding.Source = this.list;
+            // BindingOperations.SetBinding(OnTargetUpdated, MultiPlayer.listOfPlayers, binding);*/
+            
+
+
             listOfPlayers();
 
         }
 
-
-
-    //אולי צריך יהיה לעשות פה מודל ווי.אמ ואז זה יהיה צריך להיות במודל.
-    // בנוסף- צריך לחשוב האם כדאי לעשות סוג של ליסנר כדי שאם משתמש פותח משחק חדש שהוא ישר יופיע לשחקן אחר
-    //get the list from the server and shoe it
-    private void listOfPlayers()
+   /*         private void OnTargetUpdated(Object sender, DataTransferEventArgs args)
         {
-            Client myClient = new Client();
-            string command = "list";
-            string result= myClient.StartSingle(command);
+            string result = vm.ListStart();
             JArray array = JArray.Parse(result);
             foreach (string element in array)
             {
                 comboBox.Items.Add(element);
             }
-        }
-        
+        }*/
+
+
+            //אולי צריך יהיה לעשות פה מודל ווי.אמ ואז זה יהיה צריך להיות במודל.
+            // בנוסף- צריך לחשוב האם כדאי לעשות סוג של ליסנר כדי שאם משתמש פותח משחק חדש שהוא ישר יופיע לשחקן אחר
+            //get the list from the server and shoe it
+            private void listOfPlayers()
+        {
+            string result = vm.ListStart();
+            JArray array = JArray.Parse(result);
+            foreach (string element in array)
+            {
+                comboBox.Items.Add(element);
+            }
+        }  
 
         private void new_multi_game(object sender, RoutedEventArgs e)
         {
@@ -65,8 +83,7 @@ namespace WPF
 
             //נעשה חלון חכה לחיבור והוא יבדוק מתי מגיעה לו תוצאה
 
-            WaitForConnection wfc = new WaitForConnection();
-            wfc.client = client;
+            WaitForConnection wfc = new WaitForConnection(vm.Name, client);
           //  SinglePlayerWindow sw = new SinglePlayerWindow(vm.Name, vm.Rows, vm.Colomns);
            this.Close();
             wfc.ShowDialog();
@@ -74,7 +91,14 @@ namespace WPF
 
         private void join_game(object sender, RoutedEventArgs e)
         {
-            //צריך לגרום לו לפתוח חלון
+            string selected = this.comboBox.SelectionBoxItem.ToString();
+            vm.Name = selected;
+            vm.SaveSettings();
+            Client client = new Client();
+            string json = vm.join(client);
+            MPwindow wind = new MPwindow(vm.Name, client, json);
+            this.Close();
+            wind.ShowDialog();
         }
     }
 }
