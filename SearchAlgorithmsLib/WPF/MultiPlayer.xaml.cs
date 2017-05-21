@@ -80,13 +80,7 @@ namespace WPF
             Client client = new Client();
             vm.start(client);
             //show the maze window
-
-            //נעשה חלון חכה לחיבור והוא יבדוק מתי מגיעה לו תוצאה
-
-            WaitForConnection wfc = new WaitForConnection(vm.Name, client);
-          //  SinglePlayerWindow sw = new SinglePlayerWindow(vm.Name, vm.Rows, vm.Colomns);
-           this.Close();
-            wfc.ShowDialog();
+              WaitForConnection wfc = new WaitForConnection(vm.Name, client,this);
         }
 
         private void join_game(object sender, RoutedEventArgs e)

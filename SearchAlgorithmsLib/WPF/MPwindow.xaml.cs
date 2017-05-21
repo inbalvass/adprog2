@@ -23,7 +23,7 @@ namespace WPF
         private MPViewModel vm;
         private string name;
         private MazeBoard mazeBoard;
-        private MazeBoard mazeBoardPlay;
+    //    private MazeBoard mazeBoardPlay;
 
         public MPwindow(string name, Client client, string json)
         {
@@ -43,11 +43,7 @@ namespace WPF
             binding.Source = vm;
             BindingOperations.SetBinding(mazeBoard, MazeBoard.mazeStrProperty, binding);
 
-            this.mazeBoardPlay = new MazeBoard();
-            Binding bindingPlay = new Binding();
-            bindingPlay.Path = new PropertyPath("VM_mazeStr");
-            bindingPlay.Source = vm;
-            BindingOperations.SetBinding(mazeBoard, MazeBoard.mazeStrProperty, bindingPlay);
+
 
 
         }
@@ -69,8 +65,10 @@ namespace WPF
         private void canvas_Loaded(object sender, RoutedEventArgs e)
         {
             Title = name;
-            dockPanelForCanvas.Children.Add(this.mazeBoard);
-            dockPanelForCanvas.Children.Add(this.mazeBoardPlay);
+            MazeBoard mazeBoardPlay = new MazeBoard();
+            mazeBoardPlay.mazeStr = this.mazeBoard.mazeStr;
+            this.canvas1.Children.Add(this.mazeBoard);
+            this.canvas2.Children.Add(mazeBoardPlay);
 
 
         }

@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:WPF"
         mc:Ignorable="d"
         Title="WaitForConnection" Height="300" Width="300" Background="Azure">
-    <Grid HorizontalAlignment="Center" VerticalAlignment="Center">
+    <Grid    x:Name="grid"  HorizontalAlignment="Center" VerticalAlignment="Center">
         <Label Content="Waiting For Connection..."   FontSize="20"></Label>
     </Grid>
 </Window>

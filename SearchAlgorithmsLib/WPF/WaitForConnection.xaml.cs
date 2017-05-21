@@ -22,11 +22,14 @@ namespace WPF
     {
         private Client client;
         private string name;
-        public WaitForConnection(string names,Client myClient)
+        public WaitForConnection(string names,Client myClient, MultiPlayer befor)
         {
             InitializeComponent();
+            befor.Close();
             this.client = myClient;
             this.name = names;
+            this.Show();
+            GetEvent();
         }
 
         public void GetEvent()
@@ -39,6 +42,10 @@ namespace WPF
                 resualtChanged = client.isResualtChanged();
             }
             string json = client.getResault();
+
+            Label l = new Label();
+            l.Content = json;
+            grid.Children.Add(l);
             MPwindow wind = new MPwindow(this.name, this.client, json);
             this.Close();
             wind.ShowDialog();
