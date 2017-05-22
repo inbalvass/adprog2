@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace WPF
 {
-    class MultyPlayerVM : ViewModel
+    class MultyPlayerVM : ViewModel, INotifyPropertyChanged
     {
         private MultyPlayerModel model;
         public MultyPlayerVM()
@@ -57,8 +57,7 @@ namespace WPF
             }
         }
 
-
-        public void SaveSettings()
+            public void SaveSettings()
         {
             model.SaveChanges();
         }

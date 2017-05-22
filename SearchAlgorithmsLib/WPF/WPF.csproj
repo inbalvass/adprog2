@@ -73,6 +73,8 @@
     <Compile Include="INotifyPropertyChanged.cs" />
     <Compile Include="ISettingsModel.cs" />
     <Compile Include="ISinglePlayerModel.cs" />
+    <Compile Include="Lists.cs" />
+    <Compile Include="List_item.cs" />
     <Compile Include="MazeBoard.xaml.cs">
       <DependentUpon>MazeBoard.xaml</DependentUpon>
     </Compile>
