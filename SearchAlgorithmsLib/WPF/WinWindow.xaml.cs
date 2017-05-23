@@ -15,23 +15,18 @@ using System.Windows.Shapes;
 namespace WPF
 {
     /// <summary>
-    /// Interaction logic for AreYouSureMenu.xaml
+    /// Interaction logic for WinWindow.xaml
     /// </summary>
-    public partial class AreYouSureMenu : Window
+    public partial class WinWindow : Window
     {
         private SinglePlayerWindow SPwindow;
-        public AreYouSureMenu(SinglePlayerWindow SPwindow)
+        public WinWindow(SinglePlayerWindow SPwindow)
         {
             InitializeComponent();
             this.SPwindow = SPwindow;
         }
 
-        private void clicked_no(object sender, RoutedEventArgs e)
-        {
-            this.Close();
-        }
-
-        private void clicked_yes(object sender, RoutedEventArgs e)
+        private void clicked_OK(object sender, RoutedEventArgs e)
         {
             MainWindow mw = new MainWindow();
             this.Close();
