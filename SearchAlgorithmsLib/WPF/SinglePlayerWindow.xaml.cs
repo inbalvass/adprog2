@@ -150,11 +150,11 @@ namespace WPF
             {
                 case Key.Up:
                     row--;         
-                    indexInMaze = indexInMaze - mazeBoard.Rows;
+                    indexInMaze = indexInMaze - mazeBoard.Cols;
                     break;
                 case Key.Down:
                     row++; 
-                    indexInMaze = indexInMaze + mazeBoard.Rows;
+                    indexInMaze = indexInMaze + mazeBoard.Cols;
                     break;
                 case Key.Right:
                     col++;
@@ -167,6 +167,7 @@ namespace WPF
                 default:
                     return;
             }
+
             //check if the next step is not out of range
             if ((col >= mazeBoard.Cols) || (row >= mazeBoard.Rows)
                 || (col < 0) || (row < 0))

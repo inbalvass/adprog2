@@ -11,6 +11,8 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using MazeLib;
+using Newtonsoft.Json;
 
 namespace WPF
 {
@@ -23,7 +25,10 @@ namespace WPF
         private MPViewModel vm;
         private string name;
         private MazeBoard mazeBoard;
-    //    private MazeBoard mazeBoardPlay;
+        private MazeBoard mazeBoardPlay;
+        private int rows, cols;
+       // public event PropertyChangedEventHandler PropertyChanged;
+        public bool Win;
 
         public MPwindow(string name, Client client, string json)
         {
@@ -32,10 +37,17 @@ namespace WPF
             vm = new MPViewModel(client);
             this.DataContext = vm;
 
-            this.SizeChanged += OnWindowSizeChanged;
+          //  this.SizeChanged += OnWindowSizeChanged;
 
             this.name = name;
             vm.VM_mazeStr = json;
+
+            //find the rows and colomns
+            dynamic data = JsonConvert.DeserializeObject(json);
+            string help = data["Rows"];
+            this.rows = int.Parse(help);
+            help = data["Cols"];
+            this.cols = int.Parse(help);
 
             this.mazeBoard = new MazeBoard();
             Binding binding = new Binding();
@@ -43,10 +55,15 @@ namespace WPF
             binding.Source = vm;
             BindingOperations.SetBinding(mazeBoard, MazeBoard.mazeStrProperty, binding);
 
-
-
+        //    this.PropertyChanged += WinPropertyChanged;
 
         }
+
+    /*    private void WinPropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+           // WinWindow win = new WinWindow(this);
+        }*/
+
 
         protected void OnWindowSizeChanged(object sender, SizeChangedEventArgs e)
         {
@@ -65,12 +82,10 @@ namespace WPF
         private void canvas_Loaded(object sender, RoutedEventArgs e)
         {
             Title = name;
-            MazeBoard mazeBoardPlay = new MazeBoard();
+            this.mazeBoardPlay = new MazeBoard();
             mazeBoardPlay.mazeStr = this.mazeBoard.mazeStr;
             this.canvas1.Children.Add(this.mazeBoard);
             this.canvas2.Children.Add(mazeBoardPlay);
-
-
         }
 
         /// <summary>
@@ -83,5 +98,78 @@ namespace WPF
           //  AreYouSureMenu sure = new AreYouSureMenu(this);
             //sure.ShowDialog();
         }
+
+
+        //צריך להיות משהו דומה בשביל להציג את הצד השני כלומר את החלון של היריב
+        private void clicked_solve(object sender, RoutedEventArgs e)
+        {
+            // string solution = vm.solve(name);
+            string solution = "0011";
+            dynamic data = JsonConvert.DeserializeObject(solution);
+            string solutionStr = data["Solution"];
+            int col = mazeBoard.Pos.Col;
+            int row = mazeBoard.Pos.Row;
+            for (int i = 0; i < solutionStr.Length; i++)
+            {
+                switch (solutionStr[i])
+                {
+                    case '2': //up
+                        row--;
+                        break;
+                    case '3': //down
+                        row++;
+                        break;
+                    case '1': //right
+                        col++;
+                        break;
+                    case '0': //left
+                        col--;
+                        break;
+                    default:
+                        return;
+                }
+            }
+            mazeBoard.moveTo(new Position(row, col));
+        }
+
+        private void SPwindow_KeyDown(object sender, KeyEventArgs e)
+        {
+            int col = mazeBoard.Pos.Col;
+            int row = mazeBoard.Pos.Row;
+            int indexInMaze = mazeBoard.IndexInMaze;
+            switch (e.Key)
+            {
+                case Key.Up:
+                    row--;
+                    indexInMaze = indexInMaze - mazeBoard.Cols;
+                    break;
+                case Key.Down:
+                    row++;
+                    indexInMaze = indexInMaze + mazeBoard.Cols;
+                    break;
+                case Key.Right:
+                    col++;
+                    indexInMaze++;
+                    break;
+                case Key.Left:
+                    col--;
+                    indexInMaze--;
+                    break;
+                default:
+                    return;
+            }
+
+            //check if the next step is not out of range
+            if ((col >= mazeBoard.Cols) || (row >= mazeBoard.Rows)
+                || (col < 0) || (row < 0))
+                return;
+            //check if the next step is not an obstacle
+            if (mazeBoard.Blocks[indexInMaze] == '1')
+                return;
+            //update the current index
+            mazeBoard.IndexInMaze = indexInMaze;
+            mazeBoard.moveTo(new Position(row, col));
+        }
+
     }
 }
