@@ -15,6 +15,8 @@ using System.Windows.Shapes;
 using System.Net.Sockets;
 using Newtonsoft.Json.Linq;
 using Newtonsoft.Json;
+using MazeLib;
+using System.ComponentModel;
 
 namespace WPF
 {
@@ -23,20 +25,42 @@ namespace WPF
     /// </summary>
     public partial class MazeBoard : UserControl
     {
-
-        // private string maze;
-        // private int rows, cols;
+        private string blocks;
+        private int rows;
+        private int cols;
+        private Position pos;
+        private Position startPos;
+        private Position endPos;
+        private bool win;
         private double heightOfSqure, widthOfSqure;
+        private int indexInMaze;
+        private int initialIndexInMaze;
+
         public MazeBoard()
         {
             InitializeComponent();
             myCanvas.Height = System.Windows.SystemParameters.PrimaryScreenHeight;
             myCanvas.Width = System.Windows.SystemParameters.PrimaryScreenWidth;
+            this.Win = false;
         }
 
         private void UserControl_Loaded(object sender, RoutedEventArgs e)
         {
 
+        }
+
+        public bool Win
+        {
+            get
+            {
+                return win;
+            }
+
+            set
+            {
+                win = value;
+                NotifyPropertyChanged("Win");
+            }
         }
 
 
@@ -56,156 +80,190 @@ namespace WPF
             c.DrawMaze((string)e.NewValue);
         }
 
-        public void DrawMaze(string maze)
+        private void ParseData(string maze)
         {
             //get the information from the json string
             dynamic data = JsonConvert.DeserializeObject(maze);
-            string mazeStr = data["Maze"];
+            this.blocks = data["Maze"];
             string help = data["Rows"];
-            int rows = int.Parse(help);
+            this.Rows = int.Parse(help);
             help = data["Cols"];
-            int cols = int.Parse(help);
+            this.Cols = int.Parse(help);
             //get the start point
             dynamic data2 = data["Start"];
             help = data2["Row"];
             int startRow = int.Parse(help);
             help = data2["Col"];
-            int startCols= int.Parse(help);
+            int startCols = int.Parse(help);
+            this.startPos = new Position(startRow, startCols);
             //get the end point
             dynamic data3 = data["End"];
             help = data3["Row"];
             int endRow = int.Parse(help);
             help = data3["Col"];
             int endCols = int.Parse(help);
-
-            drawTheMaze(rows, cols, mazeStr);
+            this.endPos = new Position(endRow, endCols);
+            this.Pos = startPos;
+        }
+        public void DrawMaze(string maze)
+        {
+            ParseData(maze);
+            drawTheMaze(mazeStr);
         }
 
-        private void drawTheMaze(int rows, int cols, string mazeStr)
+        private void drawTheMaze(string mazeStr)
         {
             SolidColorBrush blackBrush = new SolidColorBrush();
             blackBrush.Color = Colors.Black;
-            SolidColorBrush whiteBrush = new SolidColorBrush();
-            whiteBrush.Color = Colors.White;
+            widthOfSqure = myCanvas.Width / Cols;
+            heightOfSqure = myCanvas.Height / Rows;
+            int counter = 0;
 
-            widthOfSqure = myCanvas.Width / cols;
-            heightOfSqure = myCanvas.Height / rows;
-            int place;
-            int i = 0, j = 0;
-            for (i = 0; i < rows; i++)
+            for (int i = 0; i < Rows; i++)
             {
-                for (j = 0; j < cols; j++)
+                for (int j = 0; j < Cols; j++)
                 {
                     Rectangle r = new Rectangle();
                     r.Height = heightOfSqure;
                     r.Width = widthOfSqure;
-                    place = i * cols + j; //the index in the string
-                    if (mazeStr[place] == '0')
-                    {
-                        r.Fill = whiteBrush;
-                    }
-                    else
+                    if (blocks[counter] == '1')//wall
                     {
                         r.Fill = blackBrush;
+                        Canvas.SetLeft(r, j * widthOfSqure);
+                        Canvas.SetTop(r, i * heightOfSqure);
+                        myCanvas.Children.Add(r);
                     }
-                    Canvas.SetLeft(r, j * widthOfSqure);
-                    Canvas.SetTop(r, i * heightOfSqure);
-                    myCanvas.Children.Add(r);
+                    //draw the player icon
+                    if (i == startPos.Row && j == startPos.Col)
+                    {
+                        Image playerImage = new Image();
+                        BitmapImage bitmap = new BitmapImage(new Uri("/images/pacman.png", UriKind.Relative));
+                        playerImage.Source = bitmap;
+                        playerImage.Height = heightOfSqure;
+                        playerImage.Width = widthOfSqure;
+                        Canvas.SetLeft(playerImage, startPos.Col* widthOfSqure);
+                        Canvas.SetTop(playerImage, startPos.Row* heightOfSqure);
+                        myCanvas.Children.Add(playerImage);
+                        IndexInMaze = counter;
+                        initialIndexInMaze = counter;
+                    }
+                    counter++;
                 }
             }
 
-            //draw the exit
-            Image image = new Image();
-            //image.Source = "pacman.jpg";
-            //var uriSource = new Uri("exit.jpg", UriKind.Relative);
-            //image.Source = new BitmapImage(uriSource);
-
-            // image.Source = new BitmapImage(new Uri("images/image.png"));
-            new BitmapImage(new Uri(@"/images/exit.jpg", UriKind.Relative));
-            Canvas.SetLeft(image, j * widthOfSqure);
-            Canvas.SetTop(image, i * heightOfSqure);
-            myCanvas.Children.Add(image); 
+            //draw the exit icon
+            Image exitImage = new Image();
+            BitmapImage carBitmap = new BitmapImage(new Uri("/images/exit.jpg", UriKind.Relative));
+            exitImage.Source = carBitmap;
+            exitImage.Height = heightOfSqure;
+            exitImage.Width = widthOfSqure;
+            Canvas.SetLeft(exitImage, endPos.Col * widthOfSqure);
+            Canvas.SetTop(exitImage, endPos.Row * heightOfSqure);
+            myCanvas.Children.Add(exitImage);
         }
 
-        public void moveTo(int curRow, int curCol, int row, int col)
+        public void moveTo(Position nextPos, int index)
         {
-            int place = row * Cols + col;//**check if this is the right Cols
-            if (mazeStr[place] == '0')
+            //check if the next step is not an obstacle
+            if (blocks[index] == '1')
             {
-                //drawing the player in place and wipes the earlier
-                Image image = new Image();
-                new BitmapImage(new Uri(@"/images/exit.jpg", UriKind.Relative));
-                Canvas.SetLeft(image, col * widthOfSqure);
-                Canvas.SetTop(image, row * heightOfSqure);
-                myCanvas.Children.Add(image);
-
-                Rectangle r = new Rectangle();
-                r.Height = heightOfSqure;
-                r.Width = widthOfSqure;
-                SolidColorBrush whiteBrush = new SolidColorBrush();
-                whiteBrush.Color = Colors.White;
-                r.Fill = whiteBrush;
+                return;
             }
-            else return;
+
+            //update the current index
+            IndexInMaze = index;
+
+            //drawing the player in place and wipes the earlier
+            Image image = new Image();
+            BitmapImage carBitmap = new BitmapImage(new Uri("/images/pacman.png", UriKind.Relative));
+            image.Source = carBitmap;
+            image.Height = heightOfSqure;
+            image.Width = widthOfSqure;
+            Canvas.SetLeft(image, nextPos.Col * widthOfSqure);
+            Canvas.SetTop(image, nextPos.Row * heightOfSqure);
+            myCanvas.Children.Add(image);
+
+            Rectangle r = new Rectangle();
+            r.Height = heightOfSqure;
+            r.Width = widthOfSqure;
+            SolidColorBrush whiteBrush = new SolidColorBrush();
+            whiteBrush.Color = Colors.White;
+            r.Fill = whiteBrush;
+            Canvas.SetLeft(r, Pos.Col * widthOfSqure);
+            Canvas.SetTop(r, Pos.Row * heightOfSqure);
+            myCanvas.Children.Add(r);
+
+            //check if the player won
+            if ((nextPos.Col == endPos.Col) && (nextPos.Row == endPos.Row))
+            {
+                this.Win = true;
+                //return;
+            }
+                
+            //update the current position of the player
+            Pos = nextPos;
         }
-
-
-
-
-
-        // Using a DependencyProperty as the backing store for Rows. This enables animation, styling,binding, etc...
-
-            //נראה לי שאת כל זה אפשר בכלל למחוק...
-        public static readonly DependencyProperty RowsProperty =
-         DependencyProperty.Register("Rows", typeof(int), typeof(MazeBoard), new
-        PropertyMetadata(0));
-
-        public int Rows
-        {
-            get { return (int)GetValue(RowsProperty); }
-            set { SetValue(RowsProperty, value); }
-        }
-
-        public static readonly DependencyProperty ColsProperty =
-         DependencyProperty.Register("Cols", typeof(int), typeof(MazeBoard), new
-        PropertyMetadata(0));
-
-        public int Cols
-        {
-            get { return (int)GetValue(ColsProperty); }
-            set { SetValue(ColsProperty, value); }
-        }
-
 
         public static readonly DependencyProperty MazeProperty =
             DependencyProperty.Register("Maze", typeof(string), typeof(MazeBoard), new
             PropertyMetadata("0,1"));
 
-        public string Maze
+        public Position Pos
         {
-            get { return (string)GetValue(MazeProperty); }
-            set { SetValue(MazeProperty, value); }
+            get
+            {
+                return pos;
+            }
+
+            set
+            {
+                pos = value;
+            }
         }
 
-
-        public static readonly DependencyProperty InitialPosProperty =
-            DependencyProperty.Register("InitialPos", typeof(string), typeof(MazeBoard), new
-            PropertyMetadata("0,1"));
-
-        public string InitialPos
+        public int IndexInMaze
         {
-            get { return (string)GetValue(InitialPosProperty); }
-            set { SetValue(InitialPosProperty, value); }
+            get
+            {
+                return indexInMaze;
+            }
+
+            set
+            {
+                indexInMaze = value;
+            }
         }
 
-        public static readonly DependencyProperty GoalPosProperty =
-            DependencyProperty.Register("GoalPos", typeof(string), typeof(MazeBoard), new
-            PropertyMetadata("0,1"));
-
-        public string GoalPos
+        public int Rows
         {
-            get { return (string)GetValue(GoalPosProperty); }
-            set { SetValue(GoalPosProperty, value); }
+            get
+            {
+                return rows;
+            }
+
+            set
+            {
+                rows = value;
+            }
+        }
+
+        public int Cols
+        {
+            get
+            {
+                return cols;
+            }
+
+            set
+            {
+                cols = value;
+            }
+        }
+
+        public event PropertyChangedEventHandler PropertyChanged;
+        public void NotifyPropertyChanged(string propName)
+        {
+            this.PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propName));
         }
     }
 }

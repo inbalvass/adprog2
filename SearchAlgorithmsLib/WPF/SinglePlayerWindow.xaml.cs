@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MazeLib;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -11,6 +12,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+
 
 namespace WPF
 {
@@ -105,10 +107,51 @@ namespace WPF
             sure.ShowDialog();
         }
 
+        private void SPwindow_KeyDown(object sender, KeyEventArgs e)
+        {
+            int col = mazeBoard.Pos.Col;
+            int row = mazeBoard.Pos.Row;
+            int indexInMaze = mazeBoard.IndexInMaze;
+            switch (e.Key)
+            {
+                case Key.Up:
+                    row--;
+                    
+                    indexInMaze = indexInMaze - mazeBoard.Rows;
+                    break;
+                case Key.Down:
+                    row++;
+                    
+                    indexInMaze = indexInMaze + mazeBoard.Rows;
+                    break;
+                case Key.Right:
+                    col++;
+                    indexInMaze++;
+
+                    break;
+                case Key.Left:
+                    col--;
+                    indexInMaze--;
+
+
+                    break;
+                default:
+                    return;
+            }
+            if ((col >= mazeBoard.Cols) || (row >= mazeBoard.Rows)
+                || (col < 0) || (row < 0))
+            {
+                return;
+            }
+            
+            mazeBoard.moveTo(new Position(row,col), indexInMaze);
+        }
+
         public void startPlay()
         {
-            //Image image = new Image();
-            //image.Source = "pacman.jpg";
+            //for loop or two
+            //event key press etc...
+          //  this.mazeBoard.moveTo(i, j,...);
         }
     }
 }

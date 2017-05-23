@@ -12,8 +12,8 @@
             <Button x:Name="button1" Content="Multi player" HorizontalAlignment="Center" Margin="0,10,0,0" VerticalAlignment="Center" Width="150" Height="30" FontWeight="Bold" Click="clicked_multi"/>
             <Button x:Name="button2" Content="Settings" HorizontalAlignment="Center" Margin="0,10,0,0" VerticalAlignment="Center" Width="150" Height="30" FontWeight="Bold" Click="clicked_settings"/>
         </StackPanel>
-        <Canvas>
-            <Image x:Name="image" HorizontalAlignment="Left" Height="200" Margin="30,30,0,0" VerticalAlignment="Top" Width="110" Source="minion.jpg"/>
+        <Canvas Name="canvas">
+            <Image x:Name="image" HorizontalAlignment="Left" Height="200" Margin="30,30,0,0" VerticalAlignment="Top" Width="110" Source="/images/minion.jpg"/>
         </Canvas>
     </Grid>
 </Window>
