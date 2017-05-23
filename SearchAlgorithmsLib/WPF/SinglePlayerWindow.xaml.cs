@@ -1,6 +1,7 @@
 ﻿using MazeLib;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -27,6 +28,8 @@ namespace WPF
         private string name;
         private int rows, cols;
         private MazeBoard mazeBoard;
+        public event PropertyChangedEventHandler PropertyChanged;
+        public bool Win;
 
         public SinglePlayerWindow(string name, int row, int col)
         {
@@ -51,6 +54,12 @@ namespace WPF
             binding.Source = vm;
             BindingOperations.SetBinding(mazeBoard, MazeBoard.mazeStrProperty, binding);
 
+            this.PropertyChanged += WinPropertyChanged;
+        }
+
+        private void WinPropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            WinWindow win = new WinWindow(this);
         }
 
         protected void OnWindowSizeChanged(object sender, SizeChangedEventArgs e)
@@ -116,25 +125,20 @@ namespace WPF
             switch (e.Key)
             {
                 case Key.Up:
-                    row--;
-                    
+                    row--;         
                     indexInMaze = indexInMaze - mazeBoard.Rows;
                     break;
                 case Key.Down:
-                    row++;
-                    
+                    row++; 
                     indexInMaze = indexInMaze + mazeBoard.Rows;
                     break;
                 case Key.Right:
                     col++;
                     indexInMaze++;
-
                     break;
                 case Key.Left:
                     col--;
                     indexInMaze--;
-
-
                     break;
                 default:
                     return;
