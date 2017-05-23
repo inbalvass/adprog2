@@ -8,18 +8,18 @@
         Title="MultiPlayer" Height="300" Width="300">
     <Grid>
         <Viewbox>
-            <Canvas Height="280" Width="280">
+            <Canvas x:Name = "canvas" Height="280" Width="280">
                 <Label Content="List of games:" Canvas.Left="10" Canvas.Top="20" FontSize="15"></Label>
                 <Button Content="Join Game" HorizontalAlignment="Center" Canvas.Left="152" Canvas.Top="65" Height="30" Width="104" FontSize="15" Background="LightSkyBlue" Click="join_game"></Button>
                 <Button Content="Start Game" Canvas.Left="96" Canvas.Top="230" Width="104" Height="29" FontSize="15" Background="LightSkyBlue" Click="new_multi_game"/>
-                <ComboBox x:Name="comboBox" Canvas.Left="136" Canvas.Top="20" Width="136" Height="32"/>
+                <ComboBox x:Name="comboBox" Canvas.Left="136" Canvas.Top="20" Width="136" Height="32" DropDownOpened="comboBox_DropDownOpened"/>
                 <Label Content="New Maze:" FontSize="15" Canvas.Left="10" Canvas.Top="90" FontWeight="Bold"></Label>
                 <Label Content="Name:" FontSize="15" Canvas.Left="20" Canvas.Top="125"></Label>
-                <TextBox Text="" Width="119" Height="29" Canvas.Left="96" Canvas.Top="126"></TextBox>
+                <TextBox Name="Name" Text="{Binding Name}" Width="119" Height="29" Canvas.Left="96" Canvas.Top="126"></TextBox>
                 <Label Content="Columns:" FontSize="15" Canvas.Left="20" Canvas.Top="160"></Label>
-                <TextBox Text="" Width="119" Height="29" Canvas.Left="96" Canvas.Top="160" ></TextBox>
+                <TextBox Name="colomns" Text="{Binding Colomns}" Width="119" Height="29" Canvas.Left="96" Canvas.Top="160" ></TextBox>
                 <Label Content="Rows:" FontSize="15" Canvas.Left="20" Canvas.Top="195"></Label>
-                <TextBox Text="" Width="119" Height="29" Canvas.Left="96" Canvas.Top="194" ></TextBox>
+                <TextBox Name="rows" Text="{Binding Rows}" Width="119" Height="29" Canvas.Left="96" Canvas.Top="194" ></TextBox>
             </Canvas>
         </Viewbox>
 

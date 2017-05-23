@@ -13,13 +13,18 @@ namespace WPF
     /// <summary>
     /// this class represents a client.
     /// </summary>
-    class Client
+    public class Client
     {
         /// <summary>
         /// TcpClient of the client and his port to contact the server.
         /// </summary>
         private TcpClient client;
         private int port;
+        private string PlayCommand;
+        private bool changedCommand;
+
+        private string resualt;
+        private bool changedresualt;
 
         /// <summary>
         /// a constructor.
@@ -30,6 +35,17 @@ namespace WPF
         {
             client = new TcpClient();
             this.port = Properties.Settings.Default.Port;
+            PlayCommand = "not a command";
+            changedCommand = false;
+            this.changedresualt = false;
+            resualt= "not a command";
+
+        }
+
+        public void setPlayCommand(string command)
+        {
+            this.PlayCommand = command;
+            this.changedCommand = true;
         }
 
         //for orders: generate,solve,list
@@ -51,6 +67,105 @@ namespace WPF
             }
         }
 
+        public void setResault(string res)
+        {
+            this.resualt = res;
+            this.changedresualt = true;
+        }
+
+        public string getResault()
+        {
+            this.changedresualt = false;
+            return this.resualt;
+        }
+
+        public bool isResualtChanged()
+        {
+            return this.changedresualt;
+        }
+
+        public string getPlayCommand()
+        {
+            this.changedCommand = false;
+            return this.PlayCommand;
+        }
+
+
+
+
+        public void StartMulty(string commands)
+        {
+            string command = commands;
+            IPEndPoint ep = new IPEndPoint(IPAddress.Parse("127.0.0.1"), port);
+            client.Connect(ep);
+            new Task(() =>
+            {
+                using (NetworkStream stream = client.GetStream())
+                using (BinaryReader reader = new BinaryReader(stream))
+                using (BinaryWriter writer = new BinaryWriter(stream))
+                {
+                    // Send data to server
+                    writer.Write(command);
+
+                    while (true)
+                    {
+                        string result = reader.ReadString();
+                        this.setResault(result);
+
+
+                        if (result.Contains("close"))
+                        {
+                            // after the other client closed the connection this client still
+                            //has to react with some flag of closing.
+                            setPlayCommand("b");
+                            break;
+                        }
+
+                        if (command.StartsWith("start") || command.StartsWith("join"))
+                        {
+                            new Task(() =>
+                            {
+                                while (true)
+                                {
+                                    while (!this.changedCommand)
+                                    {
+                                    //white until a command is send
+                                    Thread.Sleep(1000);
+                                    }
+                                    this.changedCommand = false;
+                                    if (command.StartsWith("close") || command == "b")
+                                    {
+                                    //so the task closed first
+                                    Thread.Sleep(100);
+                                    //close the connection
+                                    Stop();
+                                        break;
+                                    }
+                                    writer.Write(command);
+                                }
+                            }).Start();
+                        }
+                    }
+                    Stop();
+                }  
+            }).Start();
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        //את זה למחוק
+
 
         /// <summary>
         /// this function starts the client and establish the connection to the server.
@@ -60,15 +175,15 @@ namespace WPF
         /// 
         //את זה צריך לשנות שיהיה למולטי
 
-            //כדי שהמשחק יתקיים צריך שכל הזמן יהיה קשר. כדי שכל הזמן יהיה קשר צריך שהלולאה הפנימית תתקיים. כדי שהיא
-            // תתקיים צריך גם שזה ישאר בפונקציה הזו כל הזמן אבל שגם יהיה אפשר לקבל ממנה כל פעם את המידע שמתקבל.
-            // לדעתי יש 2 אפשרויות: 1) להוציא את כל הפונקציה החוצה ולשים אותה איפה שהמולטי גיים יהיה.
-            //2) להוסיף פונציה סט שבה כל הזמן נעדכן את המידע שהוחזר כרגע ואז נקרא משם כל הזמן במולטי גיים בלולאה.
-            //אבל זה יצור ביזי ווטינג. מצד שני הפתרון הראשון לא משהו כי זה יכנס במקום לא קשור בקוד.
-            //נעשה 2 פונקציות סט- אחת לפקודה שרוצים להכניס והשנייה לתוצאה שהתקבלה. 
-            //ואז פה נעשה לולאה של מתי לקרוא ובמולטי גיים נעשה לולאה של מתי לקרוא את הפתרון.
-            //דרך נוספתת זה אולי לעשות ליסנר לשניהם?
-        public void StartMulty(string commands)
+        //כדי שהמשחק יתקיים צריך שכל הזמן יהיה קשר. כדי שכל הזמן יהיה קשר צריך שהלולאה הפנימית תתקיים. כדי שהיא
+        // תתקיים צריך גם שזה ישאר בפונקציה הזו כל הזמן אבל שגם יהיה אפשר לקבל ממנה כל פעם את המידע שמתקבל.
+        // לדעתי יש 2 אפשרויות: 1) להוציא את כל הפונקציה החוצה ולשים אותה איפה שהמולטי גיים יהיה.
+        //2) להוסיף פונציה סט שבה כל הזמן נעדכן את המידע שהוחזר כרגע ואז נקרא משם כל הזמן במולטי גיים בלולאה.
+        //אבל זה יצור ביזי ווטינג. מצד שני הפתרון הראשון לא משהו כי זה יכנס במקום לא קשור בקוד.
+        //נעשה 2 פונקציות סט- אחת לפקודה שרוצים להכניס והשנייה לתוצאה שהתקבלה. 
+        //ואז פה נעשה לולאה של מתי לקרוא ובמולטי גיים נעשה לולאה של מתי לקרוא את הפתרון.
+        //דרך נוספתת זה אולי לעשות ליסנר לשניהם?
+        public void StartMulty1(string commands)
         {
             string command = commands;
             IPEndPoint ep = new IPEndPoint(IPAddress.Parse("127.0.0.1"), port);
@@ -77,7 +192,7 @@ namespace WPF
             using (BinaryReader reader = new BinaryReader(stream))
             using (BinaryWriter writer = new BinaryWriter(stream))
             {             
-                    while (true)
+                while (true)
                 {
                     // Send data to server
                     writer.Write(command);
@@ -122,7 +237,8 @@ namespace WPF
                     }
                     //את זה צריך לשנות שלא יקרא מהקונסול אלא שיקבל את המידע כאשר שולחם לו
                     Console.WriteLine("write your command");
-                    command = Console.ReadLine();
+                    return;
+                    //command = Console.ReadLine();
                 }
             }
         }

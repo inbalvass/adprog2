@@ -28,6 +28,7 @@ namespace WPF
         private void clicked_single(object sender, RoutedEventArgs e)
         {
             SinglePlayer s = new SinglePlayer();
+            //singlePlayerInfo s = new singlePlayerInfo();
             this.Close();
             s.ShowDialog();
         }

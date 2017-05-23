@@ -9,7 +9,7 @@
     <Viewbox>
         <Border BorderBrush="Black" BorderThickness="3" Name="border">
 
-            <Canvas x:Name="myCanvas" HorizontalAlignment="Center" VerticalAlignment="Center" Width="578" Height="498">
+            <Canvas x:Name="myCanvas" HorizontalAlignment="Center" VerticalAlignment="Center">
                 </Canvas>
            
         </Border>

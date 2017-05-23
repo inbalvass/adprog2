@@ -35,7 +35,6 @@ namespace WPF
         private double heightOfSqure, widthOfSqure;
         private int indexInMaze;
         private int initialIndexInMaze;
-
         public MazeBoard()
         {
             InitializeComponent();
@@ -62,7 +61,6 @@ namespace WPF
                 NotifyPropertyChanged("Win");
             }
         }
-
 
         public string mazeStr
         {
@@ -105,6 +103,20 @@ namespace WPF
             this.endPos = new Position(endRow, endCols);
             this.Pos = startPos;
         }
+        //this jast for check- delete it
+        public void DrawMaze1(string maze)
+        {
+            Label l = new Label();
+            l.Content = maze;
+            myCanvas.Children.Add(l);
+
+            Label l1 = new Label();
+            l1.Content = "maze";
+            myCanvas.Children.Add(l1);
+        }
+
+
+
         public void DrawMaze(string maze)
         {
             ParseData(maze);
@@ -141,8 +153,8 @@ namespace WPF
                         playerImage.Source = bitmap;
                         playerImage.Height = heightOfSqure;
                         playerImage.Width = widthOfSqure;
-                        Canvas.SetLeft(playerImage, startPos.Col* widthOfSqure);
-                        Canvas.SetTop(playerImage, startPos.Row* heightOfSqure);
+                        Canvas.SetLeft(playerImage, startPos.Col * widthOfSqure);
+                        Canvas.SetTop(playerImage, startPos.Row * heightOfSqure);
                         myCanvas.Children.Add(playerImage);
                         IndexInMaze = counter;
                         initialIndexInMaze = counter;
@@ -199,14 +211,45 @@ namespace WPF
                 this.Win = true;
                 //return;
             }
-                
+
             //update the current position of the player
             Pos = nextPos;
         }
 
+
+        //// Using a DependencyProperty as the backing store for Rows. This enables animation, styling,binding, etc...
+
+        ////נראה לי שאת כל זה אפשר בכלל למחוק...
+        //public static readonly DependencyProperty RowsProperty =
+        // DependencyProperty.Register("Rows", typeof(int), typeof(MazeBoard), new
+        //PropertyMetadata(0));
+
+        //public int Rows
+        //{
+        //    get { return (int)GetValue(RowsProperty); }
+        //    set { SetValue(RowsProperty, value); }
+        //}
+
+        //public static readonly DependencyProperty ColsProperty =
+        // DependencyProperty.Register("Cols", typeof(int), typeof(MazeBoard), new
+        //PropertyMetadata(0));
+
+        //public int Cols
+        //{
+        //    get { return (int)GetValue(ColsProperty); }
+        //    set { SetValue(ColsProperty, value); }
+        //}
+
+
         public static readonly DependencyProperty MazeProperty =
             DependencyProperty.Register("Maze", typeof(string), typeof(MazeBoard), new
             PropertyMetadata("0,1"));
+
+        public string Maze
+        {
+            get { return (string)GetValue(MazeProperty); }
+            set { SetValue(MazeProperty, value); }
+        }
 
         public Position Pos
         {
@@ -267,3 +310,28 @@ namespace WPF
         }
     }
 }
+
+
+
+//        public static readonly DependencyProperty InitialPosProperty =
+//            DependencyProperty.Register("InitialPos", typeof(string), typeof(MazeBoard), new
+//            PropertyMetadata("0,1"));
+
+//        public string InitialPos
+//        {
+//            get { return (string)GetValue(InitialPosProperty); }
+//            set { SetValue(InitialPosProperty, value); }
+//        }
+
+//        public static readonly DependencyProperty GoalPosProperty =
+//            DependencyProperty.Register("GoalPos", typeof(string), typeof(MazeBoard), new
+//            PropertyMetadata("0,1"));
+
+//        public string GoalPos
+//        {
+//            get { return (string)GetValue(GoalPosProperty); }
+//            set { SetValue(GoalPosProperty, value); }
+//        }
+//    }
+//}
+
