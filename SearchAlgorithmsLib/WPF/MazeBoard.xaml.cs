@@ -82,7 +82,7 @@ namespace WPF
         {
             //get the information from the json string
             dynamic data = JsonConvert.DeserializeObject(maze);
-            this.blocks = data["Maze"];
+            this.Blocks = data["Maze"];
             string help = data["Rows"];
             this.Rows = int.Parse(help);
             help = data["Cols"];
@@ -138,7 +138,7 @@ namespace WPF
                     Rectangle r = new Rectangle();
                     r.Height = heightOfSqure;
                     r.Width = widthOfSqure;
-                    if (blocks[counter] == '1')//wall
+                    if (Blocks[counter] == '1')//wall
                     {
                         r.Fill = blackBrush;
                         Canvas.SetLeft(r, j * widthOfSqure);
@@ -174,16 +174,10 @@ namespace WPF
             myCanvas.Children.Add(exitImage);
         }
 
-        public void moveTo(Position nextPos, int index)
+        public void moveTo(Position nextPos)
         {
-            //check if the next step is not an obstacle
-            if (blocks[index] == '1')
-            {
-                return;
-            }
-
             //update the current index
-            IndexInMaze = index;
+            //IndexInMaze = index;
 
             //drawing the player in place and wipes the earlier
             Image image = new Image();
@@ -300,6 +294,19 @@ namespace WPF
             set
             {
                 cols = value;
+            }
+        }
+
+        public string Blocks
+        {
+            get
+            {
+                return blocks;
+            }
+
+            set
+            {
+                blocks = value;
             }
         }
 

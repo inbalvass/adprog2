@@ -1,4 +1,5 @@
 ﻿using MazeLib;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -88,10 +89,33 @@ namespace WPF
 
         private void clicked_solve(object sender, RoutedEventArgs e)
         {
-            //*****maybe in different thread? ****
             string solution= vm.solve(name);
-            //********
-                        //צריך להעביר את השחקן להתחלה ואז פשוט להזיז אותו צעד צעד לפתרון.
+            dynamic data = JsonConvert.DeserializeObject(solution);
+            string solutionStr = data["Solution"];
+            int col = mazeBoard.Pos.Col;
+            int row = mazeBoard.Pos.Row;
+            for(int i = 0; i < solutionStr.Length; i++)
+            {
+                switch (solutionStr[i])
+                {
+                    case '2': //up
+                        row--;
+                        break;
+                    case '3': //down
+                        row++;
+                        break;
+                    case '1': //right
+                        col++;
+                        break;
+                    case '0': //left
+                        col--;
+                        break;
+                    default:
+                        return;
+                }
+            }
+            mazeBoard.moveTo(new Position(row, col));
+
 
         }
 
@@ -143,13 +167,16 @@ namespace WPF
                 default:
                     return;
             }
+            //check if the next step is not out of range
             if ((col >= mazeBoard.Cols) || (row >= mazeBoard.Rows)
                 || (col < 0) || (row < 0))
-            {
                 return;
-            }
-            
-            mazeBoard.moveTo(new Position(row,col), indexInMaze);
+            //check if the next step is not an obstacle
+            if (mazeBoard.Blocks[indexInMaze] == '1')
+                return;
+            //update the current index
+            mazeBoard.IndexInMaze = indexInMaze;
+            mazeBoard.moveTo(new Position(row,col));
         }
 
         public void startPlay()
