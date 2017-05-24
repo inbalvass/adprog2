@@ -70,8 +70,11 @@ namespace WPF
 
         private void clicked_restart(object sender, RoutedEventArgs e)
         {
-            //AreYouSureRestart sure = new AreYouSureRestart();
-            //sure.ShowDialog();
+            MessageBoxResult result = MessageBox.Show("Are you sure you want to restart?", "", MessageBoxButton.YesNo, MessageBoxImage.Question);
+            if (result == MessageBoxResult.Yes)
+            {
+                mazeBoard.moveTo(mazeBoard.StartPos, mazeBoard.InitialIndexInMaze);
+            }
         }
 
         private void canvas_Loaded(object sender, RoutedEventArgs e)
@@ -90,8 +93,13 @@ namespace WPF
         /// <param name="e"></param>
         private void clicked_menu(object sender, RoutedEventArgs e)
         {
-            //  AreYouSureMenu sure = new AreYouSureMenu(this);
-            //sure.ShowDialog();
+            MessageBoxResult result = MessageBox.Show("Are you sure you want to go back to menu?", "", MessageBoxButton.YesNo, MessageBoxImage.Question);
+            if (result == MessageBoxResult.Yes)
+            {
+                MainWindow mw = new MainWindow();
+                this.Close();
+                mw.Show();
+            }
         }
 
 
