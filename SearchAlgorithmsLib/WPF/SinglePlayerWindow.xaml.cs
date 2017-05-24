@@ -154,6 +154,7 @@ namespace WPF
                 default:
                     return;
             }
+
             //check if the next step is not out of range
             if ((col >= mazeBoard.Cols) || (row >= mazeBoard.Rows)
                 || (col < 0) || (row < 0))

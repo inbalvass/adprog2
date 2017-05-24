@@ -33,5 +33,10 @@ namespace WPF
         {
             model.play(move);
         }
+
+        public string GetMoveOfSecondPlayer()
+        {
+            return model.GetMoveOfSecondPlayer();
+        }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -11,6 +12,8 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using MazeLib;
+using Newtonsoft.Json;
 
 namespace WPF
 {
@@ -23,7 +26,9 @@ namespace WPF
         private MPViewModel vm;
         private string name;
         private MazeBoard mazeBoard;
-    //    private MazeBoard mazeBoardPlay;
+        private MazeBoard mazeBoardPlay;
+        public event PropertyChangedEventHandler PropertyChanged;
+        public bool Win;
 
         public MPwindow(string name, Client client, string json)
         {
@@ -32,7 +37,7 @@ namespace WPF
             vm = new MPViewModel(client);
             this.DataContext = vm;
 
-            this.SizeChanged += OnWindowSizeChanged;
+            //  this.SizeChanged += OnWindowSizeChanged;
 
             this.name = name;
             vm.VM_mazeStr = json;
@@ -45,8 +50,15 @@ namespace WPF
 
 
 
+            //    this.PropertyChanged += WinPropertyChanged;
 
         }
+
+        /* private void WinPropertyChanged(object sender, PropertyChangedEventArgs e)
+         {
+             WinWindow win = new WinWindow(this);
+         }*/
+
 
         protected void OnWindowSizeChanged(object sender, SizeChangedEventArgs e)
         {
@@ -58,22 +70,17 @@ namespace WPF
 
         private void clicked_restart(object sender, RoutedEventArgs e)
         {
-            MessageBoxResult result = MessageBox.Show("Are you sure you want to restart?", "", MessageBoxButton.YesNo, MessageBoxImage.Question);
-            if (result == MessageBoxResult.Yes)
-            {
-                mazeBoard.moveTo(mazeBoard.StartPos, mazeBoard.InitialIndexInMaze);
-            }
+            //AreYouSureRestart sure = new AreYouSureRestart();
+            //sure.ShowDialog();
         }
 
         private void canvas_Loaded(object sender, RoutedEventArgs e)
         {
             Title = name;
-            MazeBoard mazeBoardPlay = new MazeBoard();
+            this.mazeBoardPlay = new MazeBoard();
             mazeBoardPlay.mazeStr = this.mazeBoard.mazeStr;
             this.canvas1.Children.Add(this.mazeBoard);
             this.canvas2.Children.Add(mazeBoardPlay);
-
-
         }
 
         /// <summary>
@@ -83,13 +90,73 @@ namespace WPF
         /// <param name="e"></param>
         private void clicked_menu(object sender, RoutedEventArgs e)
         {
-            MessageBoxResult result = MessageBox.Show("Are you sure you want to go back to menu?", "", MessageBoxButton.YesNo, MessageBoxImage.Question);
-            if (result == MessageBoxResult.Yes)
-            {
-                MainWindow mw = new MainWindow();
-                this.Close();
-                mw.Show();
-            }
+            //  AreYouSureMenu sure = new AreYouSureMenu(this);
+            //sure.ShowDialog();
         }
+
+
+        //צריך להיות משהו דומה בשביל להציג את הצד השני כלומר את החלון של היריב
+        private void secondPlayerMove()
+        {
+            new Task(() =>
+            {
+                while (true)
+                {
+                    string solution = vm.GetMoveOfSecondPlayer();
+                    dynamic data = JsonConvert.DeserializeObject(solution);
+                    string move = data["Direction"];
+                    int col = mazeBoardPlay.Pos.Col;
+                    int row = mazeBoardPlay.Pos.Row;
+                    if (move == "up") { row--; }
+                    else if (move == "down") { row++; }
+                    else if (move == "right") { col++; }
+                    else if (move == "left") { col--; }
+                    else { return; }
+                    mazeBoardPlay.moveTo(new Position(row, col));
+                }
+            }).Start();
+        }
+
+        private void MPwindow_KeyDown(object sender, KeyEventArgs e)
+        {
+            int col = mazeBoard.Pos.Col;
+            int row = mazeBoard.Pos.Row;
+            int indexInMaze = mazeBoard.IndexInMaze;
+            string move;
+            switch (e.Key)
+            {
+                case Key.Up:
+                    row--;
+                    indexInMaze = indexInMaze - mazeBoard.Cols;
+                    move = "up";
+                    break;
+                case Key.Down:
+                    row++;
+                    indexInMaze = indexInMaze + mazeBoard.Cols;
+                    move = "down";
+                    break;
+                case Key.Right:
+                    col++;
+                    indexInMaze++;
+                    move = "right";
+                    break;
+                case Key.Left:
+                    col--;
+                    indexInMaze--;
+                    move = "left";
+                    break;
+                default:
+                    return;
+            }
+
+            //check if the next step is not out of range
+            if ((col >= mazeBoard.Cols) || (row >= mazeBoard.Rows)
+                || (col < 0) || (row < 0))
+                return;
+          
+            mazeBoard.moveTo(new Position(row, col), indexInMaze);
+            vm.play(move);
+        }
+
     }
 }

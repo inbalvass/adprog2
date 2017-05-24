@@ -31,7 +31,6 @@ namespace WPF
         private Position pos;
         private Position startPos;
         private Position endPos;
-        private bool win;
         private double heightOfSqure, widthOfSqure;
         private int indexInMaze;
         private int initialIndexInMaze;
@@ -47,22 +46,7 @@ namespace WPF
         {
 
         }
-
-        //public bool Win
-        //{
-        //    get
-        //    {
-        //        return win;
-        //    }
-
-        //    set
-        //    {
-        //        win = value;
-        //        NotifyPropertyChanged("Win");
-        //    }
-        //}
-
-
+        
         public string mazeStr
         {
             get { return (string)GetValue(mazeStrProperty); }
@@ -83,7 +67,7 @@ namespace WPF
         {
             //get the information from the json string
             dynamic data = JsonConvert.DeserializeObject(maze);
-            this.blocks = data["Maze"];
+            this.Blocks = data["Maze"];
             string help = data["Rows"];
             this.Rows = int.Parse(help);
             help = data["Cols"];
@@ -125,7 +109,7 @@ namespace WPF
                     Rectangle r = new Rectangle();
                     r.Height = heightOfSqure;
                     r.Width = widthOfSqure;
-                    if (blocks[counter] == '1')//wall
+                    if (Blocks[counter] == '1')//wall
                     {
                         r.Fill = blackBrush;
                         Canvas.SetLeft(r, j * widthOfSqure);
@@ -164,7 +148,7 @@ namespace WPF
         public void moveTo(Position nextPos, int index)
         {
             //check if the next step is not an obstacle
-            if (blocks[index] == '1')
+            if (Blocks[index] == '1')
             {
                 return;
             }
@@ -291,6 +275,19 @@ namespace WPF
             set
             {
                 initialIndexInMaze = value;
+            }
+        }
+
+        public string Blocks
+        {
+            get
+            {
+                return blocks;
+            }
+
+            set
+            {
+                blocks = value;
             }
         }
 
