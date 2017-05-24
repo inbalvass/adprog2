@@ -50,6 +50,13 @@ namespace WPF
 
             myClient.PlayerMoved += multy_PlayerMoved;
 
+            Closing += OnWindowClosing;
+
+        }
+
+        internal void OnWindowClosing(object sender, CancelEventArgs e)
+        {
+            vm.close(name);
         }
 
         /* private void WinPropertyChanged(object sender, PropertyChangedEventArgs e)
@@ -97,6 +104,9 @@ namespace WPF
                 MainWindow mw = new MainWindow();
                 this.Close();
                 mw.Show();
+
+                //close the connection
+                vm.close(name);
             }
         }
 
