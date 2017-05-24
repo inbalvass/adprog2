@@ -23,7 +23,7 @@ namespace WPF
     /// <summary>
     /// Interaction logic for MazeBoard.xaml
     /// </summary>
-    public partial class MazeBoard : UserControl
+    public partial class MazeBoard : UserControl, INotifyPropertyChanged
     {
         private string blocks;
         private int rows;
@@ -77,6 +77,22 @@ namespace WPF
             var c = d as MazeBoard;
             c.DrawMaze((string)e.NewValue);
         }
+
+
+
+
+        public static  DependencyProperty RowsProperty =
+        DependencyProperty.Register("Rows", typeof(int), typeof(MazeBoard), new PropertyMetadata(0));
+
+        public int Rows
+        {
+            get { return (int)GetValue(RowsProperty); }
+            set { SetValue(RowsProperty, value);
+                NotifyPropertyChanged("Rows");
+            }
+        }
+
+
 
         private void ParseData(string maze)
         {
@@ -271,18 +287,7 @@ namespace WPF
             }
         }
 
-        public int Rows
-        {
-            get
-            {
-                return rows;
-            }
 
-            set
-            {
-                rows = value;
-            }
-        }
 
         public int Cols
         {

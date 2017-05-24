@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Threading;
 
 namespace WPF
 {
@@ -31,8 +32,20 @@ namespace WPF
         public void play(string move)
         {
             string command = "play " + move;
-            this.mazeStr = myClient.StartSingle(command);
+            myClient.setPlayCommand(command);
+        }
 
+        public string GetMoveOfSecondPlayer()
+        {
+            bool resualtChanged = myClient.isResualtChanged();
+            //try to get the result
+            while (!resualtChanged)
+            {
+                Thread.Sleep(100);
+                resualtChanged = myClient.isResualtChanged();
+            }
+            string json = myClient.getResault();
+            return json;
         }
     }
 }

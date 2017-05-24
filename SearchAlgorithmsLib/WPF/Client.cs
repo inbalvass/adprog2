@@ -92,11 +92,10 @@ namespace WPF
 
 
 
-
         public void StartMulty(string commands)
         {
             string command = commands;
-            IPEndPoint ep = new IPEndPoint(IPAddress.Parse("127.0.0.1"), port);
+            IPEndPoint ep = new IPEndPoint(IPAddress.Parse(Properties.Settings.Default.IP), port);
             client.Connect(ep);
             new Task(() =>
             {
@@ -111,7 +110,6 @@ namespace WPF
                     {
                         string result = reader.ReadString();
                         this.setResault(result);
-
 
                         if (result.Contains("close"))
                         {
@@ -129,7 +127,7 @@ namespace WPF
                                 {
                                     while (!this.changedCommand)
                                     {
-                                    //white until a command is send
+                                    //wait until a command is send
                                     Thread.Sleep(1000);
                                     }
                                     this.changedCommand = false;
@@ -141,6 +139,7 @@ namespace WPF
                                     Stop();
                                         break;
                                     }
+                                    command = getPlayCommand();
                                     writer.Write(command);
                                 }
                             }).Start();

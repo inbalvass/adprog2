@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -26,8 +27,7 @@ namespace WPF
         private string name;
         private MazeBoard mazeBoard;
         private MazeBoard mazeBoardPlay;
-        private int rows, cols;
-       // public event PropertyChangedEventHandler PropertyChanged;
+        public event PropertyChangedEventHandler PropertyChanged;
         public bool Win;
 
         public MPwindow(string name, Client client, string json)
@@ -37,17 +37,10 @@ namespace WPF
             vm = new MPViewModel(client);
             this.DataContext = vm;
 
-          //  this.SizeChanged += OnWindowSizeChanged;
+            //  this.SizeChanged += OnWindowSizeChanged;
 
             this.name = name;
             vm.VM_mazeStr = json;
-
-            //find the rows and colomns
-            dynamic data = JsonConvert.DeserializeObject(json);
-            string help = data["Rows"];
-            this.rows = int.Parse(help);
-            help = data["Cols"];
-            this.cols = int.Parse(help);
 
             this.mazeBoard = new MazeBoard();
             Binding binding = new Binding();
@@ -55,14 +48,16 @@ namespace WPF
             binding.Source = vm;
             BindingOperations.SetBinding(mazeBoard, MazeBoard.mazeStrProperty, binding);
 
-        //    this.PropertyChanged += WinPropertyChanged;
+
+
+            //    this.PropertyChanged += WinPropertyChanged;
 
         }
 
-    /*    private void WinPropertyChanged(object sender, PropertyChangedEventArgs e)
-        {
-           // WinWindow win = new WinWindow(this);
-        }*/
+        /* private void WinPropertyChanged(object sender, PropertyChangedEventArgs e)
+         {
+             WinWindow win = new WinWindow(this);
+         }*/
 
 
         protected void OnWindowSizeChanged(object sender, SizeChangedEventArgs e)
@@ -95,65 +90,60 @@ namespace WPF
         /// <param name="e"></param>
         private void clicked_menu(object sender, RoutedEventArgs e)
         {
-          //  AreYouSureMenu sure = new AreYouSureMenu(this);
+            //  AreYouSureMenu sure = new AreYouSureMenu(this);
             //sure.ShowDialog();
         }
 
 
         //צריך להיות משהו דומה בשביל להציג את הצד השני כלומר את החלון של היריב
-        private void clicked_solve(object sender, RoutedEventArgs e)
+        private void secondPlayerMove()
         {
-            // string solution = vm.solve(name);
-            string solution = "0011";
-            dynamic data = JsonConvert.DeserializeObject(solution);
-            string solutionStr = data["Solution"];
-            int col = mazeBoard.Pos.Col;
-            int row = mazeBoard.Pos.Row;
-            for (int i = 0; i < solutionStr.Length; i++)
+            new Task(() =>
             {
-                switch (solutionStr[i])
+                while (true)
                 {
-                    case '2': //up
-                        row--;
-                        break;
-                    case '3': //down
-                        row++;
-                        break;
-                    case '1': //right
-                        col++;
-                        break;
-                    case '0': //left
-                        col--;
-                        break;
-                    default:
-                        return;
+                    string solution = vm.GetMoveOfSecondPlayer();
+                    dynamic data = JsonConvert.DeserializeObject(solution);
+                    string move = data["Direction"];
+                    int col = mazeBoardPlay.Pos.Col;
+                    int row = mazeBoardPlay.Pos.Row;
+                    if (move == "up") { row--; }
+                    else if (move == "down") { row++; }
+                    else if (move == "right") { col++; }
+                    else if (move == "left") { col--; }
+                    else { return; }
+                    mazeBoard.moveTo(new Position(row, col));
                 }
-            }
-            mazeBoard.moveTo(new Position(row, col));
+            }).Start();
         }
 
-        private void SPwindow_KeyDown(object sender, KeyEventArgs e)
+        private void MPwindow_KeyDown(object sender, KeyEventArgs e)
         {
             int col = mazeBoard.Pos.Col;
             int row = mazeBoard.Pos.Row;
             int indexInMaze = mazeBoard.IndexInMaze;
+            string move;
             switch (e.Key)
             {
                 case Key.Up:
                     row--;
                     indexInMaze = indexInMaze - mazeBoard.Cols;
+                    move = "up";
                     break;
                 case Key.Down:
                     row++;
                     indexInMaze = indexInMaze + mazeBoard.Cols;
+                    move = "down";
                     break;
                 case Key.Right:
                     col++;
                     indexInMaze++;
+                    move = "right";
                     break;
                 case Key.Left:
                     col--;
                     indexInMaze--;
+                    move = "left";
                     break;
                 default:
                     return;
@@ -169,6 +159,7 @@ namespace WPF
             //update the current index
             mazeBoard.IndexInMaze = indexInMaze;
             mazeBoard.moveTo(new Position(row, col));
+            vm.play(move);
         }
 
     }

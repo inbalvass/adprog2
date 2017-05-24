@@ -43,9 +43,6 @@ namespace WPF
             }
             string json = client.getResault();
 
-            Label l = new Label();
-            l.Content = json;
-            grid.Children.Add(l);
             MPwindow wind = new MPwindow(this.name, this.client, json);
             this.Close();
             wind.ShowDialog();
