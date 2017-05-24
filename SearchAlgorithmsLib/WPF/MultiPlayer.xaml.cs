@@ -1,24 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
-
-using Newtonsoft.Json.Linq;
-using Newtonsoft.Json;
 using System.Collections.ObjectModel;
 
 namespace WPF
 {
-    //כל מה שקשור לליסט פה בוויאו מודל ובמודל אפשר למחוק- כבר לר רלוונטי
     /// <summary>
     /// Interaction logic for MultiPlayer.xaml
     /// </summary>
@@ -26,6 +12,10 @@ namespace WPF
     {
         private MultyPlayerVM vm;
         private ObservableCollection<List_item> lists = new ObservableCollection<List_item>();
+
+        /// <summary>
+        /// constructor
+        /// </summary>
         public MultiPlayer()
         {
             InitializeComponent();
@@ -34,18 +24,26 @@ namespace WPF
 
             comboBox.ItemsSource = lists;
             comboBox.DisplayMemberPath = "Name";
-
         } 
 
+        /// <summary>
+        /// when press to create new multy game
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void new_multi_game(object sender, RoutedEventArgs e)
         {
             vm.SaveSettings();
             Client client = new Client();
             vm.start(client);
-            //show the maze window
-              WaitForConnection wfc = new WaitForConnection(vm.Name, client,this);
+            WaitForConnection wfc = new WaitForConnection(vm.Name, client,this);
         }
 
+        /// <summary>
+        /// when pressed to join to a game
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void join_game(object sender, RoutedEventArgs e)
         {
             int index = comboBox.SelectedIndex;
@@ -64,10 +62,14 @@ namespace WPF
                 MPwindow wind = new MPwindow(vm.Name, client, json);
                 this.Close();
                 wind.ShowDialog();
-
             }
         }
 
+        /// <summary>
+        /// when pressed to open the list of games
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void comboBox_DropDownOpened(object sender, EventArgs e)
         {
             lists.Clear();
@@ -75,7 +77,6 @@ namespace WPF
             foreach(List_item element in l1)
             {
                 lists.Add(element);
-
             }
         }
     }

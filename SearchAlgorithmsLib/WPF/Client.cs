@@ -105,6 +105,32 @@ namespace WPF
                 {
                     // Send data to server
                     writer.Write(command);
+                    //create the new task
+                    Task t = new Task(() =>
+                    {
+                        while (true)
+                        {
+                            while (!this.changedCommand)
+                            {
+                                //wait until a command is send
+                                Thread.Sleep(100);
+                            }
+                            this.changedCommand = false;
+                            
+                            if (command.StartsWith("close") || command == "b")
+                            {
+                                //so the task closed first
+                                 Thread.Sleep(1000);
+                                this.setResault("connection is closed");
+                                //close the connection
+
+                                Stop();
+                                break;
+                            }
+                            command = getPlayCommand();
+                            writer.Write(command);
+                        }
+                    });
 
                     while (true)
                     {
@@ -115,37 +141,23 @@ namespace WPF
                         {
                             // after the other client closed the connection this client still
                             //has to react with some flag of closing.
+                            Thread.Sleep(1000);
+                            command = "b";
                             setPlayCommand("b");
+                            //writer.Write("b");
                             break;
                         }
-
+                        
                         if (command.StartsWith("start") || command.StartsWith("join"))
                         {
-                            new Task(() =>
-                            {
-                                while (true)
-                                {
-                                    while (!this.changedCommand)
-                                    {
-                                        //wait until a command is send
-                                        Thread.Sleep(1000);
-                                    }
-                                    this.changedCommand = false;
-                                    if (command.StartsWith("close") || command == "b")
-                                    {
-                                        //so the task closed first
-                                        Thread.Sleep(100);
-                                        //close the connection
-                                        Stop();
-                                        break;
-                                    }
-                                    command = getPlayCommand();
-                                    writer.Write(command);
-                                }
-                            }).Start();
+                            //start the task
+                            command = "not comand";
+                            t.Start();
                         }
                     }
                     Stop();
+                    // end the inner task
+                    
                 }
             }).Start();
         }

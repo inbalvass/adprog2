@@ -14,6 +14,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using MazeLib;
 using Newtonsoft.Json;
+using System.Threading;
 
 namespace WPF
 {
@@ -27,17 +28,20 @@ namespace WPF
         private string name;
         private MazeBoard mazeBoard;
         private MazeBoard mazeBoardPlay;
-        public event PropertyChangedEventHandler PropertyChanged;
         public bool Win;
 
+        /// <summary>
+        /// constructor
+        /// </summary>
+        /// <param name="name"></param>
+        /// <param name="client"></param>
+        /// <param name="json"></param>
         public MPwindow(string name, Client client, string json)
         {
             InitializeComponent();
             this.myClient = client;
             vm = new MPViewModel(client);
             this.DataContext = vm;
-
-            //  this.SizeChanged += OnWindowSizeChanged;
 
             this.name = name;
             vm.VM_mazeStr = json;
@@ -49,30 +53,34 @@ namespace WPF
             BindingOperations.SetBinding(mazeBoard, MazeBoard.mazeStrProperty, binding);
 
             myClient.PlayerMoved += multy_PlayerMoved;
-
             Closing += OnWindowClosing;
-
         }
 
+        /// <summary>
+        /// what to do when close the window
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         internal void OnWindowClosing(object sender, CancelEventArgs e)
         {
             vm.close(name);
+            Thread.Sleep(100);
         }
 
-        /* private void WinPropertyChanged(object sender, PropertyChangedEventArgs e)
-         {
-             WinWindow win = new WinWindow(this);
-         }*/
-
-
-        protected void OnWindowSizeChanged(object sender, SizeChangedEventArgs e)
-        {
-        }
-
+        /// <summary>
+        /// load the maze board
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void mazeBoard_Loaded(object sender, RoutedEventArgs e)
         {
         }
 
+        /// <summary>
+        /// when click on restart the game
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void clicked_restart(object sender, RoutedEventArgs e)
         {
             MessageBoxResult result = MessageBox.Show("Are you sure you want to restart?", "", MessageBoxButton.YesNo, MessageBoxImage.Question);
@@ -82,6 +90,11 @@ namespace WPF
             }
         }
 
+        /// <summary>
+        /// load the canvas
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void canvas_Loaded(object sender, RoutedEventArgs e)
         {
             Title = name;
@@ -102,18 +115,19 @@ namespace WPF
             if (result == MessageBoxResult.Yes)
             {
                 MainWindow mw = new MainWindow();
-                this.Close();
-                mw.Show();
-
                 //close the connection
                 vm.close(name);
+                Thread.Sleep(100);
+                this.Close();
+                mw.Show();
             }
         }
 
-
-
-        //צריך להיות משהו דומה בשביל להציג את הצד השני כלומר את החלון של היריב
-        //להוסיף בדיקה האם יש ניצחון גם פה מצד השחקן השני ואז לעשות חלון הפסד וגם בתזוזה ואז לעשות חלון ניצחון!
+        /// <summary>
+        /// move the oter player according what the server send
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void multy_PlayerMoved(object sender, PlayerMovedEventArgs e)
         {
             Application.Current.Dispatcher.Invoke((Action)delegate
@@ -126,13 +140,20 @@ namespace WPF
                 else if (direction == Direction.Right) { col++; }
                 else if (direction == Direction.Left) { col--; }
                 else { return; }
-                mazeBoardPlay.moveTo(new Position(row, col), mazeBoardPlay.InitialIndexInMaze);
-
+                if ((col < mazeBoard.Cols) && (row < mazeBoard.Rows) && (col >= 0) && (row >= 0))
+                {
+                    mazeBoardPlay.moveTo(new Position(row, col), mazeBoardPlay.InitialIndexInMaze);
+                }
                 //check if the player won
-                CheckIfWin();
+                //CheckIfWin();
             });
         }
 
+        /// <summary>
+        /// what to do when keyboard pressed
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void MPwindow_KeyDown(object sender, KeyEventArgs e)
         {
             int col = mazeBoard.Pos.Col;
@@ -174,6 +195,10 @@ namespace WPF
             vm.play(move);
             CheckIfWin();
         }
+
+        /// <summary>
+        /// check if the player won
+        /// </summary>
         public void CheckIfWin()
         {
             if ((mazeBoard.Pos.Col == mazeBoard.EndPos.Col) && (mazeBoard.Pos.Row == mazeBoard.EndPos.Row))

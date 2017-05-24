@@ -6,14 +6,24 @@ using System.Threading.Tasks;
 
 namespace WPF
 {
+    /// <summary>
+    /// class for the multy player settings
+    /// </summary>
     class MultyPlayerVM : ViewModel, INotifyPropertyChanged
     {
         private MultyPlayerModel model;
+
+        /// <summary>
+        /// constructor
+        /// </summary>
         public MultyPlayerVM()
         {
             this.model = new MultyPlayerModel();
         }
 
+        /// <summary>
+        /// get and set Name for binding
+        /// </summary>
         public string Name
         {
             get { return model.Name; }
@@ -23,6 +33,10 @@ namespace WPF
                 NotifyPropertyChanged("Name");
             }
         }
+
+        /// <summary>
+        /// get and set Name for binding
+        /// </summary>
         public int Colomns
         {
             get { return model.Colomns; }
@@ -32,7 +46,9 @@ namespace WPF
                 NotifyPropertyChanged("Colomns");
             }
         }
-
+        /// <summary>
+        /// get and set Rows for binding
+        /// </summary>
         public int Rows
         {
             get { return model.Rows; }
@@ -43,35 +59,37 @@ namespace WPF
             }
         }
 
-        public string VM_list
-        {
-            get
-            {
-                return this.model.list;
-            }
-            set
-            {
-                model.list = value;
-                NotifyPropertyChanged("list");
-
-            }
-        }
-
+        /// <summary>
+        /// save settings
+        /// </summary>
             public void SaveSettings()
         {
             model.SaveChanges();
         }
 
+        /// <summary>
+        /// start command
+        /// </summary>
+        /// <param name="client"></param>
         public void start(Client client)
         {
             model.start(client);
         }
 
+        /// <summary>
+        /// join command
+        /// </summary>
+        /// <param name="client"></param>
+        /// <returns></returns>
         public string join(Client client)
         {
             return model.join(client);
         }
 
+        /// <summary>
+        /// list command
+        /// </summary>
+        /// <returns></returns>
         public string ListStart()
         {
             return model.ListStart();

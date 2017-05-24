@@ -16,6 +16,7 @@ namespace WPF
         {
             this.myClient = client;
         }
+
         public string mazeStr
         {
             get
@@ -35,23 +36,10 @@ namespace WPF
             myClient.setPlayCommand(command);
         }
 
-        public string GetMoveOfSecondPlayer()
-        {
-            bool resualtChanged = myClient.isResualtChanged();
-            //try to get the result
-            while (!resualtChanged)
-            {
-                Thread.Sleep(100);
-                resualtChanged = myClient.isResualtChanged();
-            }
-            string json = myClient.getResault();
-            return json;
-        }
-
         public void close(string name)
         {
             string command = "close " + name;
-            myClient.StartMulty(command);            
+            myClient.setPlayCommand(command);            
         }
     }
 }

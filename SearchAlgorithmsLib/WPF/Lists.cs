@@ -9,19 +9,34 @@ using Newtonsoft.Json;
 
 namespace WPF
 {
-    class Lists:List<List_item>
+    /// <summary>
+    /// class for the binding of the list of games
+    /// </summary>
+    class Lists :List<List_item>
     {
         JArray array;
+        /// <summary>
+        /// constructor
+        /// </summary>
         public Lists()
         {
             listOfPlayers();
         }
 
+        /// <summary>
+        /// get the number of items in the list
+        /// </summary>
+        /// <returns></returns>
         public int getNumberOfItems()
         {
             return array.Count();
         }
 
+        /// <summary>
+        /// get the name according index
+        /// </summary>
+        /// <param name="index"></param>
+        /// <returns></returns>
         public string getName(int index)
         {
             int counter =0;
@@ -39,6 +54,9 @@ namespace WPF
             return "wrong index";
         }
 
+        /// <summary>
+        /// add games to the list
+        /// </summary>
         private void listOfPlayers()
         {
             Clear(); //clear the list
@@ -50,6 +68,10 @@ namespace WPF
             }
         }
 
+        /// <summary>
+        /// send message to the server to get the list
+        /// </summary>
+        /// <returns></returns>
         public string ListStart()
         {
             Client myClient = new Client();

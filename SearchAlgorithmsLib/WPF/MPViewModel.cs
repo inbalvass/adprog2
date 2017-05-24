@@ -29,22 +29,14 @@ namespace WPF
             }
         }
 
-
         public void play(string move)
         {
             model.play(move);
-        }
-
-        public string GetMoveOfSecondPlayer()
-        {
-            return model.GetMoveOfSecondPlayer();
         }
 
         public void close(string name)
         {
             model.close(name);
         }
-
-        
     }
 }

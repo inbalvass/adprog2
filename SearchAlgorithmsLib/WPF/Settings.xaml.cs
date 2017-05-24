@@ -20,38 +20,35 @@ namespace WPF
     public partial class Settings : Window
     {
         private SettingsViewModel vm;
+
+        /// <summary>
+        /// constructor
+        /// </summary>
         public Settings()
         {
             InitializeComponent();
             vm = new SettingsViewModel();
             this.DataContext = vm;
-            //IP.SetValue(Properties.Settings.Default.IP);
-            //<span class="skimlinks-unlinked">this.IP</span> = Properties.Settings.Default.IP;
-            //IP.Text = vm.IP;
-            //Port.Text = vm.Port.ToString();
-            //DefCols.Text = vm.DefCols.ToString();
-            //DefRows.Text = vm.DefRows.ToString();
-            //DefAlgo.SelectedIndex = vm.DefAlgo;
         }
 
+        /// <summary>
+        /// save settings
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void save_settings(object sender, RoutedEventArgs e)
         {
-            //vm.IP = IP.Text;
-            //vm.Port = int.Parse(Port.Text);
-            //vm.DefCols = int.Parse(DefCols.Text);
-            //vm.DefRows = int.Parse(DefRows.Text);
-            //vm.DefAlgo = DefAlgo.SelectedIndex;
-           // < span class="skimlinks-unlinked">Properties.Settings.Default.Save</span>();
             vm.SaveSettings();
-           // MainWindow win = (MainWindow)Application.Current.MainWindow;
-            //win.Show();
             this.Close();
         }
 
+        /// <summary>
+        /// cancel the settings
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void cancel_settings(object sender, RoutedEventArgs e)
         {
-            //MainWindow win = (MainWindow)Application.Current.MainWindow;
-            // win.Show();
             Properties.Settings.Default.Reload();
             this.Close();
         }

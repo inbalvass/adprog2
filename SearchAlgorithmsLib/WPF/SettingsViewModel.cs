@@ -7,13 +7,23 @@ using System.Windows;
 
 namespace WPF
 {
+    /// <summary>
+    /// view model for the settings
+    /// </summary>
     class SettingsViewModel : ViewModel
     {
         private ISettingsModel model;
+        /// <summary>
+        /// constructor
+        /// </summary>
         public SettingsViewModel()
         {
             this.model = new SettingsModel();
         }
+
+        /// <summary>
+        /// get and set ip for binding
+        /// </summary>
         public string IP
         {
             get { return model.IP; }
@@ -23,6 +33,10 @@ namespace WPF
                 NotifyPropertyChanged("IP");
             }
         }
+
+        /// <summary>
+        /// get and set port for binding
+        /// </summary>
         public int Port
         {
             get { return model.Port; }
@@ -33,6 +47,9 @@ namespace WPF
             }
         }
 
+        /// <summary>
+        /// get and set Cols for binding
+        /// </summary>
         public int DefCols
         {
             get { return model.DefCols; }
@@ -43,6 +60,9 @@ namespace WPF
             }
         }
 
+        /// <summary>
+        /// get and set Rows for binding
+        /// </summary>
         public int DefRows
         {
             get { return model.DefRows; }
@@ -53,6 +73,9 @@ namespace WPF
             }
         }
 
+        /// <summary>
+        /// get and set the algorithm for binding
+        /// </summary>
         public int DefAlgo
         {
             get { return model.DefAlgo; }
@@ -63,23 +86,12 @@ namespace WPF
             }
         }
 
+        /// <summary>
+        /// save settings
+        /// </summary>
         public void SaveSettings()
         {
             model.SaveSettings();
         }
-
-
-
-        //public string IP
-        //{
-        //    get { return (int)GetValue(IPProperty); }
-        //    set { SetValue(IPProperty, value); }
-        //}
-
-        //// Using a DependencyProperty as the backing store for IP.  This enables animation, styling, binding, etc...
-        //public static readonly DependencyProperty IPProperty =
-        //    DependencyProperty.Register("IP", typeof(int), typeof(SettingsViewModel), new PropertyMetadata(0));
-
-
     }
 }

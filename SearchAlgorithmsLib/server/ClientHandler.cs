@@ -50,7 +50,7 @@ namespace server
                         string result = control.ExecuteCommand(command, client);
                         Console.WriteLine(result);
                         
-                        if (!command.StartsWith("play"))
+                        if (!command.StartsWith("play") && (command != "b"))
                         {
                             writer.Write(result);
                         }
