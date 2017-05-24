@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -38,5 +39,12 @@ namespace WPF
         {
             return model.GetMoveOfSecondPlayer();
         }
+
+        public void close(string name)
+        {
+            model.close(name);
+        }
+
+        
     }
 }

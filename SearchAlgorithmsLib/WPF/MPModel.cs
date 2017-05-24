@@ -47,5 +47,11 @@ namespace WPF
             string json = myClient.getResault();
             return json;
         }
+
+        public void close(string name)
+        {
+            string command = "close " + name;
+            myClient.StartMulty(command);            
+        }
     }
 }
