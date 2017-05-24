@@ -92,7 +92,73 @@ namespace WPF
 
 
 
+
+
         public void StartMulty(string commands)
+        {
+            string command = commands;
+            IPEndPoint ep = new IPEndPoint(IPAddress.Parse(Properties.Settings.Default.IP), port);
+            client.Connect(ep);
+            NetworkStream stream = client.GetStream();
+            BinaryReader reader = new BinaryReader(stream);
+            BinaryWriter writer = new BinaryWriter(stream);
+            // Send data to server
+            writer.Write(command);
+            Task.Factory.StartNew(() =>
+            {
+                {
+                    while (true)
+                    {
+                        string result = reader.ReadString();
+                        this.setResault(result);
+
+                        if (result.Contains("close"))
+                        {
+                            // after the other client closed the connection this client still
+                            //has to react with some flag of closing.
+                            setPlayCommand("b");
+                            break;
+                        }
+
+                        if (command.StartsWith("start") || command.StartsWith("join"))
+                        {
+                            new Task(() =>
+                            {
+                                while (true)
+                                {
+                                    while (!this.changedCommand)
+                                    {
+                                        //wait until a command is send
+                                        Thread.Sleep(1000);
+                                    }
+                                    this.changedCommand = false;
+                                    if (command.StartsWith("close") || command == "b")
+                                    {
+                                        //so the task closed first
+                                        Thread.Sleep(100);
+                                        //close the connection
+                                        Stop();
+                                        break;
+                                    }
+                                    command = getPlayCommand();
+                                    writer.Write(command);
+                                }
+                            }).Start();
+                        }
+                    }
+                    Stop();
+                }
+            });
+        }
+
+
+
+
+
+
+
+        /*
+         *         public void StartMulty(string commands)
         {
             string command = commands;
             IPEndPoint ep = new IPEndPoint(IPAddress.Parse(Properties.Settings.Default.IP), port);
@@ -148,15 +214,7 @@ namespace WPF
                     Stop();
                 }  
             }).Start();
-        }
-
-
-
-
-
-
-
-
+        }*/
 
 
 
@@ -182,7 +240,7 @@ namespace WPF
         //נעשה 2 פונקציות סט- אחת לפקודה שרוצים להכניס והשנייה לתוצאה שהתקבלה. 
         //ואז פה נעשה לולאה של מתי לקרוא ובמולטי גיים נעשה לולאה של מתי לקרוא את הפתרון.
         //דרך נוספתת זה אולי לעשות ליסנר לשניהם?
-        public void StartMulty1(string commands)
+      /*  public void StartMulty1(string commands)
         {
             string command = commands;
             IPEndPoint ep = new IPEndPoint(IPAddress.Parse("127.0.0.1"), port);
@@ -240,7 +298,7 @@ namespace WPF
                     //command = Console.ReadLine();
                 }
             }
-        }
+        }*/
 
 
 

@@ -112,7 +112,7 @@ namespace WPF
                     else if (move == "right") { col++; }
                     else if (move == "left") { col--; }
                     else { return; }
-                    mazeBoard.moveTo(new Position(row, col));
+                    mazeBoardPlay.moveTo(new Position(row, col));
                 }
             }).Start();
         }

@@ -38,7 +38,7 @@ namespace WPF
             //try to get the result
             while (!resualtChanged)
             {
-                Thread.Sleep(100);
+                Thread.Sleep(10);
                 resualtChanged = client.isResualtChanged();
             }
             string json = client.getResault();
