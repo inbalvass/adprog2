@@ -85,6 +85,7 @@
     </Compile>
     <Compile Include="MultyPlayerModel.cs" />
     <Compile Include="MultyPlayerVM.cs" />
+    <Compile Include="PlayerMovedEventArgs.cs" />
     <Compile Include="Settings.xaml.cs">
       <DependentUpon>Settings.xaml</DependentUpon>
     </Compile>

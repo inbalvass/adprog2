@@ -20,17 +20,34 @@ namespace WPF
     public partial class WinWindow : Window
     {
         private SinglePlayerWindow SPwindow;
+        private MPwindow multyWindow;
+        string whatWindow;
         public WinWindow(SinglePlayerWindow SPwindow)
         {
             InitializeComponent();
             this.SPwindow = SPwindow;
+            this.whatWindow = "single";
+        }
+
+        public WinWindow(MPwindow window)
+        {
+            InitializeComponent();
+            this.multyWindow = window;
+            this.whatWindow = "multy";
         }
 
         private void clicked_OK(object sender, RoutedEventArgs e)
         {
             MainWindow mw = new MainWindow();
             this.Close();
-            this.SPwindow.Close();
+            if (this.whatWindow == "single")
+            {
+                this.SPwindow.Close();
+            }
+            else
+            {
+                this.multyWindow.Close();
+            }
             mw.Show();
         }
     }

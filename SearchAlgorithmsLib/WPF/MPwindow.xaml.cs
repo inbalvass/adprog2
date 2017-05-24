@@ -48,9 +48,7 @@ namespace WPF
             binding.Source = vm;
             BindingOperations.SetBinding(mazeBoard, MazeBoard.mazeStrProperty, binding);
 
-
-
-            //    this.PropertyChanged += WinPropertyChanged;
+            myClient.PlayerMoved += multy_PlayerMoved;
 
         }
 
@@ -103,27 +101,63 @@ namespace WPF
         }
 
 
+
         //צריך להיות משהו דומה בשביל להציג את הצד השני כלומר את החלון של היריב
-        private void secondPlayerMove()
+        //להוסיף בדיקה האם יש ניצחון גם פה מצד השחקן השני ואז לעשות חלון הפסד וגם בתזוזה ואז לעשות חלון ניצחון!
+        private void multy_PlayerMoved(object sender, PlayerMovedEventArgs e)
         {
-            new Task(() =>
+            Application.Current.Dispatcher.Invoke((Action)delegate
             {
-                while (true)
-                {
-                    string solution = vm.GetMoveOfSecondPlayer();
-                    dynamic data = JsonConvert.DeserializeObject(solution);
-                    string move = data["Direction"];
-                    int col = mazeBoardPlay.Pos.Col;
-                    int row = mazeBoardPlay.Pos.Row;
-                    if (move == "up") { row--; }
-                    else if (move == "down") { row++; }
-                    else if (move == "right") { col++; }
-                    else if (move == "left") { col--; }
-                    else { return; }
-                    mazeBoardPlay.moveTo(new Position(row, col));
-                }
-            }).Start();
+                Direction direction = e.Direction;
+                int col = mazeBoardPlay.Pos.Col;
+                int row = mazeBoardPlay.Pos.Row;
+                if (direction == Direction.Up) { row--; }
+                else if (direction == Direction.Down) { row++; }
+                else if (direction == Direction.Right) { col++; }
+                else if (direction == Direction.Left) { col--; }
+                else { return; }
+                mazeBoardPlay.moveTo(new Position(row, col), mazeBoardPlay.InitialIndexInMaze);
+                //waiting for the task to finish drawing
+                //await Task.Delay(200);
+                //check if the player won
+                CheckIfWin();
+            });
         }
+
+        /*  private async void clicked_solve(object sender, RoutedEventArgs e)
+          {
+              string solution = vm.solve(name);
+              dynamic data = JsonConvert.DeserializeObject(solution);
+              string solutionStr = data["Solution"];
+              int col = mazeBoard.Pos.Col;
+              int row = mazeBoard.Pos.Row;
+
+              for (int i = 0; i < solutionStr.Length; i++)
+              {
+                  switch (solutionStr[i])
+                  {
+                      case '2':
+                          row--;
+                          break;
+                      case '3':
+                          row++;
+                          break;
+                      case '1':
+                          col++;
+                          break;
+                      case '0':
+                          col--;
+                          break;
+                      default:
+                          return;
+                  }
+                  //waiting for the task to finish drawing
+                  await Task.Delay(200);
+                  mazeBoard.moveTo(new Position(row, col), mazeBoard.InitialIndexInMaze);
+                  //check if the player won
+                  CheckIfWin();
+              }
+          }*/
 
         private void MPwindow_KeyDown(object sender, KeyEventArgs e)
         {
@@ -161,10 +195,18 @@ namespace WPF
             if ((col >= mazeBoard.Cols) || (row >= mazeBoard.Rows)
                 || (col < 0) || (row < 0))
                 return;
-          
+
             mazeBoard.moveTo(new Position(row, col), indexInMaze);
             vm.play(move);
+            CheckIfWin();
         }
-
+        public void CheckIfWin()
+        {
+            if ((mazeBoard.Pos.Col == mazeBoard.EndPos.Col) && (mazeBoard.Pos.Row == mazeBoard.EndPos.Row))
+            {
+                WinWindow win = new WinWindow(this);
+                win.ShowDialog();
+            }
+        }
     }
 }
