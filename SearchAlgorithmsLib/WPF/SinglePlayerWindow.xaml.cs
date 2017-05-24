@@ -30,8 +30,6 @@ namespace WPF
         private string name;
         private int rows, cols;
         private MazeBoard mazeBoard;
-        public event PropertyChangedEventHandler PropertyChanged;
-    //    public bool Win;
 
         public SinglePlayerWindow(string name, int row, int col)
         {
@@ -39,36 +37,15 @@ namespace WPF
             InitializeComponent();
             vm = new SPWindowViewModel();
             this.DataContext = vm;
-
-          //  this.SizeChanged += OnWindowSizeChanged;
-
             this.name = name;
             this.rows = row;
             this.cols = col;
             vm.generate(name, rows, cols);
-
-   
             this.mazeBoard = new MazeBoard();
-            //this.mazeBoard.myCanvas.Width = SPwindow.Width;
-            //this.mazeBoard.myCanvas.Height = SPwindow.Height;
             Binding binding = new Binding();
             binding.Path = new PropertyPath("VM_mazeStr");
             binding.Source = vm;
             BindingOperations.SetBinding(mazeBoard, MazeBoard.mazeStrProperty, binding);
-
-     //       this.PropertyChanged += WinPropertyChanged;
-        }
-
-        //private void WinPropertyChanged(object sender, PropertyChangedEventArgs e)
-        //{
-        //    WinWindow win = new WinWindow(this);
-        //}
-
-        protected void OnWindowSizeChanged(object sender, SizeChangedEventArgs e)
-        {
-          //  double newWindowHeight = e.NewSize.Height;
-          //  this.mazeBoard.myCanvas.Width = e.NewSize.Width;
-          //  this.mazeBoard.myCanvas.Height = e.NewSize.Height;
         }
 
         private void mazeBoard_Loaded(object sender, RoutedEventArgs e)
@@ -84,41 +61,35 @@ namespace WPF
 
         private void clicked_restart(object sender, RoutedEventArgs e)
         {
-           // AreYouSureRestart sure = new AreYouSureRestart();
-           // sure.ShowDialog();
             MessageBoxResult result = MessageBox.Show("Are you sure you want to restart?", "", MessageBoxButton.YesNo, MessageBoxImage.Question);
             if (result == MessageBoxResult.Yes)
             {
                 mazeBoard.moveTo(mazeBoard.StartPos, mazeBoard.InitialIndexInMaze);
             }
-           // mazeBoard.moveTo(mazeBoard.StartPos);
         }
 
-        private void clicked_solve(object sender, RoutedEventArgs e)
+        private async void clicked_solve(object sender, RoutedEventArgs e)
         {
             //locating the player in the start position 
-            string solution= vm.solve(name);
+            mazeBoard.moveTo(mazeBoard.StartPos, mazeBoard.InitialIndexInMaze);
+
+            string solution = vm.solve(name);
             dynamic data = JsonConvert.DeserializeObject(solution);
             string solutionStr = data["Solution"];
             int col = mazeBoard.Pos.Col;
             int row = mazeBoard.Pos.Row;
-            //timer
-            //this.BeginInvoke((Action)delegate ()
-            //{
 
-            //}
             for (int i = 0; i < solutionStr.Length; i++)
             {
-                ///Thread.Sleep(300);
                 switch (solutionStr[i])
                 {
                     case '2':
                         row--;
                         break;
-                    case '3': 
+                    case '3':
                         row++;
                         break;
-                    case '1': 
+                    case '1':
                         col++;
                         break;
                     case '0':
@@ -127,27 +98,18 @@ namespace WPF
                     default:
                         return;
                 }
-                Thread.Sleep(300);
+                //waiting for the task to finish drawing
+                await Task.Delay(200);
                 mazeBoard.moveTo(new Position(row, col), mazeBoard.InitialIndexInMaze);
+                //check if the player won
                 CheckIfWin();
-               // Thread.Sleep(300);
             }
-            
-            //
-
-
-
         }
 
         private void canvas_Loaded(object sender, RoutedEventArgs e)
         {
             Title = name;
-
-            //this.mazeBoard.myCanvas.Width = SPwindow.Width;
-            //this.mazeBoard.myCanvas.Height = canvas.Height;
             canvas.Children.Add(this.mazeBoard);
-            
-            
         }
 
         /// <summary>
@@ -157,8 +119,6 @@ namespace WPF
         /// <param name="e"></param>
         private void clicked_menu(object sender, RoutedEventArgs e)
         {
-            //AreYouSureMenu sure = new AreYouSureMenu(this);
-            //sure.ShowDialog();
             MessageBoxResult result = MessageBox.Show("Are you sure you want to go back to menu?", "", MessageBoxButton.YesNo, MessageBoxImage.Question);
             if (result == MessageBoxResult.Yes)
             {
@@ -166,7 +126,6 @@ namespace WPF
                 this.Close();
                 mw.Show();
             }
-
         }
 
         private void SPwindow_KeyDown(object sender, KeyEventArgs e)
@@ -200,8 +159,9 @@ namespace WPF
                 || (col < 0) || (row < 0))
                 return;
             
-            
+            //move the player
             mazeBoard.moveTo(new Position(row,col), indexInMaze);
+            //check if the player won
             CheckIfWin();
         }
 
@@ -212,14 +172,6 @@ namespace WPF
                 WinWindow win = new WinWindow(this);
                 win.ShowDialog();
             }
-        }
-
-
-        public void startPlay()
-        {
-            //for loop or two
-            //event key press etc...
-          //  this.mazeBoard.moveTo(i, j,...);
         }
     }
 }
