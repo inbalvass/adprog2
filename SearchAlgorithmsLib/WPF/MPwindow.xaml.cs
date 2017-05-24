@@ -117,47 +117,11 @@ namespace WPF
                 else if (direction == Direction.Left) { col--; }
                 else { return; }
                 mazeBoardPlay.moveTo(new Position(row, col), mazeBoardPlay.InitialIndexInMaze);
-                //waiting for the task to finish drawing
-                //await Task.Delay(200);
+
                 //check if the player won
                 CheckIfWin();
             });
         }
-
-        /*  private async void clicked_solve(object sender, RoutedEventArgs e)
-          {
-              string solution = vm.solve(name);
-              dynamic data = JsonConvert.DeserializeObject(solution);
-              string solutionStr = data["Solution"];
-              int col = mazeBoard.Pos.Col;
-              int row = mazeBoard.Pos.Row;
-
-              for (int i = 0; i < solutionStr.Length; i++)
-              {
-                  switch (solutionStr[i])
-                  {
-                      case '2':
-                          row--;
-                          break;
-                      case '3':
-                          row++;
-                          break;
-                      case '1':
-                          col++;
-                          break;
-                      case '0':
-                          col--;
-                          break;
-                      default:
-                          return;
-                  }
-                  //waiting for the task to finish drawing
-                  await Task.Delay(200);
-                  mazeBoard.moveTo(new Position(row, col), mazeBoard.InitialIndexInMaze);
-                  //check if the player won
-                  CheckIfWin();
-              }
-          }*/
 
         private void MPwindow_KeyDown(object sender, KeyEventArgs e)
         {
