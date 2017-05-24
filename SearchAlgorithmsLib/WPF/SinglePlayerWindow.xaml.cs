@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -30,7 +31,7 @@ namespace WPF
         private int rows, cols;
         private MazeBoard mazeBoard;
         public event PropertyChangedEventHandler PropertyChanged;
-        public bool Win;
+    //    public bool Win;
 
         public SinglePlayerWindow(string name, int row, int col)
         {
@@ -55,13 +56,13 @@ namespace WPF
             binding.Source = vm;
             BindingOperations.SetBinding(mazeBoard, MazeBoard.mazeStrProperty, binding);
 
-            this.PropertyChanged += WinPropertyChanged;
+     //       this.PropertyChanged += WinPropertyChanged;
         }
 
-        private void WinPropertyChanged(object sender, PropertyChangedEventArgs e)
-        {
-            WinWindow win = new WinWindow(this);
-        }
+        //private void WinPropertyChanged(object sender, PropertyChangedEventArgs e)
+        //{
+        //    WinWindow win = new WinWindow(this);
+        //}
 
         protected void OnWindowSizeChanged(object sender, SizeChangedEventArgs e)
         {
@@ -83,38 +84,57 @@ namespace WPF
 
         private void clicked_restart(object sender, RoutedEventArgs e)
         {
-            AreYouSureRestart sure = new AreYouSureRestart();
-            sure.ShowDialog();
+           // AreYouSureRestart sure = new AreYouSureRestart();
+           // sure.ShowDialog();
+            MessageBoxResult result = MessageBox.Show("Are you sure you want to restart?", "", MessageBoxButton.YesNo, MessageBoxImage.Question);
+            if (result == MessageBoxResult.Yes)
+            {
+                mazeBoard.moveTo(mazeBoard.StartPos, mazeBoard.InitialIndexInMaze);
+            }
+           // mazeBoard.moveTo(mazeBoard.StartPos);
         }
 
         private void clicked_solve(object sender, RoutedEventArgs e)
         {
+            //locating the player in the start position 
             string solution= vm.solve(name);
             dynamic data = JsonConvert.DeserializeObject(solution);
             string solutionStr = data["Solution"];
             int col = mazeBoard.Pos.Col;
             int row = mazeBoard.Pos.Row;
-            for(int i = 0; i < solutionStr.Length; i++)
+            //timer
+            //this.BeginInvoke((Action)delegate ()
+            //{
+
+            //}
+            for (int i = 0; i < solutionStr.Length; i++)
             {
+                ///Thread.Sleep(300);
                 switch (solutionStr[i])
                 {
-                    case '2': //up
+                    case '2':
                         row--;
                         break;
-                    case '3': //down
+                    case '3': 
                         row++;
                         break;
-                    case '1': //right
+                    case '1': 
                         col++;
                         break;
-                    case '0': //left
+                    case '0':
                         col--;
                         break;
                     default:
                         return;
                 }
+                Thread.Sleep(300);
+                mazeBoard.moveTo(new Position(row, col), mazeBoard.InitialIndexInMaze);
+                CheckIfWin();
+               // Thread.Sleep(300);
             }
-            mazeBoard.moveTo(new Position(row, col));
+            
+            //
+
 
 
         }
@@ -137,8 +157,16 @@ namespace WPF
         /// <param name="e"></param>
         private void clicked_menu(object sender, RoutedEventArgs e)
         {
-            AreYouSureMenu sure = new AreYouSureMenu(this);
-            sure.ShowDialog();
+            //AreYouSureMenu sure = new AreYouSureMenu(this);
+            //sure.ShowDialog();
+            MessageBoxResult result = MessageBox.Show("Are you sure you want to go back to menu?", "", MessageBoxButton.YesNo, MessageBoxImage.Question);
+            if (result == MessageBoxResult.Yes)
+            {
+                MainWindow mw = new MainWindow();
+                this.Close();
+                mw.Show();
+            }
+
         }
 
         private void SPwindow_KeyDown(object sender, KeyEventArgs e)
@@ -150,11 +178,11 @@ namespace WPF
             {
                 case Key.Up:
                     row--;         
-                    indexInMaze = indexInMaze - mazeBoard.Rows;
+                    indexInMaze = indexInMaze - mazeBoard.Cols;
                     break;
                 case Key.Down:
                     row++; 
-                    indexInMaze = indexInMaze + mazeBoard.Rows;
+                    indexInMaze = indexInMaze + mazeBoard.Cols;
                     break;
                 case Key.Right:
                     col++;
@@ -171,13 +199,21 @@ namespace WPF
             if ((col >= mazeBoard.Cols) || (row >= mazeBoard.Rows)
                 || (col < 0) || (row < 0))
                 return;
-            //check if the next step is not an obstacle
-            if (mazeBoard.Blocks[indexInMaze] == '1')
-                return;
-            //update the current index
-            mazeBoard.IndexInMaze = indexInMaze;
-            mazeBoard.moveTo(new Position(row,col));
+            
+            
+            mazeBoard.moveTo(new Position(row,col), indexInMaze);
+            CheckIfWin();
         }
+
+        public void CheckIfWin()
+        {
+            if((mazeBoard.Pos.Col == mazeBoard.EndPos.Col) && (mazeBoard.Pos.Row == mazeBoard.EndPos.Row))
+            {
+                WinWindow win = new WinWindow(this);
+                win.ShowDialog();
+            }
+        }
+
 
         public void startPlay()
         {

@@ -93,15 +93,15 @@ namespace WPF
             int startRow = int.Parse(help);
             help = data2["Col"];
             int startCols = int.Parse(help);
-            this.startPos = new Position(startRow, startCols);
+            this.StartPos = new Position(startRow, startCols);
             //get the end point
             dynamic data3 = data["End"];
             help = data3["Row"];
             int endRow = int.Parse(help);
             help = data3["Col"];
             int endCols = int.Parse(help);
-            this.endPos = new Position(endRow, endCols);
-            this.Pos = startPos;
+            this.EndPos = new Position(endRow, endCols);
+            this.Pos = StartPos;
         }
         //this jast for check- delete it
         public void DrawMaze1(string maze)
@@ -146,18 +146,18 @@ namespace WPF
                         myCanvas.Children.Add(r);
                     }
                     //draw the player icon
-                    if (i == startPos.Row && j == startPos.Col)
+                    if (i == StartPos.Row && j == StartPos.Col)
                     {
                         Image playerImage = new Image();
                         BitmapImage bitmap = new BitmapImage(new Uri("/images/pacman.png", UriKind.Relative));
                         playerImage.Source = bitmap;
                         playerImage.Height = heightOfSqure;
                         playerImage.Width = widthOfSqure;
-                        Canvas.SetLeft(playerImage, startPos.Col * widthOfSqure);
-                        Canvas.SetTop(playerImage, startPos.Row * heightOfSqure);
+                        Canvas.SetLeft(playerImage, StartPos.Col * widthOfSqure);
+                        Canvas.SetTop(playerImage, StartPos.Row * heightOfSqure);
                         myCanvas.Children.Add(playerImage);
                         IndexInMaze = counter;
-                        initialIndexInMaze = counter;
+                        InitialIndexInMaze = counter;
                     }
                     counter++;
                 }
@@ -169,45 +169,53 @@ namespace WPF
             exitImage.Source = carBitmap;
             exitImage.Height = heightOfSqure;
             exitImage.Width = widthOfSqure;
-            Canvas.SetLeft(exitImage, endPos.Col * widthOfSqure);
-            Canvas.SetTop(exitImage, endPos.Row * heightOfSqure);
+            Canvas.SetLeft(exitImage, EndPos.Col * widthOfSqure);
+            Canvas.SetTop(exitImage, EndPos.Row * heightOfSqure);
             myCanvas.Children.Add(exitImage);
         }
 
-        public void moveTo(Position nextPos)
+        public void moveTo(Position nextPos, int index)
         {
-            //update the current index
-            //IndexInMaze = index;
+                this.Dispatcher.Invoke(() =>
+               {
+                //check if the next step is not an obstacle
+                if (Blocks[index] == '1')
+                    return;
+                //update the current index
+                IndexInMaze = index;
+                if (Pos.Col == nextPos.Col && Pos.Row == nextPos.Row)
+                    return;
+                //drawing the player in place and wipes the earlier
+                Image image = new Image();
+                BitmapImage carBitmap = new BitmapImage(new Uri("/images/pacman.png", UriKind.Relative));
+                image.Source = carBitmap;
+                image.Height = heightOfSqure;
+                image.Width = widthOfSqure;
+                Canvas.SetLeft(image, nextPos.Col * widthOfSqure);
+                Canvas.SetTop(image, nextPos.Row * heightOfSqure);
+                myCanvas.Children.Add(image);
 
-            //drawing the player in place and wipes the earlier
-            Image image = new Image();
-            BitmapImage carBitmap = new BitmapImage(new Uri("/images/pacman.png", UriKind.Relative));
-            image.Source = carBitmap;
-            image.Height = heightOfSqure;
-            image.Width = widthOfSqure;
-            Canvas.SetLeft(image, nextPos.Col * widthOfSqure);
-            Canvas.SetTop(image, nextPos.Row * heightOfSqure);
-            myCanvas.Children.Add(image);
+                Rectangle r = new Rectangle();
+                r.Height = heightOfSqure;
+                r.Width = widthOfSqure;
+                SolidColorBrush whiteBrush = new SolidColorBrush();
+                whiteBrush.Color = Colors.White;
+                r.Fill = whiteBrush;
+                Canvas.SetLeft(r, Pos.Col * widthOfSqure);
+                Canvas.SetTop(r, Pos.Row * heightOfSqure);
+                myCanvas.Children.Add(r);
 
-            Rectangle r = new Rectangle();
-            r.Height = heightOfSqure;
-            r.Width = widthOfSqure;
-            SolidColorBrush whiteBrush = new SolidColorBrush();
-            whiteBrush.Color = Colors.White;
-            r.Fill = whiteBrush;
-            Canvas.SetLeft(r, Pos.Col * widthOfSqure);
-            Canvas.SetTop(r, Pos.Row * heightOfSqure);
-            myCanvas.Children.Add(r);
+                //check if the player won
+                if ((nextPos.Col == EndPos.Col) && (nextPos.Row == EndPos.Row))
+                {
+                    this.Win = true;
+                    //return;
+                }
 
-            //check if the player won
-            if ((nextPos.Col == endPos.Col) && (nextPos.Row == endPos.Row))
-            {
-                this.Win = true;
-                //return;
-            }
-
-            //update the current position of the player
-            Pos = nextPos;
+                //update the current position of the player
+                Pos = nextPos;
+           });
+            
         }
 
 
@@ -307,6 +315,45 @@ namespace WPF
             set
             {
                 blocks = value;
+            }
+        }
+
+        public Position EndPos
+        {
+            get
+            {
+                return endPos;
+            }
+
+            set
+            {
+                endPos = value;
+            }
+        }
+
+        public Position StartPos
+        {
+            get
+            {
+                return startPos;
+            }
+
+            set
+            {
+                startPos = value;
+            }
+        }
+
+        public int InitialIndexInMaze
+        {
+            get
+            {
+                return initialIndexInMaze;
+            }
+
+            set
+            {
+                initialIndexInMaze = value;
             }
         }
 

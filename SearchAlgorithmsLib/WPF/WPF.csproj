@@ -64,12 +64,6 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="AreYouSureMenu.xaml.cs">
-      <DependentUpon>AreYouSureMenu.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="AreYouSureRestart.xaml.cs">
-      <DependentUpon>AreYouSureRestart.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Client.cs" />
     <Compile Include="Information.xaml.cs">
       <DependentUpon>Information.xaml</DependentUpon>
@@ -121,14 +115,6 @@
     <Compile Include="WinWindow.xaml.cs">
       <DependentUpon>WinWindow.xaml</DependentUpon>
     </Compile>
-    <Page Include="AreYouSureMenu.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="AreYouSureRestart.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="Information.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
