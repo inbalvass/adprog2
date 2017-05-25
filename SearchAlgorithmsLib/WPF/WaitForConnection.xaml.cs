@@ -22,6 +22,13 @@ namespace WPF
     {
         private Client client;
         private string name;
+
+        /// <summary>
+        /// constructor
+        /// </summary>
+        /// <param name="names"></param>
+        /// <param name="myClient"></param>
+        /// <param name="befor"></param>
         public WaitForConnection(string names,Client myClient, MultiPlayer befor)
         {
             InitializeComponent();
@@ -32,6 +39,9 @@ namespace WPF
             GetEvent();
         }
 
+        /// <summary>
+        /// waiting for connection until a new player joins
+        /// </summary>
         public void GetEvent()
         {
             bool resualtChanged = client.isResualtChanged();

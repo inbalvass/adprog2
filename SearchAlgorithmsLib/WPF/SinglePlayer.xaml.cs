@@ -27,6 +27,9 @@ namespace WPF
             this.DataContext = vm;
         }
 
+        /// <summary>
+        /// creating a new single player game
+        /// </summary>
     private void new_single_game(object sender, RoutedEventArgs e)
         {
             vm.SaveSettings();

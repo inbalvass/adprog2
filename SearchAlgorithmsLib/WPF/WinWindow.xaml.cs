@@ -22,6 +22,11 @@ namespace WPF
         private SinglePlayerWindow SPwindow;
         private MPwindow multyWindow;
         string whatWindow;
+
+        /// <summary>
+        /// a constructor for single player winning window.
+        /// </summary>
+        /// <param name="SPwindow">the single player window.</param>
         public WinWindow(SinglePlayerWindow SPwindow)
         {
             InitializeComponent();
@@ -29,6 +34,10 @@ namespace WPF
             this.whatWindow = "single";
         }
 
+        /// <summary>
+        /// a constructor for multy player winning window.
+        /// </summary>
+        /// <param name="SPwindow">the multy player window.</param>
         public WinWindow(MPwindow window)
         {
             InitializeComponent();
@@ -36,6 +45,9 @@ namespace WPF
             this.whatWindow = "multy";
         }
 
+        /// <summary>
+        /// closing the appropriate windows and back to menu.
+        /// </summary>
         private void clicked_OK(object sender, RoutedEventArgs e)
         {
             MainWindow mw = new MainWindow();

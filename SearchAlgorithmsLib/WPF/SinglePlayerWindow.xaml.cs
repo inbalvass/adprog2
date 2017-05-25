@@ -31,6 +31,12 @@ namespace WPF
         private int rows, cols;
         private MazeBoard mazeBoard;
 
+        /// <summary>
+        /// constructor.
+        /// </summary>
+        /// <param name="name"> the name of the maze</param>
+        /// <param name="row"> the number of rows</param>
+        /// <param name="col"> the number of columns</param>
         public SinglePlayerWindow(string name, int row, int col)
         {
             
@@ -50,15 +56,11 @@ namespace WPF
 
         private void mazeBoard_Loaded(object sender, RoutedEventArgs e)
         {
-             //the title need to be bounded to the name that entered- אני לא בטוחה שכך אכן נראה data binding
-            //mazeBoarder.Rows = rows;
-            //mazeBoarder.Cols = cols;
-            
-           // stackPanel1.Children.Add(this.mazeBoard);
-
-
         }
 
+        /// <summary>
+        /// handle the player's request to restart the game.
+        /// </summary>
         private void clicked_restart(object sender, RoutedEventArgs e)
         {
             MessageBoxResult result = MessageBox.Show("Are you sure you want to restart?", "", MessageBoxButton.YesNo, MessageBoxImage.Question);
@@ -68,6 +70,9 @@ namespace WPF
             }
         }
 
+        /// <summary>
+        /// handle the player's request to solve the game.
+        /// </summary>
         private async void clicked_solve(object sender, RoutedEventArgs e)
         {
             //locating the player in the start position 
@@ -100,12 +105,16 @@ namespace WPF
                 }
                 //waiting for the task to finish drawing
                 await Task.Delay(200);
+                //drawing the next step
                 mazeBoard.moveTo(new Position(row, col), mazeBoard.InitialIndexInMaze);
                 //check if the player won
                 CheckIfWin();
             }
         }
 
+        /// <summary>
+        /// adding the mazeBoard to the canvas at load time.
+        /// </summary>
         private void canvas_Loaded(object sender, RoutedEventArgs e)
         {
             Title = name;
@@ -115,8 +124,6 @@ namespace WPF
         /// <summary>
         /// return to the main window
         /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
         private void clicked_menu(object sender, RoutedEventArgs e)
         {
             MessageBoxResult result = MessageBox.Show("Are you sure you want to go back to menu?", "", MessageBoxButton.YesNo, MessageBoxImage.Question);
@@ -128,6 +135,9 @@ namespace WPF
             }
         }
 
+        /// <summary>
+        /// handle the event of pressing the direction keys on keyboard.
+        /// </summary>
         private void SPwindow_KeyDown(object sender, KeyEventArgs e)
         {
             int col = mazeBoard.Pos.Col;
@@ -166,6 +176,9 @@ namespace WPF
             CheckIfWin();
         }
 
+        /// <summary>
+        /// check if the player won the game and handle.
+        /// </summary>
         public void CheckIfWin()
         {
             if((mazeBoard.Pos.Col == mazeBoard.EndPos.Col) && (mazeBoard.Pos.Row == mazeBoard.EndPos.Row))
