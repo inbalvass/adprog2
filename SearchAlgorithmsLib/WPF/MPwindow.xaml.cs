@@ -132,13 +132,26 @@ namespace WPF
         {
             Application.Current.Dispatcher.Invoke((Action)delegate
             {
+                int indexInMaze = mazeBoardPlay.IndexInMaze;
                 Direction direction = e.Direction;
                 int col = mazeBoardPlay.Pos.Col;
                 int row = mazeBoardPlay.Pos.Row;
-                if (direction == Direction.Up) { row--; }
-                else if (direction == Direction.Down) { row++; }
-                else if (direction == Direction.Right) { col++; }
-                else if (direction == Direction.Left) { col--; }
+                if (direction == Direction.Up) {
+                    row--;
+                    indexInMaze = indexInMaze - mazeBoardPlay.Cols;
+                }
+                else if (direction == Direction.Down) {
+                    row++;
+                    indexInMaze = indexInMaze + mazeBoardPlay.Cols;
+                }
+                else if (direction == Direction.Right) {
+                    col++;
+                    indexInMaze++;
+                }
+                else if (direction == Direction.Left) {
+                    col--;
+                    indexInMaze--;
+                }
                 else
                 {
                     ConnectionClosed closed = new ConnectionClosed();
@@ -147,7 +160,7 @@ namespace WPF
                 }
                 if ((col < mazeBoard.Cols) && (row < mazeBoard.Rows) && (col >= 0) && (row >= 0))
                 {
-                    mazeBoardPlay.moveTo(new Position(row, col), mazeBoardPlay.InitialIndexInMaze);
+                    mazeBoardPlay.moveTo(new Position(row, col), indexInMaze);
                 }
                 //check if the player won
                 //CheckIfWin();
