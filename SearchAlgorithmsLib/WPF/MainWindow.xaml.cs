@@ -20,11 +20,19 @@ namespace WPF
     /// </summary>
     public partial class MainWindow : Window
     {
+        /// <summary>
+        /// constructor
+        /// </summary>
         public MainWindow()
         {
             InitializeComponent();
         }
 
+        /// <summary>
+        /// what to do when click to play single
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void clicked_single(object sender, RoutedEventArgs e)
         {
             SinglePlayer s = new SinglePlayer();
@@ -33,6 +41,11 @@ namespace WPF
             s.ShowDialog();
         }
 
+        /// <summary>
+        /// what to do when click to play multy
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void clicked_multi(object sender, RoutedEventArgs e)
         {
             MultiPlayer m = new MultiPlayer();
@@ -40,6 +53,11 @@ namespace WPF
             m.ShowDialog();
         }
 
+        /// <summary>
+        /// what to do when click to set settings
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void clicked_settings(object sender, RoutedEventArgs e)
         {
             Settings s = new Settings();

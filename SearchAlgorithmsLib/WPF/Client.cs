@@ -31,8 +31,7 @@ namespace WPF
         /// <summary>
         /// a constructor.
         /// </summary>
-        /// <param name="port"> the port to contact the server.
-        /// </param>
+        /// <param name="port"> the port to contact the server.</param>
         public Client()
         {
             client = new TcpClient();
@@ -44,13 +43,21 @@ namespace WPF
 
         }
 
+        /// <summary>
+        /// set the play command
+        /// </summary>
+        /// <param name="command">the new command</param>
         public void setPlayCommand(string command)
         {
             this.PlayCommand = command;
             this.changedCommand = true;
         }
 
-        //for orders: generate,solve,list
+        /// <summary>
+        /// function for the single orders-generate,solve,list
+        /// </summary>
+        /// <param name="commands">the command to send the server</param>
+        /// <returns></returns>
         public string StartSingle(string commands)
         {
             string command = commands;
@@ -69,29 +76,49 @@ namespace WPF
             }
         }
 
+        /// <summary>
+        /// set the result
+        /// </summary>
+        /// <param name="res"></param>
         public void setResault(string res)
         {
             this.resualt = res;
             this.changedresualt = true;
         }
 
+        /// <summary>
+        /// get the result
+        /// </summary>
+        /// <returns></returns>
         public string getResault()
         {
             this.changedresualt = false;
             return this.resualt;
         }
 
+        /// <summary>
+        /// check if we get new result
+        /// </summary>
+        /// <returns></returns>
         public bool isResualtChanged()
         {
             return this.changedresualt;
         }
 
+        /// <summary>
+        /// get the play command
+        /// </summary>
+        /// <returns></returns>
         public string getPlayCommand()
         {
             this.changedCommand = false;
             return this.PlayCommand;
         }
 
+        /// <summary>
+        /// function for the multy player commands- start, join,play,close
+        /// </summary>
+        /// <param name="commands">the command to send the server</param>
         public void StartMulty(string commands)
         {
             string command = commands;
@@ -117,7 +144,6 @@ namespace WPF
                                 Thread.Sleep(50);
                             }
                             this.changedCommand = false;
-
                             command = getPlayCommand();
                             writer.Write(command);
 
@@ -137,7 +163,6 @@ namespace WPF
                         {
                             this.setResault("connection is closed");
 
-                            //אולי פה אני אשלח שהכיוון לא ידוע ולכן הוא ישלח כיוון לא ידוע ולכן אני אוכל לעשות בחלון שיעלה הודעה ויסגור
                             //if i didnt send the close command then need to close the second task
                             if (!command.StartsWith("close"))
                             {
@@ -145,7 +170,6 @@ namespace WPF
                                 setPlayCommand("b");
                                 this.setResault1("connection is closed");
                             }
-                            //writer.Write("b");
                             //so the task end first
                             Thread.Sleep(100);
                             break;
@@ -154,23 +178,32 @@ namespace WPF
 
                         if (command.StartsWith("start") || command.StartsWith("join"))
                         {
-                            //start the task
+                            //change the command to not include start or it keep enetring the if
                             command = "not command";
                             t.Start();
                         }
                     }
                     Stop();
-                    // end the inner task
-                    
                 }
             }).Start();
         }
 
-
+        /// <summary>
+        /// create delegate for the event
+        /// </summary>
+        /// <typeparam name="TEventArgs"></typeparam>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         public delegate void EventHandler<TEventArgs>(object sender, TEventArgs e);
+        /// <summary>
+        /// create the event
+        /// </summary>
         public event EventHandler<PlayerMovedEventArgs> PlayerMoved;
 
-        
+        /// <summary>
+        /// function for set the result and send event about it
+        /// </summary>
+        /// <param name="res"></param>
         public void setResault1(string res)
         {
             string move;
@@ -191,100 +224,11 @@ namespace WPF
             else if (move == "left") { direction = Direction.Left; }
             else { direction = Direction.Unknown; }
 
-
             this.resualt = res;
             this.changedresualt = true;
 
             PlayerMoved?.Invoke(this, new PlayerMovedEventArgs(direction));
         }
-
-
-
-
-        //את זה למחוק
-
-
-        /// <summary>
-        /// this function starts the client and establish the connection to the server.
-        /// </summary>
-        /// <param name="commands">the command to the server.
-        /// </param>
-        /// 
-        //את זה צריך לשנות שיהיה למולטי
-
-        //כדי שהמשחק יתקיים צריך שכל הזמן יהיה קשר. כדי שכל הזמן יהיה קשר צריך שהלולאה הפנימית תתקיים. כדי שהיא
-        // תתקיים צריך גם שזה ישאר בפונקציה הזו כל הזמן אבל שגם יהיה אפשר לקבל ממנה כל פעם את המידע שמתקבל.
-        // לדעתי יש 2 אפשרויות: 1) להוציא את כל הפונקציה החוצה ולשים אותה איפה שהמולטי גיים יהיה.
-        //2) להוסיף פונציה סט שבה כל הזמן נעדכן את המידע שהוחזר כרגע ואז נקרא משם כל הזמן במולטי גיים בלולאה.
-        //אבל זה יצור ביזי ווטינג. מצד שני הפתרון הראשון לא משהו כי זה יכנס במקום לא קשור בקוד.
-        //נעשה 2 פונקציות סט- אחת לפקודה שרוצים להכניס והשנייה לתוצאה שהתקבלה. 
-        //ואז פה נעשה לולאה של מתי לקרוא ובמולטי גיים נעשה לולאה של מתי לקרוא את הפתרון.
-        //דרך נוספתת זה אולי לעשות ליסנר לשניהם?
-      /*    public void StartMulty(string commands)
-          {
-              string command = commands;
-              IPEndPoint ep = new IPEndPoint(IPAddress.Parse("127.0.0.1"), port);
-              client.Connect(ep);
-            new Task(() =>
-            {
-                using (NetworkStream stream = client.GetStream())
-                using (BinaryReader reader = new BinaryReader(stream))
-                using (BinaryWriter writer = new BinaryWriter(stream))
-                {
-                    while (true)
-                    {
-                        // Send data to server
-                        writer.Write(command);
-                        // Get result from server. if this is a play or close command so don't wait for answer
-                        if (!command.StartsWith("play") && !command.StartsWith("close"))
-                        {
-                            string result = reader.ReadString();
-                            if (command != "b")
-                            {
-                                Console.WriteLine(result);
-                            }
-                        }
-
-                        if (command.StartsWith("start") || command.StartsWith("join"))
-                        {
-                            new Task(() =>
-                            {
-                                while (true)
-                                {
-                                    string result = reader.ReadString();
-                                    Console.WriteLine(result);
-
-                                    if (result.Contains("close"))
-                                    {
-                                        // after the other client closed the connection this client still
-                                        //has to react with some flag of closing.
-                                        Console.WriteLine("connection closed. type b to continue");
-                                        break;
-                                    }
-                                }
-                            }).Start();
-                        }
-                        if (command.StartsWith("close") || command == "b")
-
-                        {
-                            //so the task closed first
-                            Thread.Sleep(100);
-                            Console.WriteLine("client close");
-                            //close the connection
-                            Stop();
-                            break;
-                        }
-                        //את זה צריך לשנות שלא יקרא מהקונסול אלא שיקבל את המידע כאשר שולחם לו
-                        Console.WriteLine("write your command");
-                        return;
-                        //command = Console.ReadLine();
-                    }
-                }
-            }).Start();
-          }
-          */
-
-
 
         /// <summary>
         /// close the connection to the server.

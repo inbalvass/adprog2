@@ -1,19 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using System.Windows.Shapes;
-using System.Net.Sockets;
-using Newtonsoft.Json.Linq;
 using Newtonsoft.Json;
 using MazeLib;
 using System.ComponentModel;
@@ -35,6 +25,9 @@ namespace WPF
         private int indexInMaze;
         private int initialIndexInMaze;
 
+        /// <summary>
+        /// constructor
+        /// </summary>
         public MazeBoard()
         {
             InitializeComponent();
@@ -42,27 +35,43 @@ namespace WPF
             myCanvas.Width = System.Windows.SystemParameters.PrimaryScreenWidth;
         }
 
-        private void UserControl_Loaded(object sender, RoutedEventArgs e)
-        {
-
-        }
+        /// <summary>
+        /// load the user control
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void UserControl_Loaded(object sender, RoutedEventArgs e) { }
         
+        /// <summary>
+        /// get and set the maze for binding
+        /// </summary>
         public string mazeStr
         {
             get { return (string)GetValue(mazeStrProperty); }
             set { SetValue(mazeStrProperty, value); }
         }
 
-        // Using a DependencyProperty as the backing store for mazeStr.  This enables animation, styling, binding, etc...
+        /// <summary>
+        /// create DependencyProperty for maze
+        /// </summary>
         public static readonly DependencyProperty mazeStrProperty =
             DependencyProperty.Register("mazeStr", typeof(string), typeof(MazeBoard), new PropertyMetadata(string.Empty, Changed));
 
+        /// <summary>
+        /// the function to run when the maze has changed
+        /// </summary>
+        /// <param name="d"></param>
+        /// <param name="e"></param>
         private static void Changed(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             var c = d as MazeBoard;
             c.DrawMaze((string)e.NewValue);
         }
 
+        /// <summary>
+        /// parse the information we get
+        /// </summary>
+        /// <param name="maze">the json we get</param>
         public void ParseData(string maze)
         {
             //get the information from the json string
@@ -88,12 +97,20 @@ namespace WPF
             int endCols = int.Parse(help);
             this.EndPos = new Position(endRow, endCols);
         }
+
+        /// <summary>
+        /// parse the information and draw the maze
+        /// </summary>
+        /// <param name="maze">the json that contains the information</param>
         public void DrawMaze(string maze)
         {
             ParseData(maze);
             drawTheMaze();
         }
 
+        /// <summary>
+        /// draw the maze
+        /// </summary>
         private void drawTheMaze()
         {
             SolidColorBrush blackBrush = new SolidColorBrush();
@@ -145,6 +162,11 @@ namespace WPF
             myCanvas.Children.Add(exitImage);
         }
 
+        /// <summary>
+        /// move the player to the next point
+        /// </summary>
+        /// <param name="nextPos">nhe next posotion</param>
+        /// <param name="index"> the current index</param>
         public void moveTo(Position nextPos, int index)
         {
             //check if the next step is not an obstacle
@@ -183,10 +205,9 @@ namespace WPF
             Pos = nextPos;
         }
 
-        //public static readonly DependencyProperty MazeProperty =
-        //    DependencyProperty.Register("Maze", typeof(string), typeof(MazeBoard), new
-        //    PropertyMetadata("0,1"));
-
+        /// <summary>
+        /// get and set the position
+        /// </summary>
         public Position Pos
         {
             get
@@ -200,6 +221,9 @@ namespace WPF
             }
         }
 
+        /// <summary>
+        /// get and set the index
+        /// </summary>
         public int IndexInMaze
         {
             get
@@ -213,6 +237,9 @@ namespace WPF
             }
         }
 
+        /// <summary>
+        /// get and set the rows
+        /// </summary>
         public int Rows
         {
             get
@@ -226,6 +253,9 @@ namespace WPF
             }
         }
 
+        /// <summary>
+        /// get and set the cols
+        /// </summary>
         public int Cols
         {
             get
@@ -239,6 +269,9 @@ namespace WPF
             }
         }
 
+        /// <summary>
+        /// get and set the start position
+        /// </summary>
         public Position StartPos
         {
             get
@@ -252,6 +285,9 @@ namespace WPF
             }
         }
 
+        /// <summary>
+        /// get and set the end position
+        /// </summary>
         public Position EndPos
         {
             get
@@ -265,6 +301,9 @@ namespace WPF
             }
         }
 
+        /// <summary>
+        /// get and set the InitialIndexInMaze
+        /// </summary>
         public int InitialIndexInMaze
         {
             get
@@ -278,6 +317,9 @@ namespace WPF
             }
         }
 
+        /// <summary>
+        /// get and set the blocks
+        /// </summary>
         public string Blocks
         {
             get
@@ -291,7 +333,14 @@ namespace WPF
             }
         }
 
+        /// <summary>
+        /// create the event
+        /// </summary>
         public event PropertyChangedEventHandler PropertyChanged;
+        /// <summary>
+        /// notipy somthing happend
+        /// </summary>
+        /// <param name="propName"></param>
         public void NotifyPropertyChanged(string propName)
         {
             this.PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propName));

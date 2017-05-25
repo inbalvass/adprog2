@@ -7,15 +7,25 @@ using System.Threading.Tasks;
 
 namespace WPF
 {
+    /// <summary>
+    /// vm class for the multy player window (mpwidow)
+    /// </summary>
     class MPViewModel : ViewModel
     {
         private MPModel model;
 
+        /// <summary>
+        /// constructor
+        /// </summary>
+        /// <param name="client"></param>
         public MPViewModel(Client client)
         {
             this.model = new MPModel(client);
         }
 
+        /// <summary>
+        /// get and set the mazeStr
+        /// </summary>
         public string VM_mazeStr
         {
             get
@@ -29,11 +39,19 @@ namespace WPF
             }
         }
 
+        /// <summary>
+        /// play command
+        /// </summary>
+        /// <param name="move"></param>
         public void play(string move)
         {
             model.play(move);
         }
 
+        /// <summary>
+        /// close command
+        /// </summary>
+        /// <param name="name"></param>
         public void close(string name)
         {
             model.close(name);

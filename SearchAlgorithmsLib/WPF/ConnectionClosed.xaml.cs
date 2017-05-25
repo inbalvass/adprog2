@@ -19,18 +19,23 @@ namespace WPF
     /// </summary>
     public partial class ConnectionClosed : Window
     {
-       // private MPwindow multyWindow;
+        /// <summary>
+        /// constructor
+        /// </summary>
         public ConnectionClosed()
         {
             InitializeComponent();
-           // this.multyWindow = window;
         }
 
+        /// <summary>
+        /// what to do when ok is pressed
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void clicked_OK(object sender, RoutedEventArgs e)
         {
             MainWindow mw = new MainWindow();
             this.Close();
-         //   this.multyWindow.Close();
             mw.Show();
         }
     }
