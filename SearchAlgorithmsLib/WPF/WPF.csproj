@@ -65,6 +65,9 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Client.cs" />
+    <Compile Include="ConnectionClosed.xaml.cs">
+      <DependentUpon>ConnectionClosed.xaml</DependentUpon>
+    </Compile>
     <Compile Include="INotifyPropertyChanged.cs" />
     <Compile Include="ISettingsModel.cs" />
     <Compile Include="ISinglePlayerModel.cs" />
@@ -108,6 +111,10 @@
     <Compile Include="WinWindow.xaml.cs">
       <DependentUpon>WinWindow.xaml</DependentUpon>
     </Compile>
+    <Page Include="ConnectionClosed.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>

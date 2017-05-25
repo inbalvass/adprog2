@@ -139,7 +139,12 @@ namespace WPF
                 else if (direction == Direction.Down) { row++; }
                 else if (direction == Direction.Right) { col++; }
                 else if (direction == Direction.Left) { col--; }
-                else { return; }
+                else
+                {
+                    ConnectionClosed closed = new ConnectionClosed();
+                    this.Close();
+                    closed.ShowDialog();
+                }
                 if ((col < mazeBoard.Cols) && (row < mazeBoard.Rows) && (col >= 0) && (row >= 0))
                 {
                     mazeBoardPlay.moveTo(new Position(row, col), mazeBoardPlay.InitialIndexInMaze);

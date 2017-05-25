@@ -105,7 +105,8 @@ namespace WPF
                 {
                     // Send data to server
                     writer.Write(command);
-                    //create the new task
+
+                    //create the new task for writing to the server
                     Task t = new Task(() =>
                     {
                         while (true)
@@ -113,45 +114,48 @@ namespace WPF
                             while (!this.changedCommand)
                             {
                                 //wait until a command is send
-                                Thread.Sleep(100);
+                                Thread.Sleep(50);
                             }
                             this.changedCommand = false;
-                            
-                            if (command.StartsWith("close") || command == "b")
-                            {
-                                //so the task closed first
-                                 Thread.Sleep(1000);
-                                this.setResault("connection is closed");
-                                //close the connection
 
-                                Stop();
-                                break;
-                            }
                             command = getPlayCommand();
                             writer.Write(command);
+
+                            if (command.StartsWith("close") || command == "b")
+                            {
+                                //end the task
+                                break;
+                            }
                         }
                     });
 
                     while (true)
                     {
                         string result = reader.ReadString();
-                        this.setResault1(result);
-
+                        
                         if (result.Contains("close"))
                         {
-                            // after the other client closed the connection this client still
-                            //has to react with some flag of closing.
-                            Thread.Sleep(1000);
-                            command = "b";
-                            setPlayCommand("b");
+                            this.setResault("connection is closed");
+
+                            //אולי פה אני אשלח שהכיוון לא ידוע ולכן הוא ישלח כיוון לא ידוע ולכן אני אוכל לעשות בחלון שיעלה הודעה ויסגור
+                            //if i didnt send the close command then need to close the second task
+                            if (!command.StartsWith("close"))
+                            {
+                                command = "b";
+                                setPlayCommand("b");
+                                this.setResault1("connection is closed");
+                            }
                             //writer.Write("b");
+                            //so the task end first
+                            Thread.Sleep(100);
                             break;
                         }
-                        
+                        this.setResault1(result);
+
                         if (command.StartsWith("start") || command.StartsWith("join"))
                         {
                             //start the task
-                            command = "not comand";
+                            command = "not command";
                             t.Start();
                         }
                     }
@@ -167,12 +171,19 @@ namespace WPF
         public event EventHandler<PlayerMovedEventArgs> PlayerMoved;
 
         
-
         public void setResault1(string res)
         {
-            dynamic data = JsonConvert.DeserializeObject(res);
-            string move = data["Direction"];
-            Direction direction= Direction.Left;
+            string move;
+            Direction direction = Direction.Left;
+            if (res == "connection is closed")
+            {
+                move = "initialize";
+            }
+            else
+            {
+                dynamic data = JsonConvert.DeserializeObject(res);
+                move = data["Direction"]; 
+            }
 
             if (move == "up") { direction = Direction.Up; }
             else if (move == "down") { direction = Direction.Down; }
@@ -209,65 +220,69 @@ namespace WPF
         //נעשה 2 פונקציות סט- אחת לפקודה שרוצים להכניס והשנייה לתוצאה שהתקבלה. 
         //ואז פה נעשה לולאה של מתי לקרוא ובמולטי גיים נעשה לולאה של מתי לקרוא את הפתרון.
         //דרך נוספתת זה אולי לעשות ליסנר לשניהם?
-        /*  public void StartMulty1(string commands)
+      /*    public void StartMulty(string commands)
           {
               string command = commands;
               IPEndPoint ep = new IPEndPoint(IPAddress.Parse("127.0.0.1"), port);
               client.Connect(ep);
-              using (NetworkStream stream = client.GetStream())
-              using (BinaryReader reader = new BinaryReader(stream))
-              using (BinaryWriter writer = new BinaryWriter(stream))
-              {             
-                  while (true)
-                  {
-                      // Send data to server
-                      writer.Write(command);
-                      // Get result from server. if this is a play or close command so don't wait for answer
-                      if (!command.StartsWith("play") && !command.StartsWith("close"))
-                      {
-                          string result = reader.ReadString();
-                          if (command != "b")
-                          {
-                              Console.WriteLine(result);
-                          }
-                      }
+            new Task(() =>
+            {
+                using (NetworkStream stream = client.GetStream())
+                using (BinaryReader reader = new BinaryReader(stream))
+                using (BinaryWriter writer = new BinaryWriter(stream))
+                {
+                    while (true)
+                    {
+                        // Send data to server
+                        writer.Write(command);
+                        // Get result from server. if this is a play or close command so don't wait for answer
+                        if (!command.StartsWith("play") && !command.StartsWith("close"))
+                        {
+                            string result = reader.ReadString();
+                            if (command != "b")
+                            {
+                                Console.WriteLine(result);
+                            }
+                        }
 
-                      if (command.StartsWith("start") || command.StartsWith("join"))
-                      {
-                          new Task(() =>
-                          {
-                              while (true)
-                              {
-                                  string result = reader.ReadString();
-                                  Console.WriteLine(result);
+                        if (command.StartsWith("start") || command.StartsWith("join"))
+                        {
+                            new Task(() =>
+                            {
+                                while (true)
+                                {
+                                    string result = reader.ReadString();
+                                    Console.WriteLine(result);
 
-                                  if (result.Contains("close"))
-                                  {
-                                      // after the other client closed the connection this client still
-                                      //has to react with some flag of closing.
-                                      Console.WriteLine("connection closed. type b to continue");
-                                      break;
-                                  }
-                              }
-                          }).Start();
-                      }
-                      if (command.StartsWith("close") || command == "b")
+                                    if (result.Contains("close"))
+                                    {
+                                        // after the other client closed the connection this client still
+                                        //has to react with some flag of closing.
+                                        Console.WriteLine("connection closed. type b to continue");
+                                        break;
+                                    }
+                                }
+                            }).Start();
+                        }
+                        if (command.StartsWith("close") || command == "b")
 
-                      {
-                          //so the task closed first
-                          Thread.Sleep(100);
-                          Console.WriteLine("client close");
-                          //close the connection
-                          Stop();
-                          break;
-                      }
-                      //את זה צריך לשנות שלא יקרא מהקונסול אלא שיקבל את המידע כאשר שולחם לו
-                      Console.WriteLine("write your command");
-                      return;
-                      //command = Console.ReadLine();
-                  }
-              }
-          }*/
+                        {
+                            //so the task closed first
+                            Thread.Sleep(100);
+                            Console.WriteLine("client close");
+                            //close the connection
+                            Stop();
+                            break;
+                        }
+                        //את זה צריך לשנות שלא יקרא מהקונסול אלא שיקבל את המידע כאשר שולחם לו
+                        Console.WriteLine("write your command");
+                        return;
+                        //command = Console.ReadLine();
+                    }
+                }
+            }).Start();
+          }
+          */
 
 
 

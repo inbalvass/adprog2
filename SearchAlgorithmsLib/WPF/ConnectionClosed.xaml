@@ -1,0 +1,14 @@
+﻿<Window x:Class="WPF.ConnectionClosed"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:WPF"
+        mc:Ignorable="d"
+        Title="ConnectionClosed" Height="300" Width="300">
+    <Grid>
+        <Label x:Name="label" Content="Connection closed!" FontSize="20" FontStyle="Italic" FontWeight="Bold" HorizontalAlignment="Left" Margin="52,80,0,0" VerticalAlignment="Top"/>
+        <Label x:Name="label1" Content="please press ok to go back to menu" FontSize="12" FontStyle="Italic" FontWeight="Bold" HorizontalAlignment="Left" Margin="52,119,0,0" VerticalAlignment="Top"/>
+        <Button x:Name="button" Content="OK" HorizontalAlignment="Left" Margin="105,180,0,0" VerticalAlignment="Top" Width="75" Click="clicked_OK"/>
+    </Grid>
+</Window>
