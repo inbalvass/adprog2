@@ -44,7 +44,7 @@ namespace server
         /// <summary>
         /// array to save the names of the available games to join in
         /// </summary>
-        private JArray availableGames;
+        private List<string> listAvailableGames;
 
         /// <summary>
         /// constructor
@@ -58,7 +58,7 @@ namespace server
             multyNames = new Dictionary<string, Maze>();
             multySolutions = new Dictionary<string, Solution<Position>>();
             multyGames = new Dictionary<string, IMultiGame>();
-            availableGames = new JArray();
+            listAvailableGames = new List<string>();
         }
 
         /// <summary>
@@ -171,7 +171,9 @@ namespace server
             game.setMaze(maze);
             multyGames.Add(name, game);
             //add the name to the available games to join
-            availableGames.Add(name);
+            Console.WriteLine(name);
+            listAvailableGames.Add(name);
+            Console.WriteLine(listAvailableGames.Contains(name));
             return maze.ToJSON();
         }
 
@@ -181,6 +183,8 @@ namespace server
         /// <returns></returns>
         public string ListCommand()
         {
+            JArray availableGames = new JArray();
+            availableGames = JArray.FromObject(listAvailableGames);
             return availableGames.ToString();
         }
 
@@ -191,7 +195,7 @@ namespace server
         /// <returns></returns>
         public IMultiGame JoinCommand(string name)
         {
-            availableGames.Remove(name);
+            listAvailableGames.Remove(name);
             return multyGames[name];
         }
 
