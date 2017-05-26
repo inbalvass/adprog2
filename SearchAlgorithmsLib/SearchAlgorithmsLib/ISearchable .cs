@@ -5,33 +5,33 @@ using System.Text;
 namespace SearchAlgorithmsLib
 {
     /// <summary>
-    /// this interface defines an object that can be searched in.
+    /// this interface defines an object that can be Searched in.
     /// </summary>
     /// <typeparam name="T">generic.</typeparam>
     public interface ISearchable<T>
     {
         /// <summary>
-        /// this function returns the initial state (start point) of the searchable.
+        /// this function returns the initial State (start point) of the Searchable.
         /// </summary>
-        /// <returns>the initial state.
+        /// <returns>the initial State.
         /// </returns>
-        State<T> getInitialState();
+        State<T> GetInitialState();
 
         /// <summary>
-        /// this function returns the goal state (end point) of the searchable.
+        /// this function returns the goal State (end point) of the Searchable.
         /// </summary>
-        /// <returns>the goal state.
+        /// <returns>the goal State.
         /// </returns>
-        State<T> getGoalState();
+        State<T> GetGoalState();
 
         /// <summary>
-        /// this function calculates a list of all the possible states to go to,
-        /// from a specific state.
+        /// this function calculates a list of all the possible States to go to,
+        /// from a specific State.
         /// </summary>
-        /// <param name="s"> the state.
+        /// <param name="s"> the State.
         /// </param>
         /// <returns> the list of thates.
         /// </returns>
-        List<State<T>> getAllPossibleStates(State<T> s);
+        List<State<T>> GetAllPossibleStates(State<T> s);
     }
 }

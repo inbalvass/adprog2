@@ -21,6 +21,6 @@ namespace server
         /// set the client handler
         /// </summary>
         /// <param name="clientHandler">the client handler</param>
-        void setClientHandler(IClientHandler clientHandler);
+        void SetClientHandler(IClientHandler clientHandler);
     }
 }

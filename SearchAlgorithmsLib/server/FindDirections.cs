@@ -34,12 +34,12 @@ namespace server
         public void listOfDirections(Solution<Position> solution)
         {
             int rowI, colI, rowAfter, colAfter;
-            for (int i = solution.solution.Count() - 1; i > 0; i--)
+            for (int i = solution.MySolution.Count() - 1; i > 0; i--)
             {
-                rowI = solution.solution[i].state.Row;
-                colI = solution.solution[i].state.Col;
-                rowAfter = solution.solution[i - 1].state.Row;
-                colAfter = solution.solution[i - 1].state.Col;
+                rowI = solution.MySolution[i].MyState.Row;
+                colI = solution.MySolution[i].MyState.Col;
+                rowAfter = solution.MySolution[i - 1].MyState.Row;
+                colAfter = solution.MySolution[i - 1].MyState.Col;
 
                 if ((rowI == rowAfter) && (colI == colAfter + 1))
                 {

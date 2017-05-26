@@ -34,19 +34,19 @@ namespace checksTheDll
         {
             Console.WriteLine(maze.ToString());
             Adapter adp = new Adapter(maze);
-            if (adp.getGoalState().Equals(adp.getInitialState()))
+            if (adp.GetGoalState().Equals(adp.GetInitialState()))
             {
                 Console.WriteLine("start and goal in the same place");
                 return;
             }
 
             BFS<Position> bfs = new BFS<Position>();
-            bfs.search(adp);
-            Console.WriteLine("bfs open" + bfs.getNumberOfNodesEvaluated() + "nodes");
+            bfs.Search(adp);
+            Console.WriteLine("bfs open" + bfs.GetNumberOfNodesEvaluated() + "nodes");
 
             DFS<Position> dfs = new DFS<Position>();
-            dfs.search(adp);
-            Console.WriteLine("dfs open" + dfs.getNumberOfNodesEvaluated() + "nodes");
+            dfs.Search(adp);
+            Console.WriteLine("dfs open" + dfs.GetNumberOfNodesEvaluated() + "nodes");
         }
 
         /// <summary>

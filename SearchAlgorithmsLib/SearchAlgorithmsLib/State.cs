@@ -5,43 +5,43 @@ using System.Text;
 namespace SearchAlgorithmsLib
 {
     /// <summary>
-    /// class that create a new state from the array. it holds the current state type, 
-    /// the cost and from where the state came.
+    /// class that create a new State from the array. it holds the current State type, 
+    /// the cost and from where the State came.
     /// </summary>
-    /// <typeparam name="T"> the type of state </typeparam>
+    /// <typeparam name="T"> the type of State </typeparam>
     public class State<T>
     {
-        public T state { get; }
-        public float cost { get; set; } // cost to reach this state (set by a setter)
-        public State<T> cameFrom { get; set; } // the state we came from to this state (setter)
+        public T MyState { get; }
+        public float Cost { get; set; } // cost to reach this State (set by a setter)
+        public State<T> CameFrom { get; set; } // the State we came from to this State (setter)
 
         /// <summary>
         /// a constructor.
         /// </summary>
-        /// <param name="state"></param>
-        public State(T state)
+        /// <param name="State"></param>
+        public State(T State)
         {
-            this.state = state;
+            this.MyState = State;
         }
 
         /// <summary>
         /// a copy constructor.
         /// </summary>
-        /// <param name="states"></param>
-        public State(State<T> states)
+        /// <param name="States"></param>
+        public State(State<T> States)
         {
-            this.state = states.state;
-            this.cost = states.cost;
-            this.cameFrom = states.cameFrom;
+            this.MyState = States.MyState;
+            this.Cost = States.Cost;
+            this.CameFrom = States.CameFrom;
         }
 
         /// <summary>
-        /// this function overrides the hash code to include just the state.
+        /// this function overrides the hash code to include just the State.
         /// </summary>
         /// <returns></returns>
         public override int GetHashCode()
         {
-            return state.ToString().GetHashCode();
+            return MyState.ToString().GetHashCode();
         }
 
         /// <summary>
@@ -51,46 +51,46 @@ namespace SearchAlgorithmsLib
         /// <returns></returns>
         public override bool Equals(object obj)
         {
-            return state.Equals((obj as State<T>).state);
+            return MyState.Equals((obj as State<T>).MyState);
         }
 
         /// <summary>
-        /// this class is an inner class, defines a state-pool that holds all the stated created
-        /// and make sure that every state is created once.
+        /// this class is an inner class, defines a State-pool that holds all the Stated created
+        /// and make sure that every State is created once.
         /// </summary>
         static public class StatePool
 
         {
             /// <summary>
-            /// a dictionary of states and thier types.
+            /// a dictionary of States and thier types.
             /// </summary>
-            static public Dictionary<T, State<T>> pool = new Dictionary<T, State<T>>();
+            static public Dictionary<T, State<T>> Pool = new Dictionary<T, State<T>>();
 
             /// <summary>
-            /// this function checks if the given state was already created or not.
+            /// this function checks if the given State was already created or not.
             /// </summary>
             /// <param name="current">the atate.</param>
             /// <returns></returns>
-            static public bool checkInstance(T current)
+            static public bool CheckInstance(T current)
             {
-                return pool.ContainsKey(current);
+                return Pool.ContainsKey(current);
             }
 
 
             /// <summary>
-            /// this function try to get an instance of a stete. if the state was already
+            /// this function try to get an instance of a stete. if the State was already
             /// created it returns it. otherwise, creates it, add to the pool and returns.
             /// </summary>
             /// <param name="current"></param>
             /// <returns></returns>
-            static public State<T> getInstance(T current)
+            static public State<T> GetInstance(T current)
             {
                 State<T> value;
-                bool hasValue = pool.TryGetValue(current, out value);
+                bool hasValue = Pool.TryGetValue(current, out value);
                 if (!hasValue)
                 {
                     value = new State<T>(current);
-                    pool.Add(current, value);
+                    Pool.Add(current, value);
                 }
                 return value;
             }

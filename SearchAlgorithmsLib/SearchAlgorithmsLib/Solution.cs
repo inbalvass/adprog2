@@ -8,31 +8,31 @@ namespace SearchAlgorithmsLib
     /// <summary>
     /// this class holdes a solution of some graph.
     /// </summary>
-    /// <typeparam name="T"> the type of the state </typeparam>
+    /// <typeparam name="T"> the type of the State </typeparam>
     public class Solution<T>
     {
         /// <summary>
-        /// a list of states that are the solution, and the number of nodes evaluated by 
-        /// the search algorithm that solved the graph.
+        /// a list of States that are the solution, and the number of nodes evaluated by 
+        /// the Search algorithm that solved the graph.
         /// </summary>
-        public List<State<T>> solution { get; }
-        public int evaluatedNodes { get; set; }
+        public List<State<T>> MySolution { get; }
+        public int EvaluatedNodes { get; set; }
 
         /// <summary>
         /// a constructor.
         /// </summary>
         public Solution()
         {
-            solution = new List<State<T>>();
+            MySolution = new List<State<T>>();
         }
 
         /// <summary>
-        /// add a new state to the list of solution.
+        /// add a new State to the list of solution.
         /// </summary>
         /// <param name="s"></param>
-        public void add(State<T> s)
+        public void Add(State<T> s)
         {
-            solution.Add(s);
+            MySolution.Add(s);
             return;
         }
     }

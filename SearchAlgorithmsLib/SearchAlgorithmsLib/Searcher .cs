@@ -6,7 +6,7 @@ using Priority_Queue;
 namespace SearchAlgorithmsLib
 {
     /// <summary>
-    /// this class defines an object that can perform a search algorithm, and holds
+    /// this class defines an object that can perform a Search algorithm, and holds
     /// a closed list of nodes as part of the algorithm.
     /// </summary>
     /// <typeparam name="T">generic. </typeparam>
@@ -28,10 +28,10 @@ namespace SearchAlgorithmsLib
         }
 
         /// <summary>
-        /// add new state to the close list
+        /// add new State to the close list
         /// </summary>
-        /// <param name="s">the state to add</param>
-        protected void addToClosedList(State<T> s)
+        /// <param name="s">the State to add</param>
+        protected void AddToClosedList(State<T> s)
         {
             closed.Add(s);
         }
@@ -40,7 +40,7 @@ namespace SearchAlgorithmsLib
         /// return how many items in the list
         /// </summary>
         /// <returns> how many items in the list</returns>
-        protected int countClosedList()
+        protected int CountClosedList()
         {
             return closed.Count;
         }
@@ -50,7 +50,7 @@ namespace SearchAlgorithmsLib
         /// </summary>
         /// <param name="s"></param>
         /// <returns></returns>
-        protected bool closedContains(State<T> s)
+        protected bool ClosedContains(State<T> s)
         {
             return closed.Contains(s);
         }
@@ -58,20 +58,20 @@ namespace SearchAlgorithmsLib
         /// <summary>
         /// create the solution and return it
         /// </summary>
-        /// <param name="goal"> the goal state</param>
-        /// <param name="start"> the start state</param>
+        /// <param name="goal"> the goal State</param>
+        /// <param name="start"> the start State</param>
         /// <returns></returns>
-        public Solution<T> backTrace(State<T> goal, State<T> start)
+        public Solution<T> BackTrace(State<T> goal, State<T> start)
         {
             Solution<T> solution = new Solution<T>();
-            solution.add(goal);
-            State<T> came = goal.cameFrom;
+            solution.Add(goal);
+            State<T> came = goal.CameFrom;
             while (!came.Equals(start) && came != null)
             {
-                solution.add(came);
-                came = came.cameFrom;
+                solution.Add(came);
+                came = came.CameFrom;
             }
-            solution.add(start);
+            solution.Add(start);
             return solution;
         }
 
@@ -79,7 +79,7 @@ namespace SearchAlgorithmsLib
         /// return the number of evaluated nodes
         /// </summary>
         /// <returns></returns>
-        public int getNumberOfNodesEvaluated()
+        public int GetNumberOfNodesEvaluated()
         {
             return evaluatedNodes;
         }
@@ -87,16 +87,16 @@ namespace SearchAlgorithmsLib
         /// <summary>
         /// set the number of the evaluated nodes
         /// </summary>
-        public void setNumberOfNodesEvaluated()
+        public void SetNumberOfNodesEvaluated()
         {
             evaluatedNodes++;
         }
 
         /// <summary>
-        /// search in the graph
+        /// Search in the graph
         /// </summary>
-        /// <param name="searchable"> the graph to cearch in</param>
+        /// <param name="Searchable"> the graph to cearch in</param>
         /// <returns></returns>
-        public abstract Solution<T> search(ISearchable<T> searchable);
+        public abstract Solution<T> Search(ISearchable<T> Searchable);
     }
 }

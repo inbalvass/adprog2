@@ -32,96 +32,96 @@ namespace checksTheDll
         }
 
         /// <summary>
-        /// this function returns the initial state of the maze.
+        /// this function returns the initial State of the maze.
         /// </summary>
-        /// <returns> the initial state.
+        /// <returns> the initial State.
         /// </returns>
-        public State<Position> getInitialState()
+        public State<Position> GetInitialState()
         {
             Position pos = maze.InitialPos;
-            State<Position> state = State<Position>.StatePool.getInstance(pos);
-            state.cost = 0;
-            state.cameFrom = null;
-            return state;
+            State<Position> State = State<Position>.StatePool.GetInstance(pos);
+            State.Cost = 0;
+            State.CameFrom = null;
+            return State;
         }
 
         /// <summary>
-        /// this function returns the goal state of the maze.
+        /// this function returns the goal State of the maze.
         /// </summary>
-        /// <returns> the goal state.
+        /// <returns> the goal State.
         /// </returns>
-        public State<Position> getGoalState()
+        public State<Position> GetGoalState()
         {
             Position pos = maze.GoalPos;
-            return State<Position>.StatePool.getInstance(pos);
+            return State<Position>.StatePool.GetInstance(pos);
         }
 
         /// <summary>
-        /// this function calculates a list of all the possible states to go to,
-        /// from a specific state.
+        /// this function calculates a list of all the possible States to go to,
+        /// from a specific State.
         /// </summary>
-        /// <param name="s"> the state
+        /// <param name="s"> the State
         /// </param>
         /// <returns> the list of thates
         /// </returns>
-        public List<State<Position>> getAllPossibleStates(State<Position> s)
+        public List<State<Position>> GetAllPossibleStates(State<Position> s)
         {
             List<State<Position>> succerssors = new List<State<Position>>();
 
             //right
-            if (s.state.Col + 1 < maze.Cols)//assuming we start from 0
+            if (s.MyState.Col + 1 < maze.Cols)//assuming we start from 0
             {
-                if (maze[s.state.Row, s.state.Col + 1] == MazeLib.CellType.Free)
-                // &&(s.state.Row != maze.InitialPos.Row && s.state.Col + 1 != maze.InitialPos.Col)) //means the cell is free
+                if (maze[s.MyState.Row, s.MyState.Col + 1] == MazeLib.CellType.Free)
+                // &&(s.State.Row != maze.InitialPos.Row && s.State.Col + 1 != maze.InitialPos.Col)) //means the cell is free
                 {
-                    Position pos = new Position(s.state.Row, s.state.Col + 1);
-                    //create or get the state using state-pool and add it to the list
-                    State<Position> son = State<Position>.StatePool.getInstance(pos);
+                    Position pos = new Position(s.MyState.Row, s.MyState.Col + 1);
+                    //create or get the State using State-pool and add it to the list
+                    State<Position> son = State<Position>.StatePool.GetInstance(pos);
 
-                    son.cameFrom = s;
-                    son.cost = s.cost + 1;
+                    son.CameFrom = s;
+                    son.Cost = s.Cost + 1;
                     succerssors.Add(son);
                 }
             }
 
             //left
-            if (s.state.Col - 1 >= 0)//assuming we start from 0
+            if (s.MyState.Col - 1 >= 0)//assuming we start from 0
             {
-                if (maze[s.state.Row, s.state.Col - 1] == MazeLib.CellType.Free) //means the cell is free
+                if (maze[s.MyState.Row, s.MyState.Col - 1] == MazeLib.CellType.Free) //means the cell is free
                 {
-                    Position pos = new Position(s.state.Row, s.state.Col - 1);
-                    //create or get the state using state-pool and add it to the list
-                    State<Position> son = State<Position>.StatePool.getInstance(pos);
-                    son.cameFrom = s;
-                    son.cost = s.cost + 1;
+                    Position pos = new Position(s.MyState.Row, s.MyState.Col - 1);
+                    //create or get the State using State-pool and add it to the list
+                    State<Position> son = State<Position>.StatePool.GetInstance(pos);
+                    son.CameFrom = s;
+                    son.Cost = s.Cost + 1;
                     succerssors.Add(son);
                 }
             }
 
             //up
-            if (s.state.Row + 1 < maze.Rows)//assuming we start from 0
+            if (s.MyState.Row + 1 < maze.Rows)//assuming we start from 0
             {
-                if (maze[s.state.Row + 1, s.state.Col] == MazeLib.CellType.Free)  //means the cell is free
+                if (maze[s.MyState.Row + 1, s.MyState.Col] == MazeLib.CellType.Free)  //means the cell is free
                 {
-                    Position pos = new Position(s.state.Row + 1, s.state.Col);
-                    //create or get the state using state-pool and add it to the list
-                    State<Position> son = State<Position>.StatePool.getInstance(pos);
-                    son.cameFrom = s;
-                    son.cost = s.cost + 1;
+                    Position pos = new Position(s.MyState.Row + 1, s.MyState.Col);
+                    //create or get the State using State-pool and add it to the list
+                    State<Position> son = State<Position>.StatePool.GetInstance(pos);
+                    son.CameFrom = s;
+                    son.Cost = s.Cost + 1;
                     succerssors.Add(son);
                 }
             }
 
             //down
-            if (s.state.Row - 1 >= 0)// assuming we start from 0
+            if (s.MyState.Row - 1 >= 0)// assuming we start from 0
             {
-                if (maze[s.state.Row - 1, s.state.Col] == MazeLib.CellType.Free)  //means the cell is free
+                if (maze[s.MyState.Row - 1, s.MyState.Col] == MazeLib.CellType.Free)  //means the cell is free
                 {
-                    Position pos = new Position(s.state.Row - 1, s.state.Col);
-                    //create or get the state using state-pool and add it to the list
-                    State<Position> son = State<Position>.StatePool.getInstance(pos);
-                    son.cameFrom = s;
-                    son.cost = s.cost + 1;
+                    Position pos = new Position(s.MyState.Row - 1, s.MyState.Col);
+                    //create or get the State using State-pool and add it to the list
+                    State<Position> son = State<Position>.StatePool.GetInstance(pos);
+                    son.CameFrom = s;
+                    son.Cost = s.Cost + 1;
                     succerssors.Add(son);
                 }
             }

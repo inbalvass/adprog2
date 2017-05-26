@@ -131,22 +131,22 @@ namespace server
             if (singleSolutions.ContainsKey(name))
             {
                 sol = singleSolutions[name];
-                evaluated = sol.evaluatedNodes;
+                evaluated = sol.EvaluatedNodes;
             }
             else
             {
                 if (algorithm == 0)
                 {
                     BFS<Position> bfs = new BFS<Position>();
-                    sol = bfs.search(adapter);
-                    evaluated = bfs.getNumberOfNodesEvaluated();
+                    sol = bfs.Search(adapter);
+                    evaluated = bfs.GetNumberOfNodesEvaluated();
                     singleSolutions.Add(name, sol);
                 }
                 else
                 {
                     DFS<Position> dfs = new DFS<Position>();
-                    sol = dfs.search(adapter);
-                    evaluated = dfs.getNumberOfNodesEvaluated();
+                    sol = dfs.Search(adapter);
+                    evaluated = dfs.GetNumberOfNodesEvaluated();
                     singleSolutions.Add(name, sol);
                 }
             }

@@ -25,7 +25,7 @@ namespace WPF.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("\"127.0.0.1\"")]
+        [global::System.Configuration.DefaultSettingValueAttribute("127.0.0.1")]
         public string IP {
             get {
                 return ((string)(this["IP"]));

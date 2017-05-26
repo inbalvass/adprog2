@@ -23,8 +23,8 @@ namespace server
 
             int port = Int32.Parse(ConfigurationManager.AppSettings["port"]);
             Server server = new Server(port, ch);
-            control.setClientHandler(ch);
-            control.setModel(model);
+            control.SetClientHandler(ch);
+            control.SetModel(model);
 
             server.Start();
             Console.ReadKey();

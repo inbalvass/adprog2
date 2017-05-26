@@ -33,17 +33,17 @@ namespace server
         /// this function sets the model property.
         /// </summary>
         /// <param name="mod">the new model.</param>
-        public void setModel(IModel mod)
+        public void SetModel(IModel mod)
         {
             model = mod;
-            addCommands();
+            AddCommands();
         }
 
         /// <summary>
         /// this function sets the clientHandler property.
         /// </summary>
         /// <param name="mod">the new clientHandler.</param>
-        public void setClientHandler(IClientHandler clientHandler)
+        public void SetClientHandler(IClientHandler clientHandler)
         {
             this.clientHandler = clientHandler;
         }
@@ -51,7 +51,7 @@ namespace server
         /// <summary>
         /// this function add all the different commands to the dictionary.
         /// </summary>
-        private void addCommands()
+        private void AddCommands()
         {
             commands.Add("generate", new GenerateMazeCommand(model));
             commands.Add("solve", new SolveMazeCommand(model));
