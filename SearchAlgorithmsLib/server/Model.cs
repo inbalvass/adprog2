@@ -90,7 +90,7 @@ namespace server
             return Generate(name, rows, cols, singleNames, singleSolutions);
         }
 
-        public Dictionary<string, IMultiGame> getMultyGames()
+        public Dictionary<string, IMultiGame> GetMultyGames()
         {
             return this.multyGames;
         }
@@ -151,8 +151,8 @@ namespace server
                 }
             }
             FindDirections f = new FindDirections();
-            f.listOfDirections(sol);
-            string strList = f.fromListToString();
+            f.ListOfDirections(sol);
+            string strList = f.FromListToString();
             return f.ToJson(name, evaluated);
         }
 
@@ -168,7 +168,7 @@ namespace server
         {
             //create the maze
             Maze maze = Generate(name, rows, cols, multyNames, multySolutions);
-            game.setMaze(maze);
+            game.SetMaze(maze);
             multyGames.Add(name, game);
             //add the name to the available games to join
             Console.WriteLine(name);

@@ -30,7 +30,7 @@ namespace WPF
         /// <summary>
         /// creating a new single player game
         /// </summary>
-    private void new_single_game(object sender, RoutedEventArgs e)
+    private void New_single_game(object sender, RoutedEventArgs e)
         {
             vm.SaveSettings();
             //show the maze window

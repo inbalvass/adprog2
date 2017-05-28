@@ -43,18 +43,18 @@ namespace WPF
         /// play command
         /// </summary>
         /// <param name="move"></param>
-        public void play(string move)
+        public void Play(string move)
         {
-            model.play(move);
+            model.Play(move);
         }
 
         /// <summary>
         /// close command
         /// </summary>
         /// <param name="name"></param>
-        public void close(string name)
+        public void Close(string name)
         {
-            model.close(name);
+            model.Close(name);
         }
     }
 }

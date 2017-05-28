@@ -62,6 +62,6 @@ namespace server
         /// <param name="name"></param>
         /// <returns></returns>
         IMultiGame CloseCommand(string name);
-        Dictionary<string, IMultiGame> getMultyGames();
+        Dictionary<string, IMultiGame> GetMultyGames();
     }
 }

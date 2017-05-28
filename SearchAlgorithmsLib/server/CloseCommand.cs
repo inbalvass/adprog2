@@ -40,17 +40,17 @@ namespace server
             IMultiGame myGame = model.CloseCommand(name);
             TcpClient otherClient = null;
 
-            if (myGame.getStartClient() == client)
+            if (myGame.GetStartClient() == client)
             {
-                otherClient = myGame.getJoinClient();
+                otherClient = myGame.GetJoinClient();
             }
             else
             {
-                otherClient = myGame.getStartClient();
+                otherClient = myGame.GetStartClient();
             }
 
             string message = ToJson();
-            myGame.sendMessage(otherClient, message);
+            myGame.SendMessage(otherClient, message);
             return message;
         }
 

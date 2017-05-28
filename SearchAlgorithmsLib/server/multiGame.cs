@@ -12,7 +12,7 @@ namespace server
     /// <summary>
     /// functions for the multy-game
     /// </summary>
-    class multiGame : IMultiGame
+    class MultiGame : IMultiGame
     {
         /// <summary>
         /// the maze name
@@ -38,7 +38,7 @@ namespace server
         /// </summary>
         /// <param name="name"> the maze name</param>
         /// <param name="client">the client that start the connection</param>
-        public multiGame(string name, TcpClient client)
+        public MultiGame(string name, TcpClient client)
         {
             this.name = name;
             client1 = client;
@@ -50,43 +50,43 @@ namespace server
         /// get the client that start the connection
         /// </summary>
         /// <returns></returns>
-        public TcpClient getStartClient() { return client1; }
+        public TcpClient GetStartClient() { return client1; }
 
         /// <summary>
         /// get the client that joined the game
         /// </summary>
         /// <returns></returns>
-        public TcpClient getJoinClient() { return client2; }
+        public TcpClient GetJoinClient() { return client2; }
 
         /// <summary>
         /// get the name
         /// </summary>
         /// <returns></returns>
-        public string getName() { return name; }
+        public string GetName() { return name; }
 
         /// <summary>
         /// get the maze
         /// </summary>
         /// <returns></returns>
-        public Maze getMaze(){return this.maze;}
+        public Maze GetMaze(){return this.maze;}
 
         /// <summary>
         /// set the TcpClient that joined the game
         /// </summary>
         /// <param name="client">the client</param>
-        public void setJoinClient(TcpClient client) { client2 = client; }
+        public void SetJoinClient(TcpClient client) { client2 = client; }
 
         /// <summary>
         /// set the maze
         /// </summary>
         /// <param name="maze">the maze</param>
-        public void setMaze(Maze maze) { this.maze = maze; }
+        public void SetMaze(Maze maze) { this.maze = maze; }
 
         /// <summary>
         /// check if there is a connection by check if there is 2 clients
         /// </summary>
         /// <returns></returns>
-        public bool isConnected()
+        public bool IsConnected()
         {
             if (null == client2)
             {
@@ -100,7 +100,7 @@ namespace server
         /// </summary>
         /// <param name="client"> the client to send it the message</param>
         /// <param name="message"> the message to send</param>
-        public void sendMessage(TcpClient client, string result)
+        public void SendMessage(TcpClient client, string result)
         {
             new Task(() =>
             {

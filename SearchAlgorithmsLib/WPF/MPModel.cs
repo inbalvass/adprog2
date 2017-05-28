@@ -44,20 +44,20 @@ namespace WPF
         /// play command
         /// </summary>
         /// <param name="move"></param>
-        public void play(string move)
+        public void Play(string move)
         {
             string command = "play " + move;
-            myClient.setPlayCommand(command);
+            myClient.SetPlayCommand(command);
         }
 
         /// <summary>
         /// close command
         /// </summary>
         /// <param name="name"></param>
-        public void close(string name)
+        public void Close(string name)
         {
             string command = "close " + name;
-            myClient.setPlayCommand(command);            
+            myClient.SetPlayCommand(command);            
         }
     }
 }

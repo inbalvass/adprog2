@@ -74,7 +74,7 @@ namespace WPF
         /// the start command
         /// </summary>
         /// <param name="client"></param>
-        public void start(Client client)
+        public void Start(Client client)
         {
             string command = "start " + name + " " + rows + " " + cols;
             client.StartMulty(command);
@@ -85,18 +85,18 @@ namespace WPF
         /// </summary>
         /// <param name="client"></param>
         /// <returns></returns>
-        public string join(Client client)
+        public string Join(Client client)
         {
             string command = "join " + name;
             client.StartMulty(command);
-            bool resualtChanged = client.isResualtChanged();
+            bool resualtChanged = client.IsResualtChanged();
             //try to get the result
             while (!resualtChanged)
             {
                 Thread.Sleep(100);
-                resualtChanged = client.isResualtChanged();
+                resualtChanged = client.IsResualtChanged();
             }
-            string json = client.getResault();
+            string json = client.GetResault();
             return json;
 
         }

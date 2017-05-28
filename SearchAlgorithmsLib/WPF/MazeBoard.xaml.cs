@@ -105,13 +105,13 @@ namespace WPF
         public void DrawMaze(string maze)
         {
             ParseData(maze);
-            drawTheMaze();
+            DrawTheMaze();
         }
 
         /// <summary>
         /// draw the maze
         /// </summary>
-        private void drawTheMaze()
+        private void DrawTheMaze()
         {
             SolidColorBrush blackBrush = new SolidColorBrush();
             blackBrush.Color = Colors.Black;
@@ -167,7 +167,7 @@ namespace WPF
         /// </summary>
         /// <param name="nextPos">nhe next posotion</param>
         /// <param name="index"> the current index</param>
-        public void moveTo(Position nextPos, int index)
+        public void MoveTo(Position nextPos, int index)
         {
             //check if the next step is not an obstacle
             if (Blocks[index] == '1')

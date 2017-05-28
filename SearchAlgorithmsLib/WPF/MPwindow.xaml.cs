@@ -52,7 +52,7 @@ namespace WPF
             binding.Source = vm;
             BindingOperations.SetBinding(mazeBoard, MazeBoard.mazeStrProperty, binding);
 
-            myClient.PlayerMoved += multy_PlayerMoved;
+            myClient.PlayerMoved += Multy_PlayerMoved;
             Closing += OnWindowClosing;
         }
 
@@ -63,7 +63,7 @@ namespace WPF
         /// <param name="e"></param>
         internal void OnWindowClosing(object sender, CancelEventArgs e)
         {
-            vm.close(name);
+            vm.Close(name);
             Thread.Sleep(100);
         }
 
@@ -72,22 +72,8 @@ namespace WPF
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void mazeBoard_Loaded(object sender, RoutedEventArgs e)
+        private void MzeBoard_Loaded(object sender, RoutedEventArgs e)
         {
-        }
-
-        /// <summary>
-        /// when click on restart the game
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void clicked_restart(object sender, RoutedEventArgs e)
-        {
-            MessageBoxResult result = MessageBox.Show("Are you sure you want to restart?", "", MessageBoxButton.YesNo, MessageBoxImage.Question);
-            if (result == MessageBoxResult.Yes)
-            {
-                mazeBoard.moveTo(mazeBoard.StartPos, mazeBoard.InitialIndexInMaze);
-            }
         }
 
         /// <summary>
@@ -95,7 +81,7 @@ namespace WPF
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void canvas_Loaded(object sender, RoutedEventArgs e)
+        private void Canvas_Loaded(object sender, RoutedEventArgs e)
         {
             Title = name;
             this.mazeBoardPlay = new MazeBoard();
@@ -109,14 +95,14 @@ namespace WPF
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void clicked_menu(object sender, RoutedEventArgs e)
+        private void Clicked_menu(object sender, RoutedEventArgs e)
         {
             MessageBoxResult result = MessageBox.Show("Are you sure you want to go back to menu?", "", MessageBoxButton.YesNo, MessageBoxImage.Question);
             if (result == MessageBoxResult.Yes)
             {
                 MainWindow mw = new MainWindow();
                 //close the connection
-                vm.close(name);
+                vm.Close(name);
                 Thread.Sleep(100);
                 this.Close();
                 mw.Show();
@@ -128,7 +114,7 @@ namespace WPF
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void multy_PlayerMoved(object sender, PlayerMovedEventArgs e)
+        private void Multy_PlayerMoved(object sender, PlayerMovedEventArgs e)
         {
             Application.Current.Dispatcher.Invoke((Action)delegate
             {
@@ -160,7 +146,7 @@ namespace WPF
                 }
                 if ((col < mazeBoard.Cols) && (row < mazeBoard.Rows) && (col >= 0) && (row >= 0))
                 {
-                    mazeBoardPlay.moveTo(new Position(row, col), indexInMaze);
+                    mazeBoardPlay.MoveTo(new Position(row, col), indexInMaze);
                 }
                 //check if the player won
                 //CheckIfWin();
@@ -209,8 +195,8 @@ namespace WPF
                 || (col < 0) || (row < 0))
                 return;
 
-            mazeBoard.moveTo(new Position(row, col), indexInMaze);
-            vm.play(move);
+            mazeBoard.MoveTo(new Position(row, col), indexInMaze);
+            vm.Play(move);
             CheckIfWin();
         }
 

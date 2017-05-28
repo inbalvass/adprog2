@@ -40,10 +40,10 @@ namespace server
             int rows = int.Parse(args[1]);
             int cols = int.Parse(args[2]);
 
-            multiGame game = new multiGame(name, client);
+            MultiGame game = new MultiGame(name, client);
             string str = model.StartMazeCommand(name, rows, cols, game);
             //wait until another client is connected to the game
-            while (!game.isConnected())
+            while (!game.IsConnected())
             {
                 Thread.Sleep(1000);
             }

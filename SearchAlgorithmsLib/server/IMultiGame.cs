@@ -15,43 +15,43 @@ namespace server
         /// set the TcpClient that joined the game
         /// </summary>
         /// <param name="client">the client</param>
-        void setJoinClient(TcpClient client);
+        void SetJoinClient(TcpClient client);
 
         /// <summary>
         /// get the maze
         /// </summary>
         /// <returns></returns>
-        Maze getMaze();
+        Maze GetMaze();
 
         /// <summary>
         /// get the name
         /// </summary>
         /// <returns></returns>
-        string getName();
+        string GetName();
 
         /// <summary>
         /// set the maze
         /// </summary>
         /// <param name="maze">the maze</param>
-        void setMaze(Maze maze);
+        void SetMaze(Maze maze);
 
         /// <summary>
         /// get the client that start the connection
         /// </summary>
         /// <returns></returns>
-        TcpClient getStartClient();
+        TcpClient GetStartClient();
 
         /// <summary>
         /// get the client that joined the game
         /// </summary>
         /// <returns></returns>
-        TcpClient getJoinClient();
+        TcpClient GetJoinClient();
 
         /// <summary>
         /// send the meesage to the client it get
         /// </summary>
         /// <param name="client"> the client to send it the message</param>
         /// <param name="message"> the message to send</param>
-        void sendMessage(TcpClient client, string message);
+        void SendMessage(TcpClient client, string message);
     }
 }

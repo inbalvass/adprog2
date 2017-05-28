@@ -44,14 +44,14 @@ namespace WPF
         /// </summary>
         public void GetEvent()
         {
-            bool resualtChanged = client.isResualtChanged();
+            bool resualtChanged = client.IsResualtChanged();
             //try to get the result
             while (!resualtChanged)
             {
                 Thread.Sleep(10);
-                resualtChanged = client.isResualtChanged();
+                resualtChanged = client.IsResualtChanged();
             }
-            string json = client.getResault();
+            string json = client.GetResault();
 
             MPwindow wind = new MPwindow(this.name, this.client, json);
             this.Close();

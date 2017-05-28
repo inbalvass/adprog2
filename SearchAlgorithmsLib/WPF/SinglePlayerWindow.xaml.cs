@@ -46,7 +46,7 @@ namespace WPF
             this.name = name;
             this.rows = row;
             this.cols = col;
-            vm.generate(name, rows, cols);
+            vm.Generate(name, rows, cols);
             this.mazeBoard = new MazeBoard();
             Binding binding = new Binding();
             binding.Path = new PropertyPath("VM_mazeStr");
@@ -54,31 +54,31 @@ namespace WPF
             BindingOperations.SetBinding(mazeBoard, MazeBoard.mazeStrProperty, binding);
         }
 
-        private void mazeBoard_Loaded(object sender, RoutedEventArgs e)
+        private void MazeBoard_Loaded(object sender, RoutedEventArgs e)
         {
         }
 
         /// <summary>
         /// handle the player's request to restart the game.
         /// </summary>
-        private void clicked_restart(object sender, RoutedEventArgs e)
+        private void Clicked_restart(object sender, RoutedEventArgs e)
         {
             MessageBoxResult result = MessageBox.Show("Are you sure you want to restart?", "", MessageBoxButton.YesNo, MessageBoxImage.Question);
             if (result == MessageBoxResult.Yes)
             {
-                mazeBoard.moveTo(mazeBoard.StartPos, mazeBoard.InitialIndexInMaze);
+                mazeBoard.MoveTo(mazeBoard.StartPos, mazeBoard.InitialIndexInMaze);
             }
         }
 
         /// <summary>
         /// handle the player's request to solve the game.
         /// </summary>
-        private async void clicked_solve(object sender, RoutedEventArgs e)
+        private async void Clicked_solve(object sender, RoutedEventArgs e)
         {
             //locating the player in the start position 
-            mazeBoard.moveTo(mazeBoard.StartPos, mazeBoard.InitialIndexInMaze);
+            mazeBoard.MoveTo(mazeBoard.StartPos, mazeBoard.InitialIndexInMaze);
 
-            string solution = vm.solve(name);
+            string solution = vm.Solve(name);
             dynamic data = JsonConvert.DeserializeObject(solution);
             string solutionStr = data["Solution"];
             int col = mazeBoard.Pos.Col;
@@ -106,7 +106,7 @@ namespace WPF
                 //waiting for the task to finish drawing
                 await Task.Delay(200);
                 //drawing the next step
-                mazeBoard.moveTo(new Position(row, col), mazeBoard.InitialIndexInMaze);
+                mazeBoard.MoveTo(new Position(row, col), mazeBoard.InitialIndexInMaze);
                 //check if the player won
                 CheckIfWin();
             }
@@ -115,7 +115,7 @@ namespace WPF
         /// <summary>
         /// adding the mazeBoard to the canvas at load time.
         /// </summary>
-        private void canvas_Loaded(object sender, RoutedEventArgs e)
+        private void Canvas_Loaded(object sender, RoutedEventArgs e)
         {
             Title = name;
             canvas.Children.Add(this.mazeBoard);
@@ -124,7 +124,7 @@ namespace WPF
         /// <summary>
         /// return to the main window
         /// </summary>
-        private void clicked_menu(object sender, RoutedEventArgs e)
+        private void Clicked_menu(object sender, RoutedEventArgs e)
         {
             MessageBoxResult result = MessageBox.Show("Are you sure you want to go back to menu?", "", MessageBoxButton.YesNo, MessageBoxImage.Question);
             if (result == MessageBoxResult.Yes)
@@ -171,7 +171,7 @@ namespace WPF
                 return;
             
             //move the player
-            mazeBoard.moveTo(new Position(row,col), indexInMaze);
+            mazeBoard.MoveTo(new Position(row,col), indexInMaze);
             //check if the player won
             CheckIfWin();
         }

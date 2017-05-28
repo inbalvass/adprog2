@@ -36,7 +36,7 @@ namespace WPF
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void save_settings(object sender, RoutedEventArgs e)
+        private void Save_settings(object sender, RoutedEventArgs e)
         {
             vm.SaveSettings();
             this.Close();
@@ -47,7 +47,7 @@ namespace WPF
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void cancel_settings(object sender, RoutedEventArgs e)
+        private void Cancel_settings(object sender, RoutedEventArgs e)
         {
             Properties.Settings.Default.Reload();
             this.Close();

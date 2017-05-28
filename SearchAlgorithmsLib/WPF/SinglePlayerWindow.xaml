@@ -9,11 +9,11 @@
         KeyDown="SPwindow_KeyDown">
     <Grid>
         <Viewbox VerticalAlignment="Top">
-        <StackPanel Name="canvas" VerticalAlignment="Top" Loaded="canvas_Loaded">
+        <StackPanel Name="canvas" VerticalAlignment="Top" Loaded="Canvas_Loaded">
                 <DockPanel Name="dockkPanel1" VerticalAlignment="Top" HorizontalAlignment="Center">
-                    <Button x:Name="restart" Content="Restart Game" HorizontalAlignment="Center" VerticalAlignment="Center" Width="300" Height="50" FontWeight="Bold" FontSize="30" Click="clicked_restart"/>
-                    <Button x:Name="solve" Content="Solve Maze" HorizontalAlignment="Center"  VerticalAlignment="Center" Width="300" Height="50" FontWeight="Bold" FontSize="30" Click="clicked_solve"/>
-                    <Button x:Name="menu" Content="Main menu" HorizontalAlignment="Center" VerticalAlignment="Center" Width="300" Height="50" FontWeight="Bold" FontSize="30" Click="clicked_menu"/>
+                    <Button x:Name="restart" Content="Restart Game" HorizontalAlignment="Center" VerticalAlignment="Center" Width="300" Height="50" FontWeight="Bold" FontSize="30" Click="Clicked_restart"/>
+                    <Button x:Name="solve" Content="Solve Maze" HorizontalAlignment="Center"  VerticalAlignment="Center" Width="300" Height="50" FontWeight="Bold" FontSize="30" Click="Clicked_solve"/>
+                    <Button x:Name="menu" Content="Main menu" HorizontalAlignment="Center" VerticalAlignment="Center" Width="300" Height="50" FontWeight="Bold" FontSize="30" Click="Clicked_menu"/>
                 </DockPanel>
             </StackPanel>
             </Viewbox>

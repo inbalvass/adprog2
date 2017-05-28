@@ -41,17 +41,17 @@ namespace server
             TcpClient otherClient = null;
 
             //try to find the player's game
-            foreach (IMultiGame game in model.getMultyGames().Values)
+            foreach (IMultiGame game in model.GetMultyGames().Values)
             {
-                if (game.getStartClient() == client)
+                if (game.GetStartClient() == client)
                 {
                     myGame = game;
-                    otherClient = game.getJoinClient();
+                    otherClient = game.GetJoinClient();
                 }
-                else if (game.getJoinClient() == client)
+                else if (game.GetJoinClient() == client)
                 {
                     myGame = game;
-                    otherClient = game.getStartClient();
+                    otherClient = game.GetStartClient();
                 }
                 else
                 {
@@ -60,8 +60,8 @@ namespace server
                 }
             }
 
-            string message = ToJson(move, myGame.getName());
-            myGame.sendMessage(otherClient, message);
+            string message = ToJson(move, myGame.GetName());
+            myGame.SendMessage(otherClient, message);
             //this do nothing because the task don't read it
             Console.WriteLine("after send");
             return message;

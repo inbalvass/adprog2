@@ -47,7 +47,7 @@ namespace WPF
         /// set the play command
         /// </summary>
         /// <param name="command">the new command</param>
-        public void setPlayCommand(string command)
+        public void SetPlayCommand(string command)
         {
             this.PlayCommand = command;
             this.changedCommand = true;
@@ -80,7 +80,7 @@ namespace WPF
         /// set the result
         /// </summary>
         /// <param name="res"></param>
-        public void setResault(string res)
+        public void SetResault(string res)
         {
             this.resualt = res;
             this.changedresualt = true;
@@ -90,7 +90,7 @@ namespace WPF
         /// get the result
         /// </summary>
         /// <returns></returns>
-        public string getResault()
+        public string GetResault()
         {
             this.changedresualt = false;
             return this.resualt;
@@ -100,7 +100,7 @@ namespace WPF
         /// check if we get new result
         /// </summary>
         /// <returns></returns>
-        public bool isResualtChanged()
+        public bool IsResualtChanged()
         {
             return this.changedresualt;
         }
@@ -109,7 +109,7 @@ namespace WPF
         /// get the play command
         /// </summary>
         /// <returns></returns>
-        public string getPlayCommand()
+        public string GetPlayCommand()
         {
             this.changedCommand = false;
             return this.PlayCommand;
@@ -144,7 +144,7 @@ namespace WPF
                                 Thread.Sleep(50);
                             }
                             this.changedCommand = false;
-                            command = getPlayCommand();
+                            command = GetPlayCommand();
                             writer.Write(command);
 
                             if (command.StartsWith("close") || command == "b")
@@ -161,20 +161,20 @@ namespace WPF
                         
                         if (result.Contains("close"))
                         {
-                            this.setResault("connection is closed");
+                            this.SetResault("connection is closed");
 
                             //if i didnt send the close command then need to close the second task
                             if (!command.StartsWith("close"))
                             {
                                 command = "b";
-                                setPlayCommand("b");
-                                this.setResault1("connection is closed");
+                                SetPlayCommand("b");
+                                this.SetResault1("connection is closed");
                             }
                             //so the task end first
                             Thread.Sleep(100);
                             break;
                         }
-                        this.setResault1(result);
+                        this.SetResault1(result);
 
                         if (command.StartsWith("start") || command.StartsWith("join"))
                         {
@@ -204,7 +204,7 @@ namespace WPF
         /// function for set the result and send event about it
         /// </summary>
         /// <param name="res"></param>
-        public void setResault1(string res)
+        public void SetResault1(string res)
         {
             string move;
             Direction direction = Direction.Left;

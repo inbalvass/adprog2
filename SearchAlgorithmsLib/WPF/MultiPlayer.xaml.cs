@@ -31,11 +31,11 @@ namespace WPF
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void new_multi_game(object sender, RoutedEventArgs e)
+        private void New_multi_game(object sender, RoutedEventArgs e)
         {
             vm.SaveSettings();
             Client client = new Client();
-            vm.start(client);
+            vm.Start(client);
             WaitForConnection wfc = new WaitForConnection(vm.Name, client,this);
         }
 
@@ -44,7 +44,7 @@ namespace WPF
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void join_game(object sender, RoutedEventArgs e)
+        private void Join_game(object sender, RoutedEventArgs e)
         {
             int index = comboBox.SelectedIndex;
             string selected = lists[index].Name;
@@ -58,7 +58,7 @@ namespace WPF
                 vm.Name = selected;
                 vm.SaveSettings();
                 Client client = new Client();
-                string json = vm.join(client);
+                string json = vm.Join(client);
                 MPwindow wind = new MPwindow(vm.Name, client, json);
                 this.Close();
                 wind.ShowDialog();
@@ -70,7 +70,7 @@ namespace WPF
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void comboBox_DropDownOpened(object sender, EventArgs e)
+        private void ComboBox_DropDownOpened(object sender, EventArgs e)
         {
             lists.Clear();
             Lists l1 = new Lists();

@@ -38,8 +38,8 @@ namespace server
         {
             string name = args[0];
             IMultiGame game = model.JoinCommand(name);
-            game.setJoinClient(client);
-            return game.getMaze().ToJSON();
+            game.SetJoinClient(client);
+            return game.GetMaze().ToJSON();
         }
     }
 }

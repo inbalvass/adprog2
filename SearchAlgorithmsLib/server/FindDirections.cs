@@ -18,20 +18,20 @@ namespace server
         /// <summary>
         /// list of the directions that represent the solution
         /// </summary>
-        public List<Direction> directions { get; }
+        public List<Direction> Directions { get; }
         /// <summary>
         /// constructor
         /// </summary>
         public FindDirections()
         {
-            directions = new List<Direction>();
+            Directions = new List<Direction>();
         }
 
         /// <summary>
         /// get the solution and create the directions it need to move to go;
         /// </summary>
         /// <param name="solution">the solution</param>
-        public void listOfDirections(Solution<Position> solution)
+        public void ListOfDirections(Solution<Position> solution)
         {
             int rowI, colI, rowAfter, colAfter;
             for (int i = solution.MySolution.Count() - 1; i > 0; i--)
@@ -43,23 +43,23 @@ namespace server
 
                 if ((rowI == rowAfter) && (colI == colAfter + 1))
                 {
-                    directions.Add(Direction.Left);
+                    Directions.Add(Direction.Left);
                 }
                 else if ((rowI == rowAfter) && (colI == colAfter - 1))
                 {
-                    directions.Add(Direction.Right);
+                    Directions.Add(Direction.Right);
                 }
                 else if ((rowI == rowAfter + 1) && (colI == colAfter))
                 {
-                    directions.Add(Direction.Up);
+                    Directions.Add(Direction.Up);
                 }
                 else if ((rowI + 1 == rowAfter) && (colI == colAfter))
                 {
-                    directions.Add(Direction.Down);
+                    Directions.Add(Direction.Down);
                 }
                 else
                 {
-                    directions.Add(Direction.Unknown);
+                    Directions.Add(Direction.Unknown);
                 }
             }
         }
@@ -68,10 +68,10 @@ namespace server
         /// convert the list direction to the string representation and return it
         /// </summary>
         /// <returns></returns>
-        public string fromListToString()
+        public string FromListToString()
         {
             string ls ="";
-            foreach (Direction d in directions)
+            foreach (Direction d in Directions)
             {
                 if (d == Direction.Right)
                 {
@@ -108,7 +108,7 @@ namespace server
         {
             JObject solveObj = new JObject();
             solveObj["Name"] = name;
-            solveObj["Solution"] = this.fromListToString();
+            solveObj["Solution"] = this.FromListToString();
             solveObj["NodesEvaluated"] = evaluate;
             return solveObj.ToString();
         }

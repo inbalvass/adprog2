@@ -71,9 +71,9 @@ namespace WPF
         /// start command
         /// </summary>
         /// <param name="client"></param>
-        public void start(Client client)
+        public void Start(Client client)
         {
-            model.start(client);
+            model.Start(client);
         }
 
         /// <summary>
@@ -81,9 +81,9 @@ namespace WPF
         /// </summary>
         /// <param name="client"></param>
         /// <returns></returns>
-        public string join(Client client)
+        public string Join(Client client)
         {
-            return model.join(client);
+            return model.Join(client);
         }
 
         /// <summary>

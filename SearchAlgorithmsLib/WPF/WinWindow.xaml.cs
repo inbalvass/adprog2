@@ -48,7 +48,7 @@ namespace WPF
         /// <summary>
         /// closing the appropriate windows and back to menu.
         /// </summary>
-        private void clicked_OK(object sender, RoutedEventArgs e)
+        private void Clicked_OK(object sender, RoutedEventArgs e)
         {
             MainWindow mw = new MainWindow();
             this.Close();

@@ -33,7 +33,7 @@ namespace WPF
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void clicked_single(object sender, RoutedEventArgs e)
+        private void Clicked_single(object sender, RoutedEventArgs e)
         {
             SinglePlayer s = new SinglePlayer();
             //singlePlayerInfo s = new singlePlayerInfo();
@@ -46,7 +46,7 @@ namespace WPF
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void clicked_multi(object sender, RoutedEventArgs e)
+        private void Clicked_multi(object sender, RoutedEventArgs e)
         {
             MultiPlayer m = new MultiPlayer();
             this.Close();
@@ -58,7 +58,7 @@ namespace WPF
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void clicked_settings(object sender, RoutedEventArgs e)
+        private void Clicked_settings(object sender, RoutedEventArgs e)
         {
             Settings s = new Settings();
             this.Hide();

@@ -43,9 +43,9 @@ namespace WPF
         /// <param name="name">the name of the maze</param>
         /// <param name="row">the number of rows</param>
         /// <param name="col">the number of columns</param>
-        public void generate(string name, int row, int col)
+        public void Generate(string name, int row, int col)
         {
-            model.generate(name,row,col);
+            model.Generate(name,row,col);
         }
 
         /// <summary>
@@ -53,9 +53,9 @@ namespace WPF
         /// </summary>
         /// <param name="name">the name of the maze</param>
         /// <returns></returns>
-        public string solve(string name)
+        public string Solve(string name)
         {
-            return model.solve(name);
+            return model.Solve(name);
         }
     }
 }

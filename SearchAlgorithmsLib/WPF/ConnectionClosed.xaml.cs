@@ -32,7 +32,7 @@ namespace WPF
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void clicked_OK(object sender, RoutedEventArgs e)
+        private void Clicked_OK(object sender, RoutedEventArgs e)
         {
             MainWindow mw = new MainWindow();
             this.Close();

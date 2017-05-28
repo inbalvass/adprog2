@@ -19,14 +19,14 @@ namespace WPF
         /// </summary>
         public Lists()
         {
-            listOfPlayers();
+            ListOfPlayers();
         }
 
         /// <summary>
         /// get the number of items in the list
         /// </summary>
         /// <returns></returns>
-        public int getNumberOfItems()
+        public int GetNumberOfItems()
         {
             return array.Count();
         }
@@ -36,7 +36,7 @@ namespace WPF
         /// </summary>
         /// <param name="index"></param>
         /// <returns></returns>
-        public string getName(int index)
+        public string GetName(int index)
         {
             int counter =0;
             foreach (string element in array)
@@ -56,7 +56,7 @@ namespace WPF
         /// <summary>
         /// add games to the list
         /// </summary>
-        private void listOfPlayers()
+        private void ListOfPlayers()
         {
             Clear(); //clear the list
             string result = ListStart();
