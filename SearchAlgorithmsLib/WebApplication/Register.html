@@ -1,0 +1,35 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+	<meta charset="utf-8" />
+    <link href="/styles/bootstrap.css" rel="stylesheet" />
+    <script src="/scripts/jquery-3.2.1.min.js"></script>
+    <script src="scripts/chackPassword.js"></script>
+</head>
+<body>
+    <div id="navBar">
+        <script>
+            $("#navBar").load("NavBar.html");
+        </script>
+    </div>
+    <div>
+        <h1>Register</h1> 
+        <h4>Create a new account</h4><br />
+    </div>
+    <div>
+        <form action="">
+            Username
+            <input type="text" required><br /><br />
+            Password 
+            <input type="password" id="pass1" required ><br /><br />
+            Confirm Password
+            <input type="password" id="pass2" onkeyup="checkPass(); return false;" required>
+            <span id="confirmMessage" class="confirmMessage"></span><br /><br />
+            Email
+            <input type="email" required><br /><br />
+            <input type="submit" value="Register" id="submit">
+        </form>
+    </div>
+</body>
+</html>
