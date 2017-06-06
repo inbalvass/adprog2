@@ -1,39 +1,22 @@
 ﻿<!DOCTYPE html>
-<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<html>
 <head>
     <meta charset="utf-8" />
     <title>The Maze Project</title>
     <link href="/styles/bootstrap.css" rel="stylesheet" />
+    <script src="/scripts/jquery-3.2.1.min.js"></script>
 </head>
 <body>
-    <div>
-        <!--<script src="Menu.js"></script>-->
-        <nav class="navbar navbar-inverse bg-primary" role="navigation">
-            <div class="navbar-header">
-                <a class="navbar-brand" href="#">Maze</a>
-            </div>
-            <div>
-                <ul class="nav navbar-nav">
-                    <li><a href="#">Single Player Game</a></li>
-                    <li><a href="#">Multi Player Game</a></li>
-                    <li><a href="#">Settings</a></li>
-                    <li><a href="#">User Rankings</a></li>
-                </ul>
-                <ul class="nav navbar-nav navbar-right">
-                    <li><a href="#">Register</a></li>
-                    <li><a href="#">Login</a></li>
-                    <li><a href="#"></a></li>
-                </ul>
-            </div>
-        </nav>
+    <div id="navBar">
+        <script>
+            $("#navBar").load("NavBar.html");
+        </script>
     </div>
-    <div>
-        <div style="display:inline-block">
-            <h1>Play Maze Game</h1>
-            <p>Play the original maze game for free.</p>
-            <p>Play online against your friends.</p>
-        </div>
+    <div style="display:inline-block">
+        <h1>Play Maze Game</h1>
+        <p>Play the original maze game for free.</p>
+        <p>Play online against your friends.</p>
+    </div>            
 
-    </div>
 </body>
 </html>
