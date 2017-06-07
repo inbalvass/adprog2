@@ -5,7 +5,6 @@
 	<meta charset="utf-8" />
     <link href="/styles/bootstrap.css" rel="stylesheet" />
     <script src="/scripts/jquery-3.2.1.min.js"></script>
-    <script src="scripts/chackPassword.js"></script>
 </head>
 <body>
     <div id="navBar">
@@ -14,23 +13,19 @@
         </script>
     </div>
     <div>
-        <h1>Register</h1> 
-        <h4>Create a new account</h4><br />
+        <h1>Log in</h1>
+        <h4>Use a local account to log in</h4><br />
     </div>
     <div>
         <!--here put the function that sends the data to the server-->
         <form action="">
             Username
             <input type="text" required><br /><br />
-            Password 
-            <input type="password" id="pass1" required ><br /><br />
-            Confirm Password
-            <input type="password" id="pass2" onkeyup="checkPass(); return false;" required>
-            <span id="confirmMessage" class="confirmMessage"></span><br /><br />
-            Email
-            <input type="email" required><br /><br />
-            <input type="submit" value="Register" id="submit">
+            Password
+            <input type="password" required><br /><br />
+            <input type="submit" value="Login">
         </form>
     </div>
+
 </body>
 </html>
