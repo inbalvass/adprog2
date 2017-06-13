@@ -19,6 +19,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WPF", "WPF\WPF.csproj", "{9
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebApplication", "WebApplication\WebApplication.csproj", "{6C344372-5888-49C2-AEF1-498D160602B0}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebServer", "WebServer\WebServer.csproj", "{267EA0BE-C164-445F-8774-7BE0D14E9685}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -91,6 +93,14 @@ Global
 		{6C344372-5888-49C2-AEF1-498D160602B0}.Release 4.5|Any CPU.Build.0 = Release|Any CPU
 		{6C344372-5888-49C2-AEF1-498D160602B0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6C344372-5888-49C2-AEF1-498D160602B0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{267EA0BE-C164-445F-8774-7BE0D14E9685}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{267EA0BE-C164-445F-8774-7BE0D14E9685}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{267EA0BE-C164-445F-8774-7BE0D14E9685}.Release 2.0|Any CPU.ActiveCfg = Release|Any CPU
+		{267EA0BE-C164-445F-8774-7BE0D14E9685}.Release 2.0|Any CPU.Build.0 = Release|Any CPU
+		{267EA0BE-C164-445F-8774-7BE0D14E9685}.Release 4.5|Any CPU.ActiveCfg = Release|Any CPU
+		{267EA0BE-C164-445F-8774-7BE0D14E9685}.Release 4.5|Any CPU.Build.0 = Release|Any CPU
+		{267EA0BE-C164-445F-8774-7BE0D14E9685}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{267EA0BE-C164-445F-8774-7BE0D14E9685}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
