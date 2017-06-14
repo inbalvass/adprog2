@@ -1,0 +1,41 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+    <meta charset="utf-8" />
+    <link href="/styles/bootstrap.css" rel="stylesheet" />
+    <script src="/scripts/jquery-3.2.1.min.js"></script>
+</head>
+<body>
+    <div id="navBar">
+        <script>
+            $("#navBar").load("NavBar.html");
+        </script>
+    </div>
+    <div>
+        <h1>Multiplayer Game</h1> <br/>
+    </div>
+    <div>
+        <!--here put the function that sends the data to the server-->
+        <form action="">
+            Games
+            <!--need to put here combo box or list-->
+            <input type="text" required><br /><br />
+            <input type="submit" value="Join Game"> <br/><br />
+        </form>
+        <h2>Start New Game</h2>
+        <!--here put the function that sends the data to the server-->
+        <form action="">
+            Name
+            <input type="text" required><br /><br />
+            Rows
+            <input type="number" required><br /><br />
+            Columns
+            <input type="number" required><br /><br />
+            <input type="submit" value="Start New Game">
+        </form>
+        
+    </div>
+
+</body>
+</html>

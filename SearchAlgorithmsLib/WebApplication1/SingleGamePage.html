@@ -5,41 +5,10 @@
     <meta charset="utf-8" />
     <link href="/styles/bootstrap.css" rel="stylesheet" />
     <script src="/scripts/jquery-3.2.1.min.js"></script>
-
-    <script>
-        function getMaze() {
-            var apiUrl = "api/SinglePlayer";
-            // Send an AJAX request
-            $.getJSON(apiUrl).done(function (data) {
-                alert(data.Name);
-                // Add a list item for the product
-                // $("<li>" + string.Name + "</li>").appendTo("#nameList");
-            });
-        }
-
-    //$.getJSON('/jquery/result.json', function(jd) { 
-    //    $('#stage').html('<p> Name: ' + jd.name + '</p>');
-
-
-    //$("#btnSearch").click(function () {
-    //    var id = $("#txtName").val();
-    //    $.getJSON(apiUrl + "/" + id)
-    //    .done(function (product) {
-    //        $("#product").text(product.Name);
-    //    })
-    //    .fail(function (jqXHR, textStatus, err) {
-    //        $("#product").text("Error: " + err);
-    //    });
-    //});
-    </script>
 </head>
 <body onload="getMaze()">
     <div>
-        <h2> the name</h2>
-        <ul id="nameList">
-            <li>hodaya</li>
-        </ul>
-        
+        <h2> the name</h2>        
         <p id="product" />
     </div>
     <div id="navBar">
@@ -60,7 +29,7 @@
             <input type="number" required><br /><br />
             Columns
             <input type="number" required><br /><br />
-            <input type="submit" value="Start New Game" id="btnSearch">
+            <input type="button" value="Start New Game" id="btnSearch" onclick="getMaze()">
         </form>
         <!--here put the function that sends the data to the server-->
         <form action="">
@@ -70,6 +39,29 @@
             <input type="submit" value="Solve Game">
         </form>
     </div>
+
+    <script>
+            var apiUrl = "api/SinglePlayer";
+            
+                // Send an AJAX request
+            //    $.getJSON(apiUrl).done(function (data) {
+            //        alert(data.Name);
+            //    });
+            //}
+                function getMaze() {
+                    //$("#btnSearch").click(function () {
+                        //var name = $("#txtName").val();
+                    var name = document.getElementById("txtName").value;
+                        $.getJSON(apiUrl + "/" + name)
+                            .done(function (product) {
+                                alert(product.Name);
+                            })
+                            .fail(function (jqXHR, textStatus, err) {
+                                $("#product").text("Error: " + err);
+                            });
+                    //});
+                }
+    </script>
 </body>
 </html>
     
