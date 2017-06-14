@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web.Http;
 
-namespace WebServer
+namespace WebApplication1
 {
     public static class WebApiConfig
     {
@@ -13,13 +13,12 @@ namespace WebServer
 
             // Web API routes
             config.MapHttpAttributeRoutes();
-            
+
             config.Routes.MapHttpRoute(
-                name: "h",
+                name: "GetSinglePlayer",
                 routeTemplate: "api/{controller}/{Name}",
-                defaults: new { id = "SinglePlayer" }
-            );
-            
+                defaults: new { Controller = "SinglePlayer"}
+                );
 
             config.Routes.MapHttpRoute(
                 name: "DefaultApi",

@@ -10,7 +10,7 @@ namespace WebServer.Controllers
 {
     public class SinglePlayerController : ApiController
     {
-        public string Name = "k";
+        //public string Name = "k";
         public SinglePlayerModel spm;
 
         public SinglePlayerController()
@@ -23,10 +23,10 @@ namespace WebServer.Controllers
             return spm;
         }
 
-        //public IHttpActionResult GetSinglePlayer(string name)
-        //{
-        //    SinglePlayerModel spm = new SinglePlayerModel(name);
-        //    return Ok(spm);
-        //}
+        public IHttpActionResult GetSinglePlayer(string name)
+        {
+            SinglePlayerModel spmn = new SinglePlayerModel(name);
+            return Ok(spmn);
+        }
     }
 }
