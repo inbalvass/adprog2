@@ -15,10 +15,10 @@ namespace WebApplication1
             config.MapHttpAttributeRoutes();
 
             config.Routes.MapHttpRoute(
-                name: "GetSinglePlayer",
-                routeTemplate: "api/{controller}/{Name}",
-                defaults: new { Controller = "SinglePlayer"}
-                );
+                name: "GetSinglePlayers",
+                routeTemplate: "api/{controller}/{name}/{rows}/{cols}",
+                defaults: new { Controller = "SinglePlayer" }
+            );
 
             config.Routes.MapHttpRoute(
                 name: "DefaultApi",
