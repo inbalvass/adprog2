@@ -5,12 +5,9 @@
     <meta charset="utf-8" />
     <link href="/styles/bootstrap.css" rel="stylesheet" />
     <script src="/scripts/jquery-3.2.1.min.js"></script>
+    <script src="scripts/getMaze.js"></script>
 </head>
-<body onload="getMaze()">
-    <div>
-        <h2> the name</h2>        
-        <p id="product" />
-    </div>
+<body>
     <div id="navBar">
         <script>
             $("#navBar").load("NavBar.html");
@@ -41,20 +38,20 @@
     </div>
 
     <script>
-            var apiUrl = "api/SinglePlayer";
-            function getMaze() {
-                var name = document.getElementById("txtName").value;
-                var rows = document.getElementById("txtRows").value;
-                var cols = document.getElementById("txtCols").value;
-                $("#product").text(rows);
-                $.getJSON(apiUrl + "/" + name+"/" + rows+"/" + cols)
-                    .done(function (product) {
-                        alert(product.Rows);
-                    })
-                    .fail(function (jqXHR, textStatus, err) {
-                        $("#product").text("Error: " + err);
-                    });
-            }
+            //var apiUrl = "api/SinglePlayer";
+            //function getMaze() {
+            //    var name = document.getElementById("txtName").value;
+            //    var rows = document.getElementById("txtRows").value;
+            //    var cols = document.getElementById("txtCols").value;
+            //    $("#product").text(rows);
+            //    $.getJSON(apiUrl + "/" + name+"/" + rows+"/" + cols)
+            //        .done(function (data) {
+            //            alert(data.Rows);
+            //        })
+            //        .fail(function (jqXHR, textStatus, err) {
+            //            $("#product").text("Error: " + err);
+            //        });
+           // }
     </script>
 </body>
 </html>
