@@ -14,24 +14,12 @@ namespace WebServer.Controllers
 
         public SinglePlayerController()
         {
-            spm= new SinglePlayerModel("h", 1, 2);
-        }
-
-        public SinglePlayerModel GetName()
-        {
-            return spm;
-        }
-
-        public IHttpActionResult GetSinglePlayer(string name)
-        {
-            SinglePlayerModel spmn = new SinglePlayerModel(name, 1,2);
-            return Ok(spmn);
         }
 
         public IHttpActionResult GetSinglePlayer(string name,int rows,int cols)
         {
-            SinglePlayerModel spmn = new SinglePlayerModel(name,rows,cols);
-            return Ok(spmn);
+            spm = new SinglePlayerModel(name,rows,cols);
+            return Ok(spm);
         }
     }
 }
