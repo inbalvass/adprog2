@@ -6,7 +6,7 @@
     <link href="/styles/bootstrap.css" rel="stylesheet" />
     <script src="/scripts/jquery-3.2.1.min.js"></script>
 </head>
-<body onload="getMaze()">
+<body>
     <div>
         <h2> the name</h2>        
         <p id="product" />
@@ -46,7 +46,6 @@
                 var name = document.getElementById("txtName").value;
                 var rows = document.getElementById("txtRows").value;
                 var cols = document.getElementById("txtCols").value;
-                $("#product").text(rows);
                 $.getJSON(apiUrl + "/" + name+"/" + rows+"/" + cols)
                     .done(function (product) {
                         alert(product.Rows);
