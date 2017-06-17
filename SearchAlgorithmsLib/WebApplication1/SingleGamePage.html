@@ -35,8 +35,11 @@
         <!--here put the function that sends the data to the server-->
         <form action="">
             Search Algorithm
-            <!--need to put here combo box or list-->
-            <input type="text" required><br /><br />
+            <select>
+                <option value="DFS">DFS</option>
+                <option value="BFS">BFS</option>
+            </select>
+            <br /><br />
             <input type="submit" value="Solve Game">
         </form>
     </div>
@@ -48,8 +51,10 @@
                 var rows = document.getElementById("txtRows").value;
                 var cols = document.getElementById("txtCols").value;
                 $.getJSON(apiUrl + "/" + name+"/" + rows+"/" + cols)
-                    .done(function (product) {
-                        alert(product.Rows);
+                    .done(function (maze) {
+                        var json = JSON.parse(maze);
+                      //  var theKey = 'Rows';
+                        alert(json['Rows']);
                     })
                     .fail(function (jqXHR, textStatus, err) {
                         $("#product").text("Error: " + err);
