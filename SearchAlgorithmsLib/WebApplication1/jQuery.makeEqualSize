@@ -1,0 +1,20 @@
+﻿
+(function ($) {
+ $. fn.makeEqualSize = function () {
+ var minHeight = 100;
+ var minWidth = 100;
+ this.each(function () {
+ var currHeight = $(this).height();
+ var currWidth = $(this).width();
+ if (currHeight < minHeight)
+ minHeight = currHeight;
+ if (currWidth < minWidth)
+ minWidth = currWidth;
+ });
+ this.each(function () {
+ $(this).height(minHeight);
+ $(this).width( minWidth);
+ });
+ return this;
+ };
+})(jQuery);

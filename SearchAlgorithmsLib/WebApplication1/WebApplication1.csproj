@@ -90,6 +90,10 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="HomePage.html" />
+    <Resource Include="images\exit.jpg" />
+    <Resource Include="images\minion.jpg" />
+    <Resource Include="images\pacman.png" />
+    <Resource Include="images\win.jpg" />
     <Content Include="Login.html" />
     <Content Include="MultiPlayerPage.html" />
     <Content Include="NavBar.html" />
@@ -131,6 +135,7 @@
     <Content Include="styles\bootstrap-theme.min.css.map" />
     <Content Include="styles\bootstrap.css.map" />
     <Content Include="styles\bootstrap.min.css.map" />
+    <Content Include="jQuery.makeEqualSize" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
