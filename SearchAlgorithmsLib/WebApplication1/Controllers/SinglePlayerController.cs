@@ -19,7 +19,7 @@ namespace WebServer.Controllers
         public IHttpActionResult GetSinglePlayer(string name,int rows,int cols)
         {
             spm = new SinglePlayerModel(name,rows,cols);
-            string maze=spm.GetSinglePlayers();
+            string maze = spm.GetSinglePlayers();
             return Ok(maze);
         }
     }
