@@ -4,16 +4,13 @@
     <title></title>
     <meta charset="utf-8" />
     <link href="/styles/bootstrap.css" rel="stylesheet" />
+    <link href="/styles/loader.css" rel="stylesheet" />
     <script src="/scripts/jquery-3.2.1.min.js"></script>
     <script src="/scripts/drawMaze.js"></script>
     <!--<script src="/scripts/getMaze.js"></script>-->
 
 </head>
 <body>
-    <div>
-        <h2> the name</h2>        
-        <p id="product" />
-    </div>
     <div id="navBar">
         <script>
             $("#navBar").load("NavBar.html");
@@ -53,19 +50,21 @@
             var name = document.getElementById("txtName").value;
             var rows = document.getElementById("txtRows").value;
             var cols = document.getElementById("txtCols").value;
+            $("#loader").show();
             $.getJSON(apiUrl + "/" + name + "/" + rows + "/" + cols)
                 .done(function (maze) {
                     var json = JSON.parse(maze);
-                    $("#div2").show();
+                    $("#loader").hide();
+                    $("#div").show();
                     drawMaze(json['Maze'], rows, cols, json['Start']['Row'], json['Start']['Col'], json['End']['Row'], json['End']['Col']);
                 })
                 .fail(function (jqXHR, textStatus, err) {
-                    $("#product").text("Error: " + err);
+                    alert("Error: " + err);
                 });
         }
     </script>
-
-    <div id="div2" style="margin-left:40%;" hidden>
+    <center><div id="loader" class="loader" style="margin-left:20%;margin-top:15%" hidden></div></center>
+    <div id="div" style="margin-left:40%;" hidden>
         <canvas id="mazeCanvas" width="500" height="500" style="border:2px black solid;margin-top:20px" tabindex="0"></canvas>
     </div>
 

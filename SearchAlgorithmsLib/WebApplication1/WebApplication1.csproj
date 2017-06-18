@@ -113,6 +113,7 @@
     <Content Include="styles\bootstrap-theme.min.css" />
     <Content Include="styles\bootstrap.css" />
     <Content Include="styles\bootstrap.min.css" />
+    <Content Include="styles\loader.css" />
     <Content Include="UserRankingPage.html" />
     <Content Include="Web.config" />
   </ItemGroup>
