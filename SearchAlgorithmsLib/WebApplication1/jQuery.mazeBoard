@@ -1,0 +1,76 @@
+﻿(function ($) {
+ $. fn.mazeBoard = function (data) {
+ var mazeData = data.mazeData; //contain the matrix of the cells,the number of rows and colomns
+ var startRow = data.startRow;
+ var startCol = data.startCol;
+ var exitRow = data.exitRow;
+  var exitCol = data.exitCol;
+ var playerImage = data.playerImage;
+ var exitImage = data.exitImage;
+ var playerCanMove = data.playerCanMove;
+
+ //check this
+ var func = data. function (direction, playerRow, playerCol) {
+ // a callback function which is invoked after each move
+ }
+
+ var c=document.getElementById("myCanvas");
+var ctx=c.getContext("2d");
+
+// Red rectangle
+//ctx.beginPath();
+//ctx.lineWidth="6";
+//ctx.strokeStyle="red";
+//ctx.rect(5,5,290,140); 
+//ctx.stroke();
+
+        function()
+        {
+			string black = "black";
+			string white = "white";
+			int widthOfSqure = 5;
+			int heightOfSqure=5;
+
+            for (int i = 0; i < mazeData.Rows; i++)
+            {
+                for (int j = 0; j < mazeData.Cols; j++)
+                {
+                    ctx.beginPath();
+                    ctx.lineWidth="1";
+                    if (Blocks[counter] == '1')//wall
+                    {
+                        ctx.fillStyle=black;
+						ctx.rect(j * widthOfSqure,i * heightOfSqure,widthOfSqure ,heightOfSqure);
+						ctx.stroke();
+                    }
+                    //draw the player icon
+                    if (i == startRow && j == startCol)
+                    {
+						playerImage.height(heightOfSqure);
+						playerImage.width( widthOfSqure);
+						ctx.drawImage(playerImage, j * widthOfSqure,i * heightOfSqure,widthOfSqure ,heightOfSqure);
+                    }
+				}
+            }
+
+			playerImage.height(heightOfSqure);
+			playerImage.width( widthOfSqure);
+			ctx.drawImage(exitImage, exitRow * widthOfSqure, exitCol * heightOfSqure,widthOfSqure ,heightOfSqure);
+        }
+
+
+ this.each(function () {
+ var currHeight = $(this).height();
+ var currWidth = $(this).width();
+ if (currHeight < minHeight)
+ minHeight = currHeight;
+ if (currWidth < minWidth)
+ minWidth = currWidth;
+ });
+ this.each(function () {
+ $(this).height(minHeight);
+ $(this).width( minWidth);
+ });
+ return this;
+ };
+})(jQuery);

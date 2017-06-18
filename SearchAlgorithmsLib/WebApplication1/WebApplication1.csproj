@@ -136,6 +136,7 @@
     <Content Include="styles\bootstrap.css.map" />
     <Content Include="styles\bootstrap.min.css.map" />
     <Content Include="jQuery.makeEqualSize" />
+    <Content Include="jQuery.mazeBoard" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
