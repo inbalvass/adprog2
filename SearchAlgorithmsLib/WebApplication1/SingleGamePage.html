@@ -6,7 +6,7 @@
     <link href="/styles/bootstrap.css" rel="stylesheet" />
     <link href="/styles/loader.css" rel="stylesheet" />
     <script src="/scripts/jquery-3.2.1.min.js"></script>
-    <script src="/scripts/drawMaze.js"></script>
+    <script src="/scripts/mazeBoard.js"></script>
     <!--<script src="/scripts/getMaze.js"></script>-->
 
 </head>
@@ -56,7 +56,12 @@
                     var json = JSON.parse(maze);
                     $("#loader").hide();
                     $("#div").show();
-                    drawMaze(json['Maze'], rows, cols, json['Start']['Row'], json['Start']['Col'], json['End']['Row'], json['End']['Col']);
+                    var playerImage = new Image();
+                    playerImage.src = "images/pacman.png";
+                    var exitImage = new Image();
+                    exitImage.src = "images/exit.jpg";
+                    //var myMazeBoard = $("#mazeCanvas").drawMaze(json['Maze'],
+                    drawMaze(json['Maze'],rows, cols, json['Start']['Row'], json['Start']['Col'],json['End']['Row'], json['End']['Col'],playerImage, exitImage, true);
                 })
                 .fail(function (jqXHR, textStatus, err) {
                     alert("Error: " + err);
