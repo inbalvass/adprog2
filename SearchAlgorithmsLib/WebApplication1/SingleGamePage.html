@@ -6,8 +6,8 @@
     <link href="/styles/bootstrap.css" rel="stylesheet" />
     <link href="/styles/loader.css" rel="stylesheet" />
     <script src="/scripts/jquery-3.2.1.min.js"></script>
-    <script src="/scripts/mazeBoard.js"></script>
-    <!--<script src="/scripts/getMaze.js"></script>-->
+    <script src="/scripts/jquery.mazeBoard.js"></script>
+    <script src="/scripts/getMaze.js"></script>
 
 </head>
 <body>
@@ -42,35 +42,9 @@
             <input type="submit" value="Solve Game">
         </form>
     </div>
-
-   
-    <script>
-        var apiUrl = "api/SinglePlayer";
-        function getMaze() {
-            var name = document.getElementById("txtName").value;
-            var rows = document.getElementById("txtRows").value;
-            var cols = document.getElementById("txtCols").value;
-            $("#loader").show();
-            $.getJSON(apiUrl + "/" + name + "/" + rows + "/" + cols)
-                .done(function (maze) {
-                    var json = JSON.parse(maze);
-                    $("#loader").hide();
-                    $("#div").show();
-                    var playerImage = new Image();
-                    playerImage.src = "images/pacman.png";
-                    var exitImage = new Image();
-                    exitImage.src = "images/exit.jpg";
-                    //var myMazeBoard = $("#mazeCanvas").drawMaze(json['Maze'],
-                    drawMaze(json['Maze'],rows, cols, json['Start']['Row'], json['Start']['Col'],json['End']['Row'], json['End']['Col'],playerImage, exitImage, true);
-                })
-                .fail(function (jqXHR, textStatus, err) {
-                    alert("Error: " + err);
-                });
-        }
-    </script>
     <center><div id="loader" class="loader" style="margin-left:20%;margin-top:15%" hidden></div></center>
     <div id="div" style="margin-left:40%;" hidden>
-        <canvas id="mazeCanvas" width="500" height="500" style="border:2px black solid;margin-top:20px" tabindex="0"></canvas>
+        <canvas id="mazeCanvas" width="600" height="600" style="border:2px black solid;margin-top:20px" tabindex="0"></canvas>
     </div>
 
     <!--create the images to be on the same size
