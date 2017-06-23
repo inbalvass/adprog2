@@ -13,7 +13,7 @@ namespace server
     /// <summary>
     /// find the direction to gt the solution
     /// </summary>
-    class FindDirections
+    public class FindDirections
     {
         /// <summary>
         /// list of the directions that represent the solution

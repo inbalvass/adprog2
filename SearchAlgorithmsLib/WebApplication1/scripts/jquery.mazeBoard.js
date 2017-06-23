@@ -12,7 +12,8 @@
 
         var currRow = startRow;
         var currCol = startCol;
-        
+        //clear all canvas
+        context.clearRect(0, 0, myCanvas.width, myCanvas.height);
         drawMaze();
         myCanvas.onkeydown = move.bind(this);
         function drawMaze() {
@@ -94,5 +95,54 @@
                 alert("Congratulations, You Won!");
             }
         }
+
+        
     };
+    $.fn.drawSolution = function (solution) {
+        //alert(solution);
+        //לוגיקת הציור כאן
+        deletePlayer();
+
+        currCol = startCol;
+        currRow = startRow;
+        drawPlayer();
+        checkIfWin();
+
+        var newCurrCol = startCol;
+        var newCurrRow = startRow;
+        for (i = 0; i < solution.length; i++)
+        {
+            alert("here");
+            switch (solution[i])
+            {
+                case '2':
+                    newCurrRow--;
+                    break;
+                case '3':
+                    newCurrRow++;
+                    break;
+                case '1':
+                    newCurrCol++;
+                    break;
+                case '0':
+                    newCurrCol--;
+                    break;
+            }
+            //waiting for the task to finish drawing
+            //await Task.Delay(200);
+
+            //delete the player
+            deletePlayer();
+
+            //updating new indexes
+            currCol = newCurrCol;
+            currRow = newCurrRow;
+
+            //draw the player in the new position
+            drawPlayer();
+
+            //check if the player won
+            checkIfWin(); // להוציא מהפור?
+        }
+    }
 })(jQuery);

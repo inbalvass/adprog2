@@ -87,6 +87,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="check.html" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="HomePage.html" />
@@ -103,7 +104,9 @@
     <Content Include="scripts\bootstrap.js" />
     <Content Include="scripts\bootstrap.min.js" />
     <Content Include="scripts\chackPassword.js" />
+    <Content Include="scripts\check.js" />
     <Content Include="scripts\getMaze.js" />
+    <Content Include="scripts\getSolution.js" />
     <Content Include="scripts\jquery-3.2.1.min.js" />
     <Content Include="scripts\jquery.mazeBoard.js" />
     <Content Include="scripts\npm.js" />
@@ -147,6 +150,20 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\checksTheDll\checksTheDll.csproj">
+      <Project>{6cd7dc7d-375b-4b0a-8b9d-d253a0cc3998}</Project>
+      <Name>checksTheDll</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SearchAlgorithmsLib\SearchAlgorithmsLib.csproj">
+      <Project>{ad59a877-d66c-4c68-98c7-291ff6e1cf6b}</Project>
+      <Name>SearchAlgorithmsLib</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\server\server.csproj">
+      <Project>{36251a45-c8d1-4ddc-92b7-5bbb1152bc8a}</Project>
+      <Name>server</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

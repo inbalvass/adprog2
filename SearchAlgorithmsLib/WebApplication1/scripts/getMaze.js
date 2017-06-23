@@ -3,6 +3,7 @@ function getMaze() {
     var name = document.getElementById("txtName").value;
     var rows = document.getElementById("txtRows").value;
     var cols = document.getElementById("txtCols").value;
+    document.title = name;
     $("#loader").show();
     $.getJSON(apiUrl + "/" + name + "/" + rows + "/" + cols)
         .done(function (maze) {
