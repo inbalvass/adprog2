@@ -1,17 +1,25 @@
-﻿(function ($) {
-    $.fn.mazeBoard = function (maze, startRow, startCol, endRow, endCol,
-                                playerImage, exitImage, isEnabled) {
+﻿var currRow, currCol, startRow, startCol, cellWidth, cellHeight, context;
+var endRow, endCol, playerImage;
+
+(function ($) {
+    $.fn.mazeBoard = function (maze, startR, startC, endR, endC,
+                                playerIm, exitImage, isEnabled) {
         var rows = parseInt($("#txtRows").val());
         var cols = parseInt($("#txtCols").val());
         var myCanvas = this[0];
         var indexInMaze;
-        var context = myCanvas.getContext("2d");
-        var cellWidth = myCanvas.width / cols;
-        var cellHeight = myCanvas.height / rows;
+        context = myCanvas.getContext("2d");
+        cellWidth = myCanvas.width / cols;
+        cellHeight = myCanvas.height / rows;
         var counter = 0;
-
-        var currRow = startRow;
-        var currCol = startCol;
+        //initialize globals
+        playerImage = playerIm;
+        endRow = endR;
+        endCol = endC;
+        startRow = startR;
+        startCol = startC;
+        currRow = startRow;
+        currCol = startCol;
         //clear all canvas
         context.clearRect(0, 0, myCanvas.width, myCanvas.height);
         drawMaze();
@@ -36,6 +44,7 @@
                     counter++;
                 }
             }
+            //focuse on the maze
             myCanvas.focus();
         }
 
@@ -84,37 +93,50 @@
                 //draw the player in the new position
                 drawPlayer();
 
-
+                //check if the player won
                 checkIfWin();
             }
         }
 
         function checkIfWin() {
             if (currCol == endCol && currRow == endRow) {
-                //$("#dialog").dialog();
                 alert("Congratulations, You Won!");
-            }
-        }
-
-        
+           }
+        }    
     };
     $.fn.drawSolution = function (solution) {
-        //alert(solution);
-        //לוגיקת הציור כאן
-        deletePlayer();
-
+        //***moving player to start point***
+        //delete the player
+        context.clearRect(currCol * cellWidth, currRow * cellHeight, cellWidth, cellHeight);
+        //updating indexes
         currCol = startCol;
         currRow = startRow;
-        drawPlayer();
-        checkIfWin();
+        //draw the Player
+        context.drawImage(playerImage, currCol * cellWidth, currRow * cellHeight, cellWidth, cellHeight);
+        //check if the player won
+        if (currCol == endCol && currRow == endRow) {
+            alert("Congratulations, You Won!");
+        }
 
-        var newCurrCol = startCol;
-        var newCurrRow = startRow;
-        for (i = 0; i < solution.length; i++)
-        {
-            alert("here");
-            switch (solution[i])
-            {
+        //move the player to the end, using setInterval
+        var i = 0;
+        var moveOn = true;
+        timer = setInterval(moveOrEnd, 200, solution);
+
+        function moveOrEnd(solution) {
+            if (moveOn) {
+                moveOneStep(solution, i);
+                i++;
+            }
+            else {
+                clearInterval(timer);
+                i = 0;
+            }
+        }
+        function moveOneStep(solution, j) {
+            var newCurrCol = currCol;
+            var newCurrRow = currRow;
+            switch (solution[j]) {
                 case '2':
                     newCurrRow--;
                     break;
@@ -128,21 +150,22 @@
                     newCurrCol--;
                     break;
             }
-            //waiting for the task to finish drawing
-            //await Task.Delay(200);
 
             //delete the player
-            deletePlayer();
+            context.clearRect(currCol * cellWidth, currRow * cellHeight, cellWidth, cellHeight);
 
             //updating new indexes
             currCol = newCurrCol;
             currRow = newCurrRow;
 
             //draw the player in the new position
-            drawPlayer();
+            context.drawImage(playerImage, currCol * cellWidth, currRow * cellHeight, cellWidth, cellHeight);
 
             //check if the player won
-            checkIfWin(); // להוציא מהפור?
+            if (currCol == endCol && currRow == endRow) {
+                moveOn = false;
+                alert("Congratulations, You Won!");
+            }
         }
     }
 })(jQuery);
