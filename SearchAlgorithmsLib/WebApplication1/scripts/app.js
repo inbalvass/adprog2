@@ -11,7 +11,7 @@ var ViewModel = function () {
     function getAllPlayers() {
         $.getJSON(uri).done(function (data) {
             alert(data.length);
-            self.dbInfo([data]); //this not working
+            self.dbInfo(data); //this not working
             alert(self.dbInfo.length);
         });
     }
