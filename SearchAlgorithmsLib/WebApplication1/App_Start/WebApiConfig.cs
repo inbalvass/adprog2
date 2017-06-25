@@ -21,6 +21,20 @@ namespace WebApplication1
             );
 
             config.Routes.MapHttpRoute(
+                name: "GetDbInfos",
+                routeTemplate: "api/{controller}",
+                defaults: new { Controller = "DbInfoes" }
+            );
+
+            /*  config.Routes.MapHttpRoute(
+                  name: "GetDbInfo",
+                  routeTemplate: "api/{controller}/{name}/{password}",
+                  defaults: new { Controller = "DbInfoes" }
+              );*/
+
+
+
+            config.Routes.MapHttpRoute(
                 name: "DefaultApi",
                 routeTemplate: "api/{controller}/{id}",
                 defaults: new { id = RouteParameter.Optional }

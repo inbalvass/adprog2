@@ -5,25 +5,56 @@
     <meta charset="utf-8" />
     <link href="/styles/bootstrap.css" rel="stylesheet" />
     <script src="/scripts/jquery-3.2.1.min.js"></script>
+    <script src="/scripts/knockout-3.4.2.js"></script>
+    <script src="/scripts/app.js"></script>
 </head>
 <body>
-    <div id="navBar">
+    <!--<div id="navBar">
         <script>
             $("#navBar").load("NavBar.html");
         </script>
-    </div>
+    </div>-->
     <div>
         <h1>User Rankings</h1>
     </div>
-    <div>
-        <table border="1">
-            <tr>
-                <th>Rank</th>
-                <th>Username</th>
-                <th>Wins</th>
-                <th>Losses</th>
-            </tr>
-        </table>
+    <div class="row">
+        <div class="col-sm-4">
+            <div class="panel panel- default">
+                <div class="panel- heading">
+                    <h2 class="panel-title">Username   Wins </h2>
+                </div>
+                <div class="panel- body">
+                    <ul class="list- unstyled" data-bind="foreach: dbInfo">
+                        <li>
+                            <span data-bind="text: Username"></span>
+                            <span data-bind="text: Wins"></span>
+                            <span data-bind="text: Losses"></span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
     </div>
 </body>
 </html>
+
+
+
+<!--<table border="3">
+    <tr>
+        <!--<th>Rank</th>>
+        <th>Username</th>
+        <th>Wins</th>
+        <th>Losses</th>
+    </tr>
+    <tbody data-bind="foreach: DbInfoes">
+        <tr>
+            <td data-bind="text: Username" style="font-weight: bold"></td>
+            <td>dfg</td>
+            <td>kkk</td>
+            <!--<span data-bind="text: Wins"></span>
+            <span data-bind="text: Losses"></span>>
+
+        </tr>
+    </tbody>
+</table>-->
