@@ -10,17 +10,24 @@ namespace WebServer.Controllers
 {
     public class SinglePlayerController : ApiController
     {
-        public SinglePlayerModel spm;
+        public SinglePlayerModel spm = new SinglePlayerModel();
 
-        public SinglePlayerController()
+        public IHttpActionResult GetMaze(string name,int rows,int cols)
         {
+            string mazeStr = spm.GetMazeStr(name, rows, cols);
+            return Ok(mazeStr);
         }
 
-        public IHttpActionResult GetSinglePlayer(string name,int rows,int cols)
+        public IHttpActionResult GetSolution(string name, string algo)
         {
-            spm = new SinglePlayerModel(name,rows,cols);
-            string maze=spm.GetSinglePlayers();
-            return Ok(maze);
+            int algoNum = 0;
+            if (algo == "DFS")
+                algoNum = 1;
+
+            
+            string solution = spm.GetSolution(name, algoNum);
+            //string solution = "232323232111";
+            return Ok(solution);
         }
     }
 }

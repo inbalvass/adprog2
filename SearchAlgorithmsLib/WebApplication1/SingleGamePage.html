@@ -4,72 +4,62 @@
     <title></title>
     <meta charset="utf-8" />
     <link href="/styles/bootstrap.css" rel="stylesheet" />
+    <link href="/styles/loader.css" rel="stylesheet" />
     <script src="/scripts/jquery-3.2.1.min.js"></script>
-    <script src="scripts/getMaze.js"></script>
+    <script src="/scripts/jquery.mazeBoard.js"></script>
+    <script src="/scripts/getMaze.js"></script>
+    <script src="/scripts/getSolution.js"></script>
+
 </head>
 <body>
-    <div>
-        <h2> the name</h2>        
-        <p id="product" />
-    </div>
     <div id="navBar">
         <script>
             $("#navBar").load("NavBar.html");
         </script>
     </div>
-    <div>
-        <h1>Single Game</h1>
-        <h4>Start a new game</h4><br />
-    </div>
-    <div>
-        <!--here put the function that sends the data to the server-->
-        <form>
-            Name
-            <input type="text" id="txtName" required><br /><br />
-            Rows
-            <input type="number" id="txtRows" required><br /><br />
-            Columns
-            <input type="number" id="txtCols" required><br /><br />
-            <input type="button" value="Start New Game" id="btnSearch" onclick="getMaze()">
-        </form>
-        <!--here put the function that sends the data to the server-->
-        <form action="">
-            Search Algorithm
-            <select>
-                <option value="DFS">DFS</option>
-                <option value="BFS">BFS</option>
-            </select>
-            <br /><br />
-            <input type="submit" value="Solve Game">
-        </form>
-    </div>
 
-    <script>
-            var apiUrl = "api/SinglePlayer";
-            function getMaze() {
-                var name = document.getElementById("txtName").value;
-                var rows = document.getElementById("txtRows").value;
-                var cols = document.getElementById("txtCols").value;
-                $.getJSON(apiUrl + "/" + name+"/" + rows+"/" + cols)
-                    .done(function (maze) {
-                        var json = JSON.parse(maze);
-                      //  var theKey = 'Rows';
-                        alert(json['Rows']);
-                    })
-                    .fail(function (jqXHR, textStatus, err) {
-                        $("#product").text("Error: " + err);
-                    });
-            }
-    </script>
+        <div>
+            <h1>Single Game</h1>
+            <h4>Start a new game</h4><br />
+        </div>
+           
+        <div>
+            <!--here put the function that sends the data to the server-->
+                Name
+                <input type="text" id="txtName" required><br /><br />
+                Rows
+                <input type="number" id="txtRows" required><br /><br />
+                Columns
+                <input type="number" id="txtCols" required><br /><br />
+                <input type="button" value="Start New Game" onclick="getMaze()"><br />
+               
+                Search Algorithm
+                <select id="algorithm">
+                    <option value="DFS">DFS</option>
+                    <option value="BFS">BFS</option>
+                </select>
+                <br /><br />
+                <input type="button" value="Solve Game" onclick="getSolution()">
+        </div>
 
-    <!--create the images to be on the same size-->
-    <img src="images/minion.jpg" />
-    <img src="images/exit.jpg" />
-    <script src="jquery-3. 2. 1.js"></script>
-    <script src="scripts/jquery.makeEqualSize.js"></script>
-    <script>
-            $("img").makeEqualSize();
-    </script>
+        <center><div id="loader" class="loader" style="margin-left:20%;margin-top:15%" hidden></div></center>
+        <div id="div" style="margin-left:40%;" hidden>
+            <canvas id="mazeCanvas" width="600" height="600" style="border:2px black solid;margin-top:20px" tabindex="0"></canvas>
+        </div>
+
+        <!--create the images to be on the same size
+        <img src="images/minion.jpg" />
+        <img src="images/exit.jpg" />
+        <script src="jquery-3. 2. 1.js"></script>
+        <script src="scripts/jquery.makeEqualSize.js"></script>
+        <script>
+                $("img").makeEqualSize();
+        </script>-->
+        <!--<div id="dialog" title="Basic dialog" hidden>
+            <img src="/images/win.jpg" alt="Placeholder Image" />
+
+        </div>-->
+    
 </body>
 </html>
     
