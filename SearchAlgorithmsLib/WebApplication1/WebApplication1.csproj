@@ -44,6 +44,12 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
     <Reference Include="MazeGeneratorLib">
       <HintPath>..\..\..\..\..\ענבל\תכנות מתקדם 2\MazeGeneratorLib.dll</HintPath>
     </Reference>
@@ -101,6 +107,7 @@
     <Content Include="Register.html" />
     <Content Include="scripts\ai.0.15.0-build58334.js" />
     <Content Include="scripts\ai.0.15.0-build58334.min.js" />
+    <Content Include="scripts\app.js" />
     <Content Include="scripts\bootstrap.js" />
     <Content Include="scripts\bootstrap.min.js" />
     <Content Include="scripts\chackPassword.js" />
@@ -109,6 +116,9 @@
     <Content Include="scripts\getSolution.js" />
     <Content Include="scripts\jquery-3.2.1.min.js" />
     <Content Include="scripts\jquery.mazeBoard.js" />
+    <Content Include="scripts\knockout-3.4.2.debug.js" />
+    <Content Include="scripts\knockout-3.4.2.js" />
+    <Content Include="scripts\mazeBoard.js" />
     <Content Include="scripts\npm.js" />
     <Content Include="SettingsPage.html" />
     <Content Include="SingleGamePage.html" />
@@ -122,10 +132,22 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Controllers\DbInfoesController.cs" />
     <Compile Include="Controllers\SinglePlayerController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201706242142183_InitialDb.cs" />
+    <Compile Include="Migrations\201706242142183_InitialDb.Designer.cs">
+      <DependentUpon>201706242142183_InitialDb.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201706242150575_Initial1Db.cs" />
+    <Compile Include="Migrations\201706242150575_Initial1Db.Designer.cs">
+      <DependentUpon>201706242150575_Initial1Db.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Models\dataContext.cs" />
+    <Compile Include="Models\DbInfo.cs" />
     <Compile Include="Models\SinglePlayerModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -164,6 +186,14 @@
       <Project>{36251a45-c8d1-4ddc-92b7-5bbb1152bc8a}</Project>
       <Name>server</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201706242142183_InitialDb.resx">
+      <DependentUpon>201706242142183_InitialDb.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201706242150575_Initial1Db.resx">
+      <DependentUpon>201706242150575_Initial1Db.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
