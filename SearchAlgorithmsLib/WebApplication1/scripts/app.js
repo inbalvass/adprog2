@@ -1,18 +1,36 @@
 ﻿
 var ViewModel = function () {
     var self = this; // make 'this' available to subfunctions or closures
-   // self.DbInfoes = ko.observableArray([{ Username='dfg', Password='345' },{Username='asd', Password='346' }]);
-
-    //alert(self.DbInfoes[0].Username);
-
     self.dbInfo = ko.observableArray(); // enables data binding
-    alert(self.dbInfo.length);
+    //alert(self.dbInfo.length);
     var uri = "/api/DbInfoes";
     function getAllPlayers() {
         $.getJSON(uri).done(function (data) {
-            alert(data.length);
-            self.dbInfo(data); //this not working
-            alert(self.dbInfo.length);
+            self.dbInfo(data);
+        });
+    }
+
+    self.newPlayer = {
+        Username: ko.observable(""),
+        Password: ko.observable(""),
+        Email: ko.observable(""),
+        Wins: ko.observable("0"),
+        Losses: ko.observable("0")
+    }
+
+    var Player = function (data) {
+        var self = this;
+        self.Username = ko.observable(data.Username()),
+            self.Password = ko.observable(data.Password()),
+            self.Email = ko.observable(data.Email()),
+            self.Wins = ko.observable(data.Wins()),
+            self.Losses = ko.observable(data.Losses())
+    }
+
+    self.addPlayer = function () {
+        //alert(self.dbInfo().length);
+        $.post(uri, new Player(self.newPlayer)).done(function (item) {
+            self.dbInfo.push(item);
         });
     }
     // Fetch the initial data

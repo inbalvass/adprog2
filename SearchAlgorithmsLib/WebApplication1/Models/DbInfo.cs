@@ -19,7 +19,7 @@ namespace WebApplication1.Models
         public string Username { get; set; }
         [Key, Column(Order = 1)]
         [Required]
-        public int Password { get; set; }
+        public string Password { get; set; }
         public string Email { get; set; }
         public int Wins { get; set; }
         public int Losses { get; set; }

@@ -26,9 +26,15 @@ namespace WebApplication1
                 defaults: new { Controller = "SinglePlayer" }
             );
 
+            //config.Routes.MapHttpRoute(
+            //    name: "PostDbInfo",
+            //    routeTemplate: "api/{controller}/{dbInfo}",
+            //    defaults: new { Controller = "DbInfoes" }
+            //);
+
             config.Routes.MapHttpRoute(
-                name: "GetDbInfos",
-                routeTemplate: "api/{controller}",
+                 name: "GetDbInfos",
+                 routeTemplate: "api/{controller}",
                 defaults: new { Controller = "DbInfoes" }
             );
 
