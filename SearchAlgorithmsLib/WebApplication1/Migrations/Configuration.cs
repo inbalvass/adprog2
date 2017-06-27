@@ -28,7 +28,8 @@ namespace WebApplication1.Migrations
             //
 
             context.DbInfoes.AddOrUpdate(
-    new Models.DbInfo { Username = "dan", Password = "123", Email = "inb@gmail.com", Losses = 1, Wins = 2 });
+    new Models.DbInfo { Username = "dan", Password = "123", Email = "inb@gmail.com", Losses = 1, Wins = 2 },
+            new Models.DbInfo { Username = "sara", Password = "124", Email = "inb@gmail.com", Losses = 1, Wins = 3 });
         }
     }
 }

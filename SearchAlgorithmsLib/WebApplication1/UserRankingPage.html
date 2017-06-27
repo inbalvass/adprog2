@@ -16,17 +16,17 @@
         <h1>User Rankings</h1>
     </div>
     <div class="row">
-        <div class="col-sm-4">
+        <div class="col-sm-5">
             <div class="panel panel- default">
                 <div class="panel- heading">
-                    <h2 class="panel-title">Username   Wins </h2>
+                    <h2 class="panel-title">Username     Wins     Lost</h2>
                 </div>
                 <div class="panel- body">
                     <ul class="list- unstyled" data-bind="foreach: dbInfo">
                         <li>
-                            <span data-bind="text: Username"></span>
-                            <span data-bind="text: Wins"></span>
-                            <span data-bind="text: Losses"></span>
+                            <span data-bind="text: Username" ></span>
+                            <span data-bind="text: Wins" style="padding:2em"></span>
+                            <span data-bind="text: Losses" style="padding-left:2em;"></span>
                         </li>
                     </ul>
                 </div>

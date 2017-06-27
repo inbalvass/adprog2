@@ -7,6 +7,7 @@ var ViewModel = function () {
     function getAllPlayers() {
         $.getJSON(uri).done(function (data) {
             self.dbInfo(data);
+            self.dbInfo.sort(function (a, b) { return (b.Wins - b.Losses) - (a.Wins - a.Losses) });
         });
     }
 
