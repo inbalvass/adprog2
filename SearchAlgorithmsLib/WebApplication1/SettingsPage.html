@@ -5,6 +5,7 @@
     <meta charset="utf-8" />
     <link href="/styles/bootstrap.css" rel="stylesheet" />
     <script src="/scripts/jquery-3.2.1.min.js"></script>
+    <script src="/scripts/settings.js"></script>
 </head>
 <body>
     <div id="navBar">
@@ -12,21 +13,30 @@
             $("#navBar").load("NavBar.html");
         </script>
     </div>
-    <div>
+    <style type="text/css">
+        .container {
+            padding: 20px;
+            margin: 20px;
+        }
+    </style>
+    <div class="container">
         <h1>Settings</h1>
-        <h4>Define default values:</h4><br />
+        <h4>Define default values:</h4>
     </div>
-    <div>
+    <div class="container">
         <!--here put the function that sends the data to the server-->
         <form action="">
             Rows
-            <input type="number" required><br /><br />
+            <input id="txtRows" type="number" required><br /><br />
             Columns
-            <input type="number" required><br /><br />
+            <input id="txtCols" type="number" required><br /><br />
             Search Algorithm
-            <!--need to put here combo box or list-->
-            <input type="text" required><br /><br />
-            <input type="submit" value="Save">
+            <select id="algorithm">
+                <option value="DFS">DFS</option>
+                <option value="BFS">BFS</option>
+            </select>
+            <br /><br />
+            <input type="button" value="Save" id="save">
         </form>
     </div>
 

@@ -1,4 +1,5 @@
-﻿function checkPass() {
+﻿//this script checks if the two passwords entered are identical.
+function checkPass() {
     //Store the password field objects and message into variables
     var pass1 = document.getElementById('pass1');
     var pass2 = document.getElementById('pass2');

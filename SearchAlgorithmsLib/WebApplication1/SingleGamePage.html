@@ -9,6 +9,7 @@
     <script src="/scripts/jquery.mazeBoard.js"></script>
     <script src="/scripts/getMaze.js"></script>
     <script src="/scripts/getSolution.js"></script>
+    <script src="/scripts/settings.js"></script>
 
 </head>
 <body>
@@ -17,13 +18,21 @@
             $("#navBar").load("NavBar.html");
         </script>
     </div>
+    
+    <style type="text/css">
+        .container {
+            padding: 20px;
+            margin: 20px;
+        }
+    </style>
 
-        <div>
+
+        <div class="container">
             <h1>Single Game</h1>
-            <h4>Start a new game</h4><br />
+            <h4>Start a new game</h4>
         </div>
            
-        <div>
+        <div class="container">
             <!--here put the function that sends the data to the server-->
                 Name
                 <input type="text" id="txtName" required><br /><br />
@@ -46,20 +55,6 @@
         <div id="div" style="margin-left:40%;" hidden>
             <canvas id="mazeCanvas" width="600" height="600" style="border:2px black solid;margin-top:20px" tabindex="0"></canvas>
         </div>
-
-        <!--create the images to be on the same size
-        <img src="images/minion.jpg" />
-        <img src="images/exit.jpg" />
-        <script src="jquery-3. 2. 1.js"></script>
-        <script src="scripts/jquery.makeEqualSize.js"></script>
-        <script>
-                $("img").makeEqualSize();
-        </script>-->
-        <!--<div id="dialog" title="Basic dialog" hidden>
-            <img src="/images/win.jpg" alt="Placeholder Image" />
-
-        </div>-->
-    
 </body>
 </html>
     

@@ -14,10 +14,6 @@ namespace WebServer.Models
 {
     public class SinglePlayerModel
     {
-        //public string Name { get; set; }
-        //public int Rows { get; set; }
-        //public int Cols { get; set; }
-
         /// dictionary to save the mazes in the single games
         /// </summary>
         static private Dictionary<string, Maze> singleNames = new Dictionary<string, Maze>();
@@ -26,6 +22,13 @@ namespace WebServer.Models
         /// </summary>
         static private Dictionary<string, Solution<Position>> singleSolutions = new Dictionary<string, Solution<Position>>();
 
+        /// <summary>
+        /// creating the maze and returns its string (0100111..)
+        /// </summary>
+        /// <param name="name"></param>
+        /// <param name="rows"></param>
+        /// <param name="cols"></param>
+        /// <returns></returns>
         public string GetMazeStr(string name, int rows, int cols)
         {
             Maze maze;
@@ -44,6 +47,12 @@ namespace WebServer.Models
             return mazeStr;
         }
 
+        /// <summary>
+        /// get the solution of the maze (123211...)
+        /// </summary>
+        /// <param name="name"></param>
+        /// <param name="algo"></param>
+        /// <returns></returns>
         public string GetSolution(string name, int algo)
         {
             Maze maze = singleNames[name];
@@ -62,14 +71,14 @@ namespace WebServer.Models
                     BFS<Position> bfs = new BFS<Position>();
                     sol = bfs.Search(adapter);
                     evaluated = bfs.GetNumberOfNodesEvaluated();
-                    singleSolutions.Add(name, sol);///////
+                    singleSolutions.Add(name, sol);
                 }
                 else
                 {
                     DFS<Position> dfs = new DFS<Position>();
                     sol = dfs.Search(adapter);
                     evaluated = dfs.GetNumberOfNodesEvaluated();
-                    singleSolutions.Add(name, sol);///////
+                    singleSolutions.Add(name, sol);
                 }
             }
             FindDirections f = new FindDirections();

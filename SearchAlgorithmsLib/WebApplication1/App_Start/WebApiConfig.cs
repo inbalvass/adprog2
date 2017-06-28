@@ -7,10 +7,12 @@ namespace WebApplication1
 {
     public static class WebApiConfig
     {
+        /// <summary>
+        /// Web API configuration and services
+        /// </summary>
+        /// <param name="config"></param>
         public static void Register(HttpConfiguration config)
         {
-            // Web API configuration and services
-
             // Web API routes
             config.MapHttpAttributeRoutes();
 
@@ -31,14 +33,6 @@ namespace WebApplication1
                 routeTemplate: "api/{controller}",
                 defaults: new { Controller = "DbInfoes" }
             );
-
-            /*  config.Routes.MapHttpRoute(
-                  name: "GetDbInfo",
-                  routeTemplate: "api/{controller}/{name}/{password}",
-                  defaults: new { Controller = "DbInfoes" }
-              );*/
-
-
 
             config.Routes.MapHttpRoute(
                 name: "DefaultApi",

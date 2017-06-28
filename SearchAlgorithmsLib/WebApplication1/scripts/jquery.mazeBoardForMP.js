@@ -1,13 +1,11 @@
-﻿//a mazeBoard jquery plugin for the single player.
+﻿//a mazeBoard jquery plugin for the multi player.
 
 var currRow, currCol, startRow, startCol, cellWidth, cellHeight, context;
-var endRow, endCol, playerImage;
+var endRow, endCol, playerImage, rows, cols;
 
 (function ($) {
-    $.fn.mazeBoard = function (maze, startR, startC, endR, endC,
-                                playerIm, exitImage) {
-        var rows = parseInt($("#txtRows").val());
-        var cols = parseInt($("#txtCols").val());
+    $.fn.mazeBoard = function (maze, name, rowsM, colsM, startR, startC, endR, endC,
+                                playerIm, exitImage, hub) {
         var myCanvas = this[0];
         var indexInMaze;
         context = myCanvas.getContext("2d");
@@ -15,6 +13,8 @@ var endRow, endCol, playerImage;
         cellHeight = myCanvas.height / rows;
         var counter = 0;
         //initialize globals
+        rows = rowsM;
+        cols = colsM;
         playerImage = playerIm;
         endRow = endR;
         endCol = endC;
@@ -22,8 +22,6 @@ var endRow, endCol, playerImage;
         startCol = startC;
         currRow = startRow;
         currCol = startCol;
-        //clear all canvas
-        context.clearRect(0, 0, myCanvas.width, myCanvas.height);
         drawMaze();
         //binding the key presses
         myCanvas.onkeydown = move.bind(this);
@@ -70,18 +68,22 @@ var endRow, endCol, playerImage;
                 case 38:
                     newCurrRow -= 1;
                     newIndexInMaze -= cols;
+                    hub.server.move(name, "Up");
                     break;
                 case 40:
                     newCurrRow += 1;
                     newIndexInMaze += cols;
+                    hub.server.move(name, "Down");
                     break;
                 case 39:
                     newCurrCol += 1;
                     newIndexInMaze += 1;
+                    hub.server.move(name, "Right");
                     break;
                 case 37:
                     newCurrCol -= 1;
                     newIndexInMaze -= 1;
+                    hub.server.move(name, "Left");
                     break;
             }
             //check if the new indexes are legel
@@ -108,73 +110,49 @@ var endRow, endCol, playerImage;
         function checkIfWin() {
             if (currCol == endCol && currRow == endRow) {
                 alert("Congratulations, You Won!");
-           }
-        }    
+            }
+        }
     };
 
-    //this function draw the solution of the maze.
-    $.fn.drawSolution = function (solution) {
-        //***moving player to start point***
-        //delete the player
-        context.clearRect(currCol * cellWidth, currRow * cellHeight, cellWidth, cellHeight);
-        //updating indexes
-        currCol = startCol;
-        currRow = startRow;
-        //draw the Player
-        context.drawImage(playerImage, currCol * cellWidth, currRow * cellHeight, cellWidth, cellHeight);
-        //check if the player won
-        if (currCol == endCol && currRow == endRow) {
-            alert("Congratulations, You Won!");
-        }
+    //movements function to move when the hub tells to
+    $.fn.moveLeft = function () {
+        var newCurrCol = currCol;
+        deletePlayer();
+        newCurrCol -= 1;
+        currCol = newCurrCol;
+        drawPlayer();
+        checkIfWin();
+        return this;
+    };
 
-        //move the player to the end, using setInterval
-        var i = 0;
-        var moveOn = true;
-        timer = setInterval(moveOrEnd, 200, solution);
+    $.fn.moveRight = function () {
+        var newCurrCol = currCol;
+        deletePlayer();
+        newCurrCol += 1;
+        currCol = newCurrCol;
+        drawPlayer();
+        checkIfWin();
+        return this;
+    };
 
-        function moveOrEnd(solution) {
-            if (moveOn) {
-                moveOneStep(solution, i);
-                i++;
-            }
-            else {
-                clearInterval(timer);
-                i = 0;
-            }
-        }
-        function moveOneStep(solution, j) {
-            var newCurrCol = currCol;
-            var newCurrRow = currRow;
-            switch (solution[j]) {
-                case '2':
-                    newCurrRow--;
-                    break;
-                case '3':
-                    newCurrRow++;
-                    break;
-                case '1':
-                    newCurrCol++;
-                    break;
-                case '0':
-                    newCurrCol--;
-                    break;
-            }
+    $.fn.moveUp = function () {
+        var newCurrRow = currRow;
+        deletePlayer();
+        newCurrRow -= 1;
+        currRow = newCurrRow;
+        drawPlayer();
+        checkIfWin();
+        return this;
+    };
 
-            //delete the player
-            context.clearRect(currCol * cellWidth, currRow * cellHeight, cellWidth, cellHeight);
+    $.fn.moveDown = function () {
+        var newCurrRow = currRow;
+        deletePlayer();
+        newCurrRow += 1;
+        currRow = newCurrRow;
+        drawPlayer();
+        checkIfWin();
+        return this;
+    };
 
-            //updating new indexes
-            currCol = newCurrCol;
-            currRow = newCurrRow;
-
-            //draw the player in the new position
-            context.drawImage(playerImage, currCol * cellWidth, currRow * cellHeight, cellWidth, cellHeight);
-
-            //check if the player won
-            if (currCol == endCol && currRow == endRow) {
-                moveOn = false;
-                alert("Congratulations, You Won!");
-            }
-        }
-    }
 })(jQuery);
