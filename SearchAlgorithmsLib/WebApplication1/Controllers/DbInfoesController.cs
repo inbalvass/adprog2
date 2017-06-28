@@ -111,6 +111,22 @@ namespace WebApplication1.Controllers
             return CreatedAtRoute("DefaultApi", new { id = dbInfo.Username,dbInfo.Password }, dbInfo);
         }
 
+
+        // for login
+        [ResponseType(typeof(DbInfo))]
+        public async Task<IHttpActionResult> login(string name, string password)
+        {
+            DbInfo dbInfo = await db.DbInfoes.FindAsync(name, password);
+            if (dbInfo == null)
+            {
+                return NotFound();
+            }
+            return CreatedAtRoute("DefaultApi", new { id = dbInfo.Username, dbInfo.Password }, dbInfo);
+        }
+
+
+
+
         // POST: api/DbInfoes
         [ResponseType(typeof(DbInfo))]
         public async Task<IHttpActionResult> UpdateWinsAndLose(string name, string password,int action)

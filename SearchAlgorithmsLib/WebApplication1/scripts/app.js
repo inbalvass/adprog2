@@ -28,11 +28,17 @@ var ViewModel = function () {
             self.Losses = ko.observable(data.Losses())
     }
 
-    self.addPlayer = function () {
-        //alert(self.dbInfo().length);
+    self.addPlayer = function (e) {
         $.post(uri, new Player(self.newPlayer)).done(function (item) {
             self.dbInfo.push(item);
-        });
+            sessionStorage.username = item.Username;
+            sessionStorage.setItem('password', item.Password);
+            window.open("HomePage.html", "_self");
+        })
+            .fail(function (jqXHR, textStatus, err){
+                alert("username and password already exist.please change one of them");
+            }
+            );
     }
     // Fetch the initial data
     getAllPlayers();

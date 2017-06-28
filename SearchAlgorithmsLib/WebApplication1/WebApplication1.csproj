@@ -118,6 +118,7 @@
     <Content Include="scripts\jquery.mazeBoard.js" />
     <Content Include="scripts\knockout-3.4.2.debug.js" />
     <Content Include="scripts\knockout-3.4.2.js" />
+    <Content Include="scripts\loadMain.js" />
     <Content Include="scripts\mazeBoard.js" />
     <Content Include="scripts\npm.js" />
     <Content Include="SettingsPage.html" />
