@@ -42,7 +42,7 @@ namespace WebApplication1.Controllers
         // GET: api/DbInfoes/5
         //get info according name and password
         [ResponseType(typeof(DbInfo))]
-        public async Task<IHttpActionResult> GetDbInfo(string name,int password)
+        public async Task<IHttpActionResult> GetDbInfo(string name, string password)
         {
             DbInfo dbInfo = await db.DbInfoes.FindAsync(name,password);
             if (dbInfo == null)
@@ -105,22 +105,31 @@ namespace WebApplication1.Controllers
             }
             catch (DbUpdateException)
             {
-                if (DbInfoExists(dbInfo.Password))
-                {
-                    return Conflict();
-                }
-                else
-                {
-                    throw;
-                }
+                throw;
             }
 
             return CreatedAtRoute("DefaultApi", new { id = dbInfo.Username,dbInfo.Password }, dbInfo);
         }
 
+
+        // for login
+        [ResponseType(typeof(DbInfo))]
+        public async Task<IHttpActionResult> login(string name, string password)
+        {
+            DbInfo dbInfo = await db.DbInfoes.FindAsync(name, password);
+            if (dbInfo == null)
+            {
+                return NotFound();
+            }
+            return CreatedAtRoute("DefaultApi", new { id = dbInfo.Username, dbInfo.Password }, dbInfo);
+        }
+
+
+
+
         // POST: api/DbInfoes
         [ResponseType(typeof(DbInfo))]
-        public async Task<IHttpActionResult> UpdateWinsAndLose(string name, int password,int action)
+        public async Task<IHttpActionResult> UpdateWinsAndLose(string name, string password,int action)
         {
             DbInfo dbInfo = await db.DbInfoes.FindAsync(name, password);
             if (dbInfo == null)
@@ -136,8 +145,9 @@ namespace WebApplication1.Controllers
             {
                 dbInfo.Losses++;
             }
+
             db.DbInfoes.AddOrUpdate(
-    new Models.DbInfo { Username = "dan", Password = 123, Email = "inb@gmail.com", Losses = 1, Wins = 2 });
+    new Models.DbInfo { Username = "dan", Password = "123", Email = "inb@gmail.com", Losses = 1, Wins = 2 });
             db.SaveChanges();
 
             return CreatedAtRoute("DefaultApi", new { id = dbInfo.Username, dbInfo.Password }, dbInfo);
@@ -175,9 +185,9 @@ namespace WebApplication1.Controllers
                base.Dispose(disposing);
            }*/
 
-        private bool DbInfoExists(int id)
-        {
-            return db.DbInfoes.Count(e => e.Password == id) > 0;
-        }
+        //private bool DbInfoExists(int id)
+        //{
+        //    return db.DbInfoes.Count(e => e.Password == id) > 0;
+        //}
     }
 }
