@@ -24,15 +24,14 @@ function login() {
     if (validation) {
         return;
     }
-
-    alert(url + "/" + name + "/" + password);
-    $.get(url, { name: name, password: password })
+    var jqxhr = $.get(url, { name: name, password: password })
         .done(function (item) {
         sessionStorage.username = item.Username;
         sessionStorage.setItem('password', item.Password);
         window.open("HomePage.html", "_self");
-    }).fail(function (response) {
-        alert("username or password is incorrect");
+        }).fail(function (response) {
+            alert("username or password is incorrect");
         });
-    alert("pleas wait while login");
+
+    alert("pleas wait while login.");
 }
