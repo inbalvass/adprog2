@@ -38,19 +38,25 @@ mp.client.drawMazes = function (maze) {
     var exitImage = new Image();
     exitImage.src = "images/exit.jpg";
     //drawing the two mazes
-    $("#mazeCanvas2").mazeBoard(json['Maze'], json['Name'], json["Rows"], json["Cols"],
+    var myMazeBoard = $("#mazeCanvas1").mazeBoard(json['Maze'], json['Name'], json["Rows"], json["Cols"],
                                                json['Start']['Row'],
                                                json['Start']['Col'],
                                                json['End']['Row'],
                                                json['End']['Col'],
                                                playerImage, exitImage, mp);
 
-    $("#mazeCanvas1").mazeBoard(json['Maze'], json['Name'], json["Rows"], json["Cols"],
+    var rivalMazeBoard =$("#mazeCanvas2").mazeBoard(json['Maze'], json['Name'], json['Rows'], json['Cols'],
                                                 json['Start']['Row'],
                                                 json['Start']['Col'],
                                                 json['End']['Row'],
                                                 json['End']['Col'],
-                                                playerImage, exitImage, mp);
+        playerImage, exitImage, mp);
+    var myMazeBoard = $("#mazeCanvas1").mazeBoard(json['Maze'], json['Name'], json['Rows'], json['Cols'],
+        json['Start']['Row'],
+        json['Start']['Col'],
+        json['End']['Row'],
+        json['End']['Col'],
+        playerImage, exitImage, mp);
 
    
 }

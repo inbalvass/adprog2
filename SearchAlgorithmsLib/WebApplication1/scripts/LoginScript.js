@@ -1,7 +1,7 @@
 ﻿
 /*
-    *@description: confrim user name and password by calling server to check in the DB
-    *if the user exist - log in, otherwise show validation error
+    check user name and password if it exist in the DB
+    if the player exist - log in, otherwise show error
  */
 function login() {
     var url = "api/DbInfoes";

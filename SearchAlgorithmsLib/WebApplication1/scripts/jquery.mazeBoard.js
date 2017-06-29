@@ -4,10 +4,8 @@ var currRow, currCol, startRow, startCol, cellWidth, cellHeight, context;
 var endRow, endCol, playerImage;
 
 (function ($) {
-    $.fn.mazeBoard = function (maze, startR, startC, endR, endC,
-                                playerIm, exitImage) {
-        var rows = parseInt($("#txtRows").val());
-        var cols = parseInt($("#txtCols").val());
+    $.fn.mazeBoard = function (maze,name, rows, cols, startR, startC, endR, endC,
+        playerIm, exitImage, hubCon) {
         var myCanvas = this[0];
         var indexInMaze;
         context = myCanvas.getContext("2d");
@@ -54,12 +52,12 @@ var endRow, endCol, playerImage;
         //delete the player from the canvas.
         function deletePlayer() {
             context.clearRect(currCol * cellWidth, currRow * cellHeight, cellWidth, cellHeight);
-        };
+        }
 
         //draw the player on the canvas
         function drawPlayer() {
             context.drawImage(playerImage, currCol * cellWidth, currRow * cellHeight, cellWidth, cellHeight);
-        };
+        }
 
         //move the player on the given direction
         function move(e) {
@@ -176,5 +174,5 @@ var endRow, endCol, playerImage;
                 alert("Congratulations, You Won!");
             }
         }
-    }
+    };
 })(jQuery);

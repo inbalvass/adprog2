@@ -38,6 +38,7 @@ namespace WebApplication1.Controllers
         }
 
         // GET: api/DbInfoes
+        //get the db list of all players
         public IQueryable<DbInfo> GetDbInfoes()
         {
             DbSet<DbInfo> check = db.DbInfoes;
@@ -46,6 +47,7 @@ namespace WebApplication1.Controllers
         }
 
         // POST: api/DbInfoes
+        //get new player and insert it to the db
         [ResponseType(typeof(DbInfo))]
         public async Task<IHttpActionResult> PostDbInfo(DbInfo dbInfo)
         {
@@ -69,23 +71,8 @@ namespace WebApplication1.Controllers
             return CreatedAtRoute("DefaultApi", new { id = dbInfo.Username,dbInfo.Password }, dbInfo);
         }
 
-
-        //// for login
-        //[ResponseType(typeof(DbInfo))]
-        //public async Task<IHttpActionResult> login(string name, string password)
-        //{
-        //    DbInfo dbInfo = await db.DbInfoes.FindAsync(name, password);
-        //    if (dbInfo == null)
-        //    {
-        //        return NotFound();
-        //    }
-        //    return CreatedAtRoute("DefaultApi", new { id = dbInfo.Username, dbInfo.Password }, dbInfo);
-        //}
-
-
-
-
         // POST: api/DbInfoes
+        //update the lost and win points
         [ResponseType(typeof(DbInfo))]
         public async Task<IHttpActionResult> PostUpdateWinsAndLose(string name, string password,int action)
         {
@@ -95,7 +82,6 @@ namespace WebApplication1.Controllers
             {
                 return NotFound();
             }
-           // Delete(name, password);
             if (action > 0)
             {
                 dbInfo.Wins++;
@@ -108,45 +94,14 @@ namespace WebApplication1.Controllers
 
             return CreatedAtRoute("DefaultApi", new { id = dbInfo.Username, dbInfo.Password }, dbInfo);
         }
-
+        //delete player
         private void Delete(string name, int password)
         {
             DbInfo dbInfo =db.DbInfoes.Find(name, password);
             db.DbInfoes.Remove(dbInfo);
             db.SaveChangesAsync();
         }
-
-        /*   // DELETE: api/DbInfoes/5
-           [ResponseType(typeof(DbInfo))]
-              public async Task<IHttpActionResult> DeleteDbInfo(string name, int password)
-              {
-                  DbInfo dbInfo = await db.DbInfoes.FindAsync(name,password);
-                  if (dbInfo == null)
-                  {
-                      return NotFound();
-                  }
-
-                  db.DbInfoes.Remove(dbInfo);
-                  await db.SaveChangesAsync();
-
-                  return Ok(dbInfo);
-              }
-
-              protected override void Dispose(bool disposing)
-              {
-                  if (disposing)
-                  {
-                      db.Dispose();
-                  }
-                  base.Dispose(disposing);
-              }*/
-
-        //private bool DbInfoExists(int id)
-        //{
-        //    return db.DbInfoes.Count(e => e.Password == id) > 0;
-        //}
-
-
+        //hash punction
         string ComputeHash(string input)
         {
             SHA1 sha = SHA1.Create();

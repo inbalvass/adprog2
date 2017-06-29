@@ -28,22 +28,6 @@ namespace WebApplication1
                 defaults: new { Controller = "SinglePlayer" }
             );
 
-            //config.Routes.MapHttpRoute(
-            //     name: "GetLogin",
-            //     routeTemplate: "api/{controller}/{name}/{password}",
-            //defaults: new { Controller = "DbInfoes" }
-            //);
-
-            
-
-            //config.Routes.MapHttpRoute(
-            //    name: "GetDbInfos",
-            //    routeTemplate: "api/{controller}",
-            //    defaults: new { Controller = "DbInfoes" }
-            //);
-
-
-
             config.Routes.MapHttpRoute(
                 name: "DefaultApi",
                 routeTemplate: "api/{controller}/{id}",
