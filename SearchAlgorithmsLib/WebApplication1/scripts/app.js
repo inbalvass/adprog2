@@ -38,7 +38,7 @@ var ViewModel = function () {
             .fail(function (jqXHR, textStatus, err){
                 alert("username and password already exist.please change one of them");
             }
-            );
+         );
     }
     // Fetch the initial data
     getAllPlayers();

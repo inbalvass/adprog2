@@ -11,6 +11,8 @@ using System.Threading.Tasks;
 using System.Web.Http;
 using System.Web.Http.Description;
 using WebApplication1.Models;
+using System.Security.Cryptography;
+using System.Text;
 
 namespace WebApplication1.Controllers
 {
@@ -19,32 +21,14 @@ namespace WebApplication1.Controllers
         private dataContext db = new dataContext();
 
         // GET: api/DbInfoes
-        public IQueryable<DbInfo> GetDbInfoes()
-        {
-            DbSet<DbInfo> check = db.DbInfoes;
-            System.Diagnostics.Debug.WriteLine(check.First().Username);
-            return db.DbInfoes;
-        }
-
-        // GET: api/DbInfoes/5
-        /*   [ResponseType(typeof(DbInfo))]
-           public async Task<IHttpActionResult> GetDbInfo(int id)
-           {
-               DbInfo dbInfo = await db.DbInfoes.FindAsync(id);
-               if (dbInfo == null)
-               {
-                   return NotFound();
-               }
-
-               return Ok(dbInfo);
-           }*/
-
-        // GET: api/DbInfoes/5
         //get info according name and password
         [ResponseType(typeof(DbInfo))]
-        public async Task<IHttpActionResult> GetDbInfo(string name, string password)
+        public IHttpActionResult GetLogin(string name, string password)
         {
-            DbInfo dbInfo = await db.DbInfoes.FindAsync(name,password);
+            System.Diagnostics.Debug.WriteLine(name);
+            string ComputePassword = ComputeHash(password);
+
+            DbInfo dbInfo = db.DbInfoes.Find(name, ComputePassword);
             if (dbInfo == null)
             {
                 return NotFound();
@@ -53,40 +37,13 @@ namespace WebApplication1.Controllers
             return Ok(dbInfo);
         }
 
-        // PUT: api/DbInfoes/5
-      /*  [ResponseType(typeof(void))]
-        public async Task<IHttpActionResult> PutDbInfo(int id, DbInfo dbInfo)
+        // GET: api/DbInfoes
+        public IQueryable<DbInfo> GetDbInfoes()
         {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
-
-            if (id != dbInfo.Password)
-            {
-                return BadRequest();
-            }
-
-            db.Entry(dbInfo).State = EntityState.Modified;
-
-            try
-            {
-                await db.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!DbInfoExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
-
-            return StatusCode(HttpStatusCode.NoContent);
-        }*/
+            DbSet<DbInfo> check = db.DbInfoes;
+            System.Diagnostics.Debug.WriteLine("wrong get" + check.First().Username);
+            return db.DbInfoes;
+        }
 
         // POST: api/DbInfoes
         [ResponseType(typeof(DbInfo))]
@@ -96,7 +53,8 @@ namespace WebApplication1.Controllers
             {
                 return BadRequest(ModelState);
             }
-
+            string ComputePassword = ComputeHash(dbInfo.Password);
+            dbInfo.Password = ComputePassword;
             db.DbInfoes.Add(dbInfo);
 
             try
@@ -112,26 +70,27 @@ namespace WebApplication1.Controllers
         }
 
 
-        // for login
-        [ResponseType(typeof(DbInfo))]
-        public async Task<IHttpActionResult> login(string name, string password)
-        {
-            DbInfo dbInfo = await db.DbInfoes.FindAsync(name, password);
-            if (dbInfo == null)
-            {
-                return NotFound();
-            }
-            return CreatedAtRoute("DefaultApi", new { id = dbInfo.Username, dbInfo.Password }, dbInfo);
-        }
+        //// for login
+        //[ResponseType(typeof(DbInfo))]
+        //public async Task<IHttpActionResult> login(string name, string password)
+        //{
+        //    DbInfo dbInfo = await db.DbInfoes.FindAsync(name, password);
+        //    if (dbInfo == null)
+        //    {
+        //        return NotFound();
+        //    }
+        //    return CreatedAtRoute("DefaultApi", new { id = dbInfo.Username, dbInfo.Password }, dbInfo);
+        //}
 
 
 
 
         // POST: api/DbInfoes
         [ResponseType(typeof(DbInfo))]
-        public async Task<IHttpActionResult> UpdateWinsAndLose(string name, string password,int action)
+        public async Task<IHttpActionResult> PostUpdateWinsAndLose(string name, string password,int action)
         {
-            DbInfo dbInfo = await db.DbInfoes.FindAsync(name, password);
+            string ComputePassword = ComputeHash(password);
+            DbInfo dbInfo = await db.DbInfoes.FindAsync(name, ComputePassword);
             if (dbInfo == null)
             {
                 return NotFound();
@@ -145,9 +104,6 @@ namespace WebApplication1.Controllers
             {
                 dbInfo.Losses++;
             }
-
-            db.DbInfoes.AddOrUpdate(
-    new Models.DbInfo { Username = "dan", Password = "123", Email = "inb@gmail.com", Losses = 1, Wins = 2 });
             db.SaveChanges();
 
             return CreatedAtRoute("DefaultApi", new { id = dbInfo.Username, dbInfo.Password }, dbInfo);
@@ -160,34 +116,44 @@ namespace WebApplication1.Controllers
             db.SaveChangesAsync();
         }
 
-     /*   // DELETE: api/DbInfoes/5
-        [ResponseType(typeof(DbInfo))]
-           public async Task<IHttpActionResult> DeleteDbInfo(string name, int password)
-           {
-               DbInfo dbInfo = await db.DbInfoes.FindAsync(name,password);
-               if (dbInfo == null)
-               {
-                   return NotFound();
-               }
+        /*   // DELETE: api/DbInfoes/5
+           [ResponseType(typeof(DbInfo))]
+              public async Task<IHttpActionResult> DeleteDbInfo(string name, int password)
+              {
+                  DbInfo dbInfo = await db.DbInfoes.FindAsync(name,password);
+                  if (dbInfo == null)
+                  {
+                      return NotFound();
+                  }
 
-               db.DbInfoes.Remove(dbInfo);
-               await db.SaveChangesAsync();
+                  db.DbInfoes.Remove(dbInfo);
+                  await db.SaveChangesAsync();
 
-               return Ok(dbInfo);
-           }
+                  return Ok(dbInfo);
+              }
 
-           protected override void Dispose(bool disposing)
-           {
-               if (disposing)
-               {
-                   db.Dispose();
-               }
-               base.Dispose(disposing);
-           }*/
+              protected override void Dispose(bool disposing)
+              {
+                  if (disposing)
+                  {
+                      db.Dispose();
+                  }
+                  base.Dispose(disposing);
+              }*/
 
         //private bool DbInfoExists(int id)
         //{
         //    return db.DbInfoes.Count(e => e.Password == id) > 0;
         //}
+
+
+        string ComputeHash(string input)
+        {
+            SHA1 sha = SHA1.Create();
+            byte[] buffer = Encoding.ASCII.GetBytes(input);
+            byte[] hash = sha.ComputeHash(buffer);
+            string hash64 = Convert.ToBase64String(hash);
+            return hash64;
+        }
     }
 }

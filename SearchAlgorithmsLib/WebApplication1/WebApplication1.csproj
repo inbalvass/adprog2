@@ -135,6 +135,7 @@
     <Content Include="scripts\jquery.signalR-2.2.2.js" />
     <Content Include="scripts\jquery.signalR-2.2.2.min.js" />
     <Content Include="scripts\loadSettingsMP.js" />
+    <Content Include="scripts\LoginScript.js" />
     <Content Include="scripts\mpclient.js" />
     <Content Include="MultiPlayerPage.html" />
     <Content Include="NavBar.html" />

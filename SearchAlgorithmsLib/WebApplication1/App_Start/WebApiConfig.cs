@@ -29,16 +29,20 @@ namespace WebApplication1
             );
 
             //config.Routes.MapHttpRoute(
-            //    name: "PostDbInfo",
-            //    routeTemplate: "api/{controller}/{dbInfo}",
+            //     name: "GetLogin",
+            //     routeTemplate: "api/{controller}/{name}/{password}",
+            //defaults: new { Controller = "DbInfoes" }
+            //);
+
+            
+
+            //config.Routes.MapHttpRoute(
+            //    name: "GetDbInfos",
+            //    routeTemplate: "api/{controller}",
             //    defaults: new { Controller = "DbInfoes" }
             //);
 
-            config.Routes.MapHttpRoute(
-                 name: "GetDbInfos",
-                 routeTemplate: "api/{controller}",
-                defaults: new { Controller = "DbInfoes" }
-            );
+
 
             config.Routes.MapHttpRoute(
                 name: "DefaultApi",

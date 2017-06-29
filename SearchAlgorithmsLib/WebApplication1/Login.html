@@ -5,6 +5,9 @@
 	<meta charset="utf-8" />
     <link href="/styles/bootstrap.css" rel="stylesheet" />
     <script src="/scripts/jquery-3.2.1.min.js"></script>
+    <script src="/scripts/LoginScript.js"></script>
+
+
 </head>
 <body>
     <div id="navBar">
@@ -26,12 +29,12 @@
         <!--here put the function that sends the data to the server-->
         <form action="">
             Username
-            <input type="text" required><br /><br />
+            <input type="text" id= "login-username" required><br /><br />
             Password
-            <input type="password" required><br /><br />
-            <input type="submit" value="Login">
+            <input type="password" id= "login-password" required><br /><br />
+            <input type="submit" onclick="login()"  value="Login">
         </form>
     </div>
-
+    <script src="Scripts/loadMain.js"></script>
 </body>
 </html>
