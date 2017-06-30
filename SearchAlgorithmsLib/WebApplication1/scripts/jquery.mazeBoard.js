@@ -4,10 +4,12 @@ var currRow, currCol, startRow, startCol, cellWidth, cellHeight, context;
 var endRow, endCol, playerImage;
 
 (function ($) {
-    $.fn.mazeBoard = function (maze,name, rows, cols, startR, startC, endR, endC,
-        playerIm, exitImage, hubCon) {
+    $.fn.mazeBoard = function (maze, startR, startC, endR, endC,
+        playerIm, exitImage) {
         var myCanvas = this[0];
         var indexInMaze;
+        var rows = $("#txtRows").val();
+        var cols = $("#txtCols").val();
         context = myCanvas.getContext("2d");
         cellWidth = myCanvas.width / cols;
         cellHeight = myCanvas.height / rows;

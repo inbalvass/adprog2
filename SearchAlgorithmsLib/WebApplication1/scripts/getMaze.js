@@ -1,4 +1,5 @@
-﻿//this scripts gets the maze string from the server.
+﻿
+//this scripts gets the maze string from the server.
 var apiUrl = "api/SinglePlayer";
 function getMaze() {
     var name = document.getElementById("txtName").value;
@@ -23,7 +24,7 @@ function getMaze() {
                                                         json['Start']['Col'],
                                                         json['End']['Row'],
                                                         json['End']['Col'],
-                                                        playerImage, exitImage, true);
+                                                        playerImage, exitImage);
         })
         .fail(function (jqXHR, textStatus, err) {
             alert("problem connecting the server");
