@@ -64,26 +64,27 @@ var endRow, endCol, playerImage, rows, cols;
             var newCurrCol = currCol;
             var newCurrRow = currRow;
             var newIndexInMaze = indexInMaze;
+            var moveStr;
             switch (e.keyCode) {
                 case 38:
                     newCurrRow -= 1;
                     newIndexInMaze -= cols;
-                    hub.server.move(name, "Up");
+                    moveStr = "Up";
                     break;
                 case 40:
                     newCurrRow += 1;
                     newIndexInMaze += cols;
-                    hub.server.move(name, "Down");
+                    moveStr = "Down";
                     break;
                 case 39:
                     newCurrCol += 1;
                     newIndexInMaze += 1;
-                    hub.server.move(name, "Right");
+                    moveStr = "Right";
                     break;
                 case 37:
                     newCurrCol -= 1;
                     newIndexInMaze -= 1;
-                    hub.server.move(name, "Left");
+                    moveStr = "Left";
                     break;
             }
             //check if the new indexes are legel
@@ -103,6 +104,9 @@ var endRow, endCol, playerImage, rows, cols;
 
                 //check if the player won
                 checkIfWin();
+
+                //notify the other player about the move
+                hub.server.move(name, moveStr);
             }
         }
 
@@ -110,49 +114,99 @@ var endRow, endCol, playerImage, rows, cols;
         function checkIfWin() {
             if (currCol == endCol && currRow == endRow) {
                 alert("Congratulations, You Won!");
+                $("#left").hide();
+                $("#right").hide();
+                hub.server.alertLose(name);
             }
         }
     };
 
-    //movements function to move when the hub tells to
-    $.fn.moveLeft = function () {
-        var newCurrCol = currCol;
-        deletePlayer();
-        newCurrCol -= 1;
-        currCol = newCurrCol;
-        drawPlayer();
-        checkIfWin();
-        return this;
-    };
+    $.fn.rivalMazeBoard = function (maze, rows, cols, startRow, startCol, endRow, endCol,
+                                rivalPlayerImage, rivalExitImage) {
+        var myCanvas = this[0];
+        var context = myCanvas.getContext("2d");
+        var cellWidth = myCanvas.width / cols;
+        var cellHeight = myCanvas.height / rows;
+        var currCol = startCol;
+        var currRow = startRow;
+        var counter = 0;
+        var indexInMaze = 0;
+        drawMaze();
 
-    $.fn.moveRight = function () {
-        var newCurrCol = currCol;
-        deletePlayer();
-        newCurrCol += 1;
-        currCol = newCurrCol;
-        drawPlayer();
-        checkIfWin();
-        return this;
-    };
+        function drawMaze() {
+            for (var i = 0; i < rows; i++) {
+                for (var j = 0; j < cols; j++) {
+                    if (maze[counter] == '1') {
+                        context.fillRect(cellWidth * j, cellHeight * i, cellWidth, cellHeight);
+                    }
+                    if (i == startRow && j == startCol) {
+                        indexInMaze = counter;
+                    }
+                    counter++;
+                }
+            }
+        }
+        rivalPlayerImage.onload = function () {
+            context.drawImage(rivalPlayerImage, cellWidth * startCol, cellHeight * startRow, cellWidth, cellHeight);
+        };
+        rivalExitImage.onload = function () {
+            context.drawImage(rivalExitImage, cellWidth * endCol, cellHeight * endRow, cellWidth, cellHeight);
+        };
 
-    $.fn.moveUp = function () {
-        var newCurrRow = currRow;
-        deletePlayer();
-        newCurrRow -= 1;
-        currRow = newCurrRow;
-        drawPlayer();
-        checkIfWin();
-        return this;
-    };
+        //movements function to move when the hub tells to
+        $.fn.moveLeft = function () {
+            var newCurrCol = currCol;
+            deletePlayer();
+            newCurrCol -= 1;
+            currCol = newCurrCol;
+            indexInMaze -= 1;
+            drawPlayer();
+            checkIfWin();
+            return this;
+        };
 
-    $.fn.moveDown = function () {
-        var newCurrRow = currRow;
-        deletePlayer();
-        newCurrRow += 1;
-        currRow = newCurrRow;
-        drawPlayer();
-        checkIfWin();
-        return this;
+        $.fn.moveRight = function () {
+            var newCurrCol = currCol;
+            deletePlayer();
+            newCurrCol += 1;
+            currCol = newCurrCol;
+            indexInMaze += 1;
+            drawPlayer();
+            checkIfWin();
+            return this;
+        };
+
+        $.fn.moveUp = function () {
+            var newCurrRow = currRow;
+            deletePlayer();
+            newCurrRow -= 1;
+            currRow = newCurrRow;
+            indexInMaze -= cols;
+            drawPlayer();
+            checkIfWin();
+            return this;
+        };
+
+        $.fn.moveDown = function () {
+            var newCurrRow = currRow;
+            deletePlayer();
+            newCurrRow += 1;
+            currRow = newCurrRow;
+            indexInMaze += cols;
+            drawPlayer();
+            checkIfWin();
+            return this;
+        };
+
+        //delete the player from the canvas.
+        function deletePlayer() {
+            context.clearRect(currCol * cellWidth, currRow * cellHeight, cellWidth, cellHeight);
+        };
+
+        //draw the player on the canvas
+        function drawPlayer() {
+            context.drawImage(rivalPlayerImage, currCol * cellWidth, currRow * cellHeight, cellWidth, cellHeight);
+        };
     };
 
 })(jQuery);

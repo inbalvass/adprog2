@@ -1,4 +1,6 @@
-﻿// Declare a proxy to reference the hub
+﻿$("#rows").val(localStorage.getItem("Rows"));
+$("#cols").val(localStorage.getItem("Cols"));
+// Declare a proxy to reference the hub
 var mp = $.connection.mpHub;
 
 // Create a function that the hub can call to broadcast messages
@@ -13,17 +15,21 @@ mp.client.message = function (message) {
             $("#left").show();
             $("#right").show();
             break;
+        case "Lose":
+            alert("Sorry, you lost.");
+            $("#left").hide();
+            $("#right").hide();
         //movements notifications
-        case 'left':
+        case 'Left':
             $("#mazeCanvas2").moveLeft();
             break;
-        case 'right':
+        case 'Right':
             $("#mazeCanvas2").moveRight();
             break;
-        case 'up':
+        case 'Up':
             $("#mazeCanvas2").moveUp();
             break;
-        case 'down':
+        case 'Down':
             $("#mazeCanvas2").moveDown();
             break;
         default:
@@ -45,20 +51,23 @@ mp.client.drawMazes = function (maze) {
                                                json['End']['Col'],
                                                playerImage, exitImage, mp);
 
-    var rivalMazeBoard =$("#mazeCanvas2").mazeBoard(json['Maze'], json['Name'], json['Rows'], json['Cols'],
+    var rivalPlayerImage = new Image();
+    rivalPlayerImage.src = "images/pacman - Copy.png";
+    var rivalExitImage = new Image();
+    rivalExitImage.src = "images/exit - Copy.jpg";
+    var rivalMazeBoard = $("#mazeCanvas2").rivalMazeBoard(json['Maze'], json['Rows'], json['Cols'],
                                                 json['Start']['Row'],
                                                 json['Start']['Col'],
                                                 json['End']['Row'],
                                                 json['End']['Col'],
-        playerImage, exitImage, mp);
+                                                rivalPlayerImage, rivalExitImage);
     var myMazeBoard = $("#mazeCanvas1").mazeBoard(json['Maze'], json['Name'], json['Rows'], json['Cols'],
         json['Start']['Row'],
         json['Start']['Col'],
         json['End']['Row'],
         json['End']['Col'],
         playerImage, exitImage, mp);
-
-   
+  
 }
 //get the list of mazes from the hub
 

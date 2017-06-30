@@ -67,8 +67,26 @@ namespace WebApplication1
         /// </summary>
         public void Move(string mazeName, string move)
         {
-            Clients.Client(MpModel.MazeNamesToPlayers[mazeName][0]).message(move);
-            Clients.Client(MpModel.MazeNamesToPlayers[mazeName][1]).message(move);
+            List<string> players = MpModel.MazeNamesToPlayers[mazeName];
+            //send the other player the move but not to self
+            if (Context.ConnectionId == players[0])
+            {
+                Clients.Client(players[1]).message(move);
+            }
+            else
+                Clients.Client(players[0]).message(move);
+        }
+
+        public void AlertLose(string mazeName)
+        {
+            List<string> players = MpModel.MazeNamesToPlayers[mazeName];
+            //send the other player the alert but not to self
+            if (Context.ConnectionId == players[0])
+            {
+                Clients.Client(players[1]).message("Lose");
+            }
+            else
+                Clients.Client(players[0]).message("Lose");
         }
 
     }

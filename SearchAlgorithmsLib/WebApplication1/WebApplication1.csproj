@@ -129,6 +129,8 @@
     <Resource Include="images\minion.jpg" />
     <Resource Include="images\pacman.png" />
     <Resource Include="images\win.jpg" />
+    <Resource Include="images\exit - Copy.jpg" />
+    <Resource Include="images\pacman - Copy.png" />
     <Content Include="index.html" />
     <Content Include="Login.html" />
     <Content Include="scripts\jquery.mazeBoardForMP.js" />
